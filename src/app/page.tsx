@@ -8,7 +8,7 @@ export default function Home() {
       <Button variant="outline" color="blue">
         TEST
       </Button>
-      <div>Hello world . </div>
+      <div>Hello world . ..</div>
     </div>
   )
 }
