@@ -8,7 +8,23 @@ export default function Home() {
       <Button variant="outline" color="blue">
         TEST
       </Button>
-      <div>Hello world</div>
+
+      <p className="text-h1 ">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, porro perferendis doloremque, asperiores voluptates itaque alias sed
+        excepturi quam ipsam suscipit, pariatur ad dicta placeat veniam? Officiis eaque animi quia.
+      </p>
+      <p className="text-regular16">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, porro perferendis doloremque, asperiores voluptates itaque alias sed
+        excepturi quam ipsam suscipit, pariatur ad dicta placeat veniam? Officiis eaque animi quia.
+      </p>
+      <p className="text-linkSmall ">
+        {' '}
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, porro perferendis doloremque, asperiores voluptates itaque alias sed
+        excepturi quam ipsam suscipit, pariatur ad dicta placeat veniam? Officiis eaque animi quia.
+      </p>
+      <p className="text-h3  ">Обычный текст</p>
+      <p className="text-bold16  ">Жирный текст</p>
+      <p className="text-linkSmall  ">Ссылка</p>
     </div>
   )
 }
