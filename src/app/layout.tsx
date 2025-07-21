@@ -2,7 +2,8 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import StoreProvider from "@/store/StoreProvider"
-// import "@radix-ui/themes/styles.css"
+import ThemeProvider from "@/shared/config/theme/ThemeProvider"
+
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -17,7 +18,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
-        <StoreProvider>{children}</StoreProvider>
+        <StoreProvider>
+          <ThemeProvider children={children} />
+        </StoreProvider>
       </body>
     </html>
   )
