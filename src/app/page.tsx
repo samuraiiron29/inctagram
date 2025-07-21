@@ -8,7 +8,7 @@ export default function Home() {
       <Button variant="outline" color="blue">
         TEST
       </Button>
-      <div>Hello world . .. // sscc/</div>
+      <div>Hello world . .. // sscccccc/</div>
     </div>
   )
 }
