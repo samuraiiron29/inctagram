@@ -9,8 +9,24 @@ const compat = new FlatCompat({
   baseDirectory: __dirname,
 });
 
+
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    ignores: ["**/node_modules/**", "**/.next/**", "**/dist/**"],
+  },
+  ...compat.extends(
+    "next/core-web-vitals",
+    "next",
+    "next/typescript",
+    "plugin:prettier/recommended", // интеграция с Prettier
+  ),
+  {
+    // rules: {
+    //   semi: ["error", "never"], // ❌ запрещает точки с запятой
+    //   "prettier/prettier": ["warn", { semi: false }],
+    // },
+  },
 ];
+
 
 export default eslintConfig;

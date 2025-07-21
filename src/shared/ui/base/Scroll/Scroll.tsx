@@ -1,10 +1,4 @@
-type Props = {
-
-};
-export const Scroll = (props: Props) => {
-    return (
-        <div>
-
-        </div>
-    );
-};
+// type Props = {}
+export const Scroll = () => {
+  return <div></div>
+}

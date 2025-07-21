@@ -1,0 +1,8 @@
+{
+  "prettier.configPath": "C:\\it-incubator\\internship\\inctagram\\prettier.config.mjs",
+  "prettier.documentSelectors": [""],
+  "prettier.experimentalTernaries": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.arrowParens": "avoid"
+}

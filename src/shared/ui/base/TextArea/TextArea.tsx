@@ -1,10 +1,4 @@
-type Props = {
-
-};
-export const TextArea = (props: Props) => {
-    return (
-        <div>
-
-        </div>
-    );
-};
+// type Props = {}
+export const TextArea = () => {
+  return <div></div>
+}

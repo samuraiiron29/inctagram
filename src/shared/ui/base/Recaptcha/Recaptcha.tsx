@@ -1,10 +1,4 @@
-type Props = {
-
-};
-export const Recaptcha = (props: Props) => {
-    return (
-        <div>
-
-        </div>
-    );
-};
+// type Props = {}
+export const Recaptcha = () => {
+  return <div></div>
+}

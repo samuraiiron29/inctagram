@@ -1,10 +1,4 @@
-type Props = {
-
-};
-export const Cards = (props: Props) => {
-    return (
-        <div>
-
-        </div>
-    );
-};
+// type Props = {}
+export const Cards = () => {
+  return <div></div>
+}

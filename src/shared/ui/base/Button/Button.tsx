@@ -1,10 +1,4 @@
-type Props = {
-
-};
-export const Button = (props: Props) => {
-    return (
-        <div>
-
-        </div>
-    );
-};
+// type Props = {}
+export const Button = () => {
+  return <div></div>
+}
