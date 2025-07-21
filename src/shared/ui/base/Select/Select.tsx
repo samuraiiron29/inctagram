@@ -1,10 +1,4 @@
-type Props = {
-
-};
+type Props = {}
 export const Select = (props: Props) => {
-    return (
-        <div>
-
-        </div>
-    );
-};
+  return <div></div>
+}

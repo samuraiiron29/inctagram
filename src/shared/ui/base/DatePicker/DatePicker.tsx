@@ -1,10 +1,4 @@
-type Props = {
-
-};
+type Props = {}
 export const DatePicker = (props: Props) => {
-    return (
-        <div>
-
-        </div>
-    );
-};
+  return <div></div>
+}

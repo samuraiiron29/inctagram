@@ -1,10 +1,4 @@
-type Props = {
-
-};
+type Props = {}
 export const CheckBox = (props: Props) => {
-    return (
-        <div>
-
-        </div>
-    );
-};
+  return <div></div>
+}
