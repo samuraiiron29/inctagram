@@ -17,13 +17,13 @@ export default function Home() {
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, porro perferendis doloremque, asperiores voluptates itaque alias sed
         excepturi quam ipsam suscipit, pariatur ad dicta placeat veniam? Officiis eaque animi quia.
       </p>
-      <p className="text-linkSmall ">
+      <p className="text-linkSmall text-amber-400">
         {' '}
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, porro perferendis doloremque, asperiores voluptates itaque alias sed
         excepturi quam ipsam suscipit, pariatur ad dicta placeat veniam? Officiis eaque animi quia.
       </p>
-      <p className="text-h3  ">Обычный текст</p>
-      <p className="text-bold16  ">Жирный текст</p>
+      <p className="text-h1  ">Обычный текст</p>
+      <p className="text-bold_text14 ">Жирный текст</p>
       <p className="text-linkSmall  ">Ссылка</p>
     </div>
   )
