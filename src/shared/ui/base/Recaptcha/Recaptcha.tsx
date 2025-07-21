@@ -1,4 +1,4 @@
-type Props = {}
-export const Recaptcha = (props: Props) => {
+// type Props = {}
+export const Recaptcha = () => {
   return <div></div>
 }

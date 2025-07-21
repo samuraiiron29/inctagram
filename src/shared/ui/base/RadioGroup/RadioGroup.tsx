@@ -1,4 +1,4 @@
-type Props = {}
-export const RadioGroup = (props: Props) => {
+// type Props = {}
+export const RadioGroup = () => {
   return <div></div>
 }

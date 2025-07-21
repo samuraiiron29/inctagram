@@ -1,4 +1,4 @@
-type Props = {}
-export const Header = (props: Props) => {
+// type Props = {}
+export const Header = () => {
   return <div></div>
 }

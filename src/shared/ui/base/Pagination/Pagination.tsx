@@ -1,4 +1,4 @@
-type Props = {}
-export const Pagination = (props: Props) => {
+// type Props = {}
+export const Pagination = () => {
   return <div></div>
 }

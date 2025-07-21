@@ -1,4 +1,4 @@
-type Props = {}
-export const Typography = (props: Props) => {
+// type Props = {}
+export const Typography = () => {
   return <div></div>
 }

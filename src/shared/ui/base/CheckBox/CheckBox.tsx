@@ -1,4 +1,4 @@
-type Props = {}
-export const CheckBox = (props: Props) => {
+// type Props = {}
+export const CheckBox = () => {
   return <div></div>
 }
