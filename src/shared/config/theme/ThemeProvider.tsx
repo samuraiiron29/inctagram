@@ -13,4 +13,4 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
   )
 }
 
-export default ThemeProvider
+export default ThemeProvider;
