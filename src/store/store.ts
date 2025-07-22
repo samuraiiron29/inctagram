@@ -1,21 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit"
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux"
 import { setupListeners } from "@reduxjs/toolkit/query"
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query"
+import {baseApi} from "@/store/services/baseApi";
 
-export const testApi = createApi({
-  reducerPath: "",
-  tagTypes: [],
-  baseQuery: fetchBaseQuery({
-    baseUrl: "",
-  }),
-  endpoints: () => ({}),
-})
+
 export const store = configureStore({
   reducer: {
-    [testApi.reducerPath]: testApi.reducer,
+    [baseApi.reducerPath]: baseApi.reducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(testApi.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(baseApi.middleware),
 })
 setupListeners(store.dispatch)
 export type RootState = ReturnType<typeof store.getState>
