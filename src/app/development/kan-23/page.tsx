@@ -8,7 +8,7 @@ export default function Page() {
   return (
     <>
       <Button onClick={() => router.back()}>Назад</Button>
-      <Flex gap={'5'} direction={'column'} m={'5'} className="bg-[var(--dark-500)]">
+      <Flex gap={'5'} direction={'column'} m={'5'}>
         <Button variant="classic">TEST</Button>
         <Flex className=" " width={'150px'}>
           123
@@ -20,8 +20,8 @@ export default function Page() {
         <p className="text-h1  ">Обычный текст</p>
         <p className="text-bold_text14 ">Жирный текст</p>
         <p className="text-linkSmall  ">Ссылка</p>
-        <p className="text- ">Ссылка</p>
-        <div className="bg-accent-700 ">test</div>
+        <p className="text-large ">Ссылка</p>
+        <div className="bg-accent-700 text-regular_text14 text-danger-300">test</div>
       </Flex>
     </>
   )

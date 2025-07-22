@@ -7,9 +7,7 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
   return (
     <Theme>
       {/* <ThemePanel /> */}
-      <Flex className="bg-[var(--dark-700)]" height={'100vh'}>
-        {children}
-      </Flex>
+      <Flex height={'100vh'}>{children}</Flex>
     </Theme>
   )
 }

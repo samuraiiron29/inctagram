@@ -5,11 +5,12 @@
 @import './test-typo.css';
 
 
-
-
-@theme inline {
-  /* --color-background: var(--dark-900);
-              --color-foreground: var(--light-100); */
+@layer base {
+  html {
+    background-color: var(--color-success-100);
+    color: var(--color-light-100);
+    font-family: var(--font-body);
+  }
 }
 
 /* @media (prefers-color-scheme: dark) {
