@@ -1,98 +1,15 @@
 'use client'
+import { redirect, useRouter } from 'next/navigation'
 
-import { Button } from "@radix-ui/themes"
-import { redirect } from "next/navigation"
-import {useState} from "react";
-import Pagination from "@/shared/ui/base/Pagination/Pagination";
-import {Select} from "@/shared/ui/base/Select/Select";
-import TabsComponent, {Tab} from "@/shared/ui/base/Tabs/Tabs";
-import {TabsRadix} from "@/shared/ui/base/TabsRadix/TabsRadix";
+import { Button, Flex } from '@radix-ui/themes'
 
 export default function Home() {
-
-    const tab: any = [
-        {id: '1', title: "Home", content: "Homefsdfsdafsadfasdfasdf", disabled: false},
-        {id: '2', title: "Dog", content: "fdsf231231231", disabled: true},
-        {id: '3', title: "Cat", content: "fsdaklk;l312318", disabled: false},
-    ];
-
-    //имитация данных для пагинации
-    const [pageSize, setPageSize] = useState(10)
-    const [currentPage, setCurrentPage] = useState(1)
-    const totalItems = 550
-
-    const currentData = Array.from(
-        { length: pageSize },
-        (_, i) => `Item ${(currentPage - 1) * pageSize + i + 1}`
-    );
-
-
   // redirect('/auth/sign-in');
+  const router = useRouter()
   return (
-    <div>
-      <Button variant="outline" color="blue">
-        TEST
-      </Button>
-      <div>
-        <p className="text-h1 ">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, porro perferendis doloremque, asperiores voluptates itaque alias
-          sed excepturi quam ipsam suscipit, pariatur ad dicta placeat veniam? Officiis eaque animi quia.
-        </p>
-        <p className="text-regular16">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, porro perferendis doloremque, asperiores voluptates itaque alias
-          sed excepturi quam ipsam suscipit, pariatur ad dicta placeat veniam? Officiis eaque animi quia.
-        </p>
-        <p className="text-linkSmall text-amber-400">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, porro perferendis doloremque, asperiores voluptates itaque alias
-          sed excepturi quam ipsam suscipit, pariatur ad dicta placeat veniam? Officiis eaque animi quia.
-        </p>
-        <p className="text-h1  ">Обычный текст</p>
-        <p className="text-bold_text14 ">Жирный текст</p>
-        <p className="text-linkSmall  ">Ссылка</p>
-      </div>
-
- 
-      <div className="p-4 bg-black text-white">
-        <ul>
-          {currentData.map(item => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
- 
-        <div className="p-4 text-white">
-            <ul>
-                {currentData.map((item) => (
-                    <li key={item}>{item}</li>
-                ))}
-            </ul>
- 
-
-        <Pagination
-          totalItems={totalItems}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          setPageSize={setPageSize}
-          onPageChange={page => setCurrentPage(page)}
-        />
-      </div>
-
- 
-      <Select options={['что то там 1', 'что то там 2', 'что то там 3', 'что то там 4']} onChange={() => {}} width={'150px'} />
- 
- 
-        <Select options={["что то там 1", "что то там 2", "что то там 3", "что то там 4"]} onChange={() => {}} width={'150px'}/>
-        <Select onChange={() => {}} isLanguage={true}/>
-
-        <div style={{ marginTop: "40px" }}>
-            <TabsComponent tabs={tab}/>
-        </div>
-
-        <div style={{ marginTop: "40px" }}>
-            <h1 style={{textAlign: 'center', width: '200px'}}>TabsRadix <br/><span>↓</span></h1>
-
-            <TabsRadix tabs={tab} width={'300px'}/>
-        </div>
- 
-    </div>
+    <Flex direction={'column'} align={'center'} justify={'center'}>
+      Привет, я пока пустая, но есть компоненты в разработке:
+      <Button children={'go to development'} onClick={() => router.push('/development/')} />
+    </Flex>
   )
 }
