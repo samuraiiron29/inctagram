@@ -6,7 +6,7 @@ import { ReactNode } from "react"
 
 const ThemeProvider = ({ children }: { children: ReactNode }) => {
   return (
-    <Theme accentColor="blue">
+    <Theme accentColor="gray" appearance='dark' grayColor='slate'>
       {children}
       <ThemePanel />
     </Theme>

@@ -5,8 +5,15 @@ import { redirect } from "next/navigation"
 import {useState} from "react";
 import Pagination from "@/shared/ui/base/Pagination/Pagination";
 import {Select} from "@/shared/ui/base/Select/Select";
+import TabsComponent, {Tab} from "@/shared/ui/base/Tabs/Tabs";
 
 export default function Home() {
+
+    const tab: any = [
+        {id: '1', title: "Home", content: "Homefsdfsdafsadfasdfasdf", disabled: false},
+        {id: '2', title: "Dog", content: "fdsf231231231", disabled: true},
+        {id: '3', title: "Cat", content: "fsdaklk;l312318", disabled: false},
+    ];
 
     //имитация данных для пагинации
     const [pageSize, setPageSize] = useState(10)
@@ -27,7 +34,7 @@ export default function Home() {
       </Button>
       <div>Hello world</div>
 
-        <div className="p-4 bg-black text-white">
+        <div className="p-4 text-white">
             <ul>
                 {currentData.map((item) => (
                     <li key={item}>{item}</li>
@@ -44,6 +51,11 @@ export default function Home() {
         </div>
 
         <Select options={["что то там 1", "что то там 2", "что то там 3", "что то там 4"]} onChange={() => {}} width={'150px'}/>
+        <Select onChange={() => {}} isLanguage={true}/>
+
+        <div style={{ marginTop: "40px" }}>
+            <TabsComponent tabs={tab}/>
+        </div>
     </div>
   )
 }
