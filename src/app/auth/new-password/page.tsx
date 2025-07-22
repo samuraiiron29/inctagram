@@ -1,9 +1,5 @@
 const Page = () => {
-    return (
-        <div>
-            Create New Password
-        </div>
-    );
-};
+  return <div>Create New Password</div>
+}
 
-export default Page;
+export default Page
