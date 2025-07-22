@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
-import "./globals.css"
+import './styles/globals.css'
 import StoreProvider from "@/store/StoreProvider"
 import ThemeProvider from "@/shared/config/theme/ThemeProvider"
 

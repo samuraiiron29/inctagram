@@ -1,6 +1,5 @@
 'use client'
 import { redirect, useRouter } from 'next/navigation'
-
 import { Button, Flex } from '@radix-ui/themes'
 
 export default function Home() {
