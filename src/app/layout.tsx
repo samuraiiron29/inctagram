@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
         <StoreProvider>
-          <ThemeProvider>{children} </ThemeProvider>
+          <ThemeProvider>{children}</ThemeProvider>
         </StoreProvider>
       </body>
     </html>
