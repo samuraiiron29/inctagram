@@ -9,12 +9,6 @@ export default function Page() {
   const currentData = Array.from({ length: pageSize }, (_, i) => `Item ${(currentPage - 1) * pageSize + i + 1}`)
   return (
     <div className="p-4 bg-black text-white">
-      <ul>
-        {currentData.map(item => (
-          <li key={item}>{item}</li>
-        ))}
-      </ul>
-
       <div className="p-4 text-white">
         <ul>
           {currentData.map(item => (
@@ -31,7 +25,6 @@ export default function Page() {
         />
       </div>
 
-      <Select options={['что то там 1', 'что то там 2', 'что то там 3', 'что то там 4']} onChange={() => {}} width={'150px'} />
       <Select options={['что то там 1', 'что то там 2', 'что то там 3', 'что то там 4']} onChange={() => {}} width={'150px'} />
       <Select onChange={() => {}} isLanguage={true} />
     </div>
