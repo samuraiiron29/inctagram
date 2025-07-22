@@ -1,9 +1,12 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
+
+
 import '@radix-ui/themes/styles.css'
 import './styles/globals.css'
 import StoreProvider from '@/store/StoreProvider'
 import ThemeProvider from '@/shared/config/theme/theme-provider'
+import { Theme } from '@radix-ui/themes'
 
 // const inter = Inter({
 //   variable: '--font-inter',
@@ -21,7 +24,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={`antialiased`}>
         <StoreProvider>
-          <ThemeProvider>{children}</ThemeProvider>
+          {/* <ThemeProvider>{children}</ThemeProvider> */}
+          <Theme> {children}</Theme>
         </StoreProvider>
       </body>
     </html>

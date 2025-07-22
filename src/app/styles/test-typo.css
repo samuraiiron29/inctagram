@@ -44,6 +44,11 @@
 }
 
 @layer typography {
+    /* [class^='text-'],
+                        [class*=' text-'] {
+                            color: var(--color-light-100);
+                            font-family: var(--font-body);
+                        } */
     .text-large {
         font-size: var(--text-large);
         line-height: var(--tw-leading, var(--text-large--line-height));
