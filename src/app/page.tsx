@@ -6,6 +6,7 @@ import {useState} from "react";
 import Pagination from "@/shared/ui/base/Pagination/Pagination";
 import {Select} from "@/shared/ui/base/Select/Select";
 import TabsComponent, {Tab} from "@/shared/ui/base/Tabs/Tabs";
+import {TabsRadix} from "@/shared/ui/base/TabsRadix/TabsRadix";
 
 export default function Home() {
 
@@ -74,6 +75,12 @@ export default function Home() {
 
         <div style={{ marginTop: "40px" }}>
             <TabsComponent tabs={tab}/>
+        </div>
+
+        <div style={{ marginTop: "40px" }}>
+            <h1 style={{textAlign: 'center', width: '200px'}}>TabsRadix <br/><span>↓</span></h1>
+
+            <TabsRadix tabs={tab} width={'300px'}/>
         </div>
     </div>
   )
