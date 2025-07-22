@@ -14,7 +14,7 @@ type TabsProps = {
 
 export const TabsRadix = ({tabs, width}: TabsProps) => {
     return (
-        <Tabs.Root className={`flex w-[${width}] flex-col gap-2" defaultValue="tab1`}>
+        <Tabs.Root defaultValue={tabs[0]?.id} className={`flex w-[${width}] flex-col gap-2" defaultValue="tab1`}>
             <Tabs.List className="flex" aria-label="Manage your account">
                 {tabs.map((tab) => (
                     <Tabs.Trigger
