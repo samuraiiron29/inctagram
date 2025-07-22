@@ -32,11 +32,15 @@ export const Select = ({
                            width = '150px',
                        }: Props) => {
     const [isOpen, setIsOpen] = useState(false)
-    const [internalValue, setInternalValue] = useState(value || '')
     const [language, setLanguage] = useState<string>('English')
-    const languageOptions = ['Russian', 'English']
+    const languageOptions = ['English', 'Russian']
     const actualOptions = isLanguage ? languageOptions : options
     const selectRef = useRef<HTMLDivElement>(null)
+
+    // выбираем первый элемент из приходящего массива options
+    const [internalValue, setInternalValue] = useState(
+        value ?? (isLanguage ? languageOptions[0] : options?.[0] ?? '')
+    )
 
     useEffect(() => {
         if (value !== undefined) {
@@ -81,7 +85,7 @@ export const Select = ({
                     onClick={toggleDropdown}
                     className={`
                         w-full px-3 py-2 text-left border rounded-md 
-                        bg-black hover:border-gray-400 
+                        hover:border-gray-400 
                         focus:outline-none
                         flex justify-between items-center gap-1
                         ${isOpen ? 'border-gray-300' : 'border-gray-600'}
@@ -97,7 +101,7 @@ export const Select = ({
                             />
                         )}
                         <span className={`${!internalValue && placeholder ? 'text-gray-500' : ''}`}>
-                            {internalValue || placeholder || 'Select'}
+                            {internalValue || placeholder || 'select'}
                         </span>
                     </div>
                     <Image
