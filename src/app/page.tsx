@@ -6,8 +6,8 @@ export default function Home() {
   // redirect('/auth/sign-in');
   const router = useRouter()
   return (
-    <Flex direction={'column'} align={'center'} justify={'center'}>
-      Привет, я пока пустая, но есть компоненты в разработке:
+    <Flex direction={'column'} align={'center'} justify={'center'} className="bg-[var(--dark-500)]" width={'100%'}>
+      <p className="text-h2">Привет, я пока пустая, но есть компоненты в разработке:</p>
       <Button children={'go to development'} onClick={() => router.push('/development/')} />
     </Flex>
   )

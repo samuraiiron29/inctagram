@@ -1,29 +1,29 @@
 'use client'
-import { Button } from '@radix-ui/themes'
 
+import { Button, Flex } from '@radix-ui/themes'
+import { useRouter } from 'next/navigation'
 export default function Page() {
-  return (
-    <div>
-      <Button variant="outline" color="blue">
-        TEST
-      </Button>
+  const router = useRouter()
 
-      <p className="text-h1 ">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, porro perferendis doloremque, asperiores voluptates itaque alias sed
-        excepturi quam ipsam suscipit, pariatur ad dicta placeat veniam? Officiis eaque animi quia.
-      </p>
-      <p className="text-regular16">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, porro perferendis doloremque, asperiores voluptates itaque alias sed
-        excepturi quam ipsam suscipit, pariatur ad dicta placeat veniam? Officiis eaque animi quia.
-      </p>
-      <p className="text-linkSmall text-amber-400">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, porro perferendis doloremque, asperiores voluptates itaque alias sed
-        excepturi quam ipsam suscipit, pariatur ad dicta placeat veniam? Officiis eaque animi quia.
-      </p>
-      <p className="text-h1  ">Обычный текст</p>
-      <p className="text-bold_text14 ">Жирный текст</p>
-      <p className="text-linkSmall  ">Ссылка</p>
-    </div>
+  return (
+    <>
+      <Button onClick={() => router.back()}>Назад</Button>
+      <Flex gap={'5'} direction={'column'} m={'5'} className="bg-[var(--dark-500)]">
+        <Button variant="classic">TEST</Button>
+        <Flex className=" " width={'150px'}>
+          123
+        </Flex>
+        <p className="text-regular_link ">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, porro perferendis doloremque, asperiores voluptates itaque alias
+          sed excepturi quam ipsam suscipit, pariatur ad dicta placeat veniam? Officiis eaque animi quia.
+        </p>
+        <p className="text-h1  ">Обычный текст</p>
+        <p className="text-bold_text14 ">Жирный текст</p>
+        <p className="text-linkSmall  ">Ссылка</p>
+        <p className="text- ">Ссылка</p>
+        <div className="bg-accent-700 ">test</div>
+      </Flex>
+    </>
   )
 }
 
