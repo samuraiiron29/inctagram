@@ -8,7 +8,6 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
   return (
     <Theme accentColor="gray" appearance='dark' grayColor='slate'>
       {children}
-      <ThemePanel />
     </Theme>
   )
 }
