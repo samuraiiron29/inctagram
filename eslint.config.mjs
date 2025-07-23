@@ -12,21 +12,10 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   {
-    ignores: ["**/node_modules/**", "**/.next/**", "**/dist/**"],
+    ignores: ['**/node_modules/**', '**/.next/**', '**/dist/**'],
   },
-  ...compat.extends(
-    "next/core-web-vitals",
-    "next",
-    "next/typescript",
-    "plugin:prettier/recommended", // интеграция с Prettier
-  ),
-  {
-    // rules: {
-    //   semi: ["error", "never"], // ❌ запрещает точки с запятой
-    //   "prettier/prettier": ["warn", { semi: false }],
-    // },
-  },
-];
+  ...compat.extends('next/core-web-vitals', 'next', 'next/typescript', 'plugin:prettier/recommended'),
+]
 
 
 export default eslintConfig;

@@ -4,12 +4,20 @@
 @import './test-color.css';
 @import './test-typo.css';
 
-
 @layer base {
+  html {
+      /* --color-background: var(--color-dark-700);
+                --color-text: #var(--color-light-100); */
+      --color-background: 'red';
+      --color-text: 'green';
+  
+      /* font-family: var(--font-body); */
+    }
   body {
-    background-color: var(--color-success-100);
-    color: var(--color-light-100);
-    font-family: var(--font-body);
+    background-color: var(--color-background);
+    }
+    
+    p {
+      color: var(--color-text);
   }
 }
-

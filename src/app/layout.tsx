@@ -24,8 +24,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={`antialiased`}>
         <StoreProvider>
-          {/* <ThemeProvider>{children}</ThemeProvider> */}
-          <Theme> {children}</Theme>
+          <ThemeProvider>{children}</ThemeProvider>
+          {/* <Theme> {children}</Theme> */}
         </StoreProvider>
       </body>
     </html>
