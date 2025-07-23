@@ -1,25 +1,17 @@
-import React from "react";
-import Image from 'next/image';
+import React from 'react'
+import Image from 'next/image'
 
 type Props = {
-  checked: boolean;
-  onChange: (checked: boolean) => void;
-  label?: string;
-  disabled?: boolean;
-};
+  checked: boolean
+  onChange: (checked: boolean) => void
+  label?: string
+  disabled?: boolean
+}
 
-const Checkbox = ({
-                          checked,
-                          onChange,
-                          label,
-                          disabled = false,
-                        }: Props) => {
+const Checkbox = ({ checked, onChange, label, disabled = false }: Props) => {
   return (
     <div className="inline-flex items-center">
-      <label
-        className="relative flex cursor-pointer items-center rounded-full p-3"
-        htmlFor="ripple-on"
-      >
+      <label className="relative flex cursor-pointer items-center rounded-full p-3" htmlFor="ripple-on">
         <input
           id="ripple-on"
           type="checkbox"
@@ -45,14 +37,11 @@ const Checkbox = ({
           <Image src={'/check.svg'} alt={'check'} width={100} height={100} />
         </span>
       </label>
-      <label
-        htmlFor="ripple-on"
-        className="cursor-pointer text-amber-50 text-sm"
-      >
+      <label htmlFor="ripple-on" className="cursor-pointer text-amber-50 text-sm">
         {label}
       </label>
     </div>
-  );
-};
+  )
+}
 
-export default Checkbox;
+export default Checkbox

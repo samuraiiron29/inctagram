@@ -1,10 +1,10 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @import './color.css';
 @import './typography.css';
 
 @layer base {
   .radix-themes[data-has-background='true'] {
-      background-color: var(--color-dark-700) !important;
-      color: var(--color-light-100) !important;
+    background-color: var(--color-dark-700) !important;
+    color: var(--color-light-100) !important;
   }
 }
