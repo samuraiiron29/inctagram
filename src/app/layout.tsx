@@ -3,6 +3,8 @@ import '@radix-ui/themes/styles.css'
 import './styles/globals.css'
 import StoreProvider from '@/store/StoreProvider'
 import { Theme } from '@radix-ui/themes'
+import { Toaster } from '@/shared/ui/base/Alert/Alert'
+
 // const inter = Inter({
 //   variable: '--font-inter',
 //   subsets: ['latin'],
@@ -18,6 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={`antialiased`}>
         <StoreProvider>
+          <Toaster />
           <Theme children={children} />
         </StoreProvider>
       </body>
