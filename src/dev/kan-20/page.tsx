@@ -2,7 +2,10 @@
 import { useState } from 'react'
 import Pagination from '@/shared/ui/base/Pagination/Pagination'
 import { Select } from '@/shared/ui/base/Select/Select'
+import { Button } from '@radix-ui/themes'
+import { useRouter } from 'next/navigation'
 export default function Page() {
+  const router = useRouter()
   const [pageSize, setPageSize] = useState(10)
   const [currentPage, setCurrentPage] = useState(1)
   const totalItems = 550
@@ -10,6 +13,9 @@ export default function Page() {
   return (
     <div className="p-4 bg-black text-white">
       <div className="p-4 text-white">
+    <>
+      <Button onClick={() => router.back()}>Назад</Button>
+      <div className="p-4 bg-black text-white">
         <ul>
           {currentData.map(item => (
             <li key={item}>{item}</li>
