@@ -13,7 +13,7 @@ const variantStyle: Record<VariantButton, string> = {
 
 export const Button = ({ asChild = false, variant = 'primary', children, ...props }: Props) => {
   const className = clsx(props.className, baseStyle, variantStyle[variant])
-  console.log(className)
+
   if (asChild && isValidElement(children)) {
     return cloneElement(children, {
       className,
