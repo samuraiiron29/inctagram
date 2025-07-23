@@ -11,11 +11,10 @@ export default function Page() {
   const totalItems = 550
   const currentData = Array.from({ length: pageSize }, (_, i) => `Item ${(currentPage - 1) * pageSize + i + 1}`)
   return (
-    <div className="p-4 bg-black text-white">
-      <div className="p-4 text-white">
-    <>
-      <Button onClick={() => router.back()}>Назад</Button>
-      <div className="p-4 bg-black text-white">
+    <div className="p-4 text-white bg-dark-500">
+      <>
+        <Button onClick={() => router.back()}>Назад</Button>
+      </>
         <ul>
           {currentData.map(item => (
             <li key={item}>{item}</li>
@@ -29,12 +28,10 @@ export default function Page() {
           setPageSize={setPageSize}
           onPageChange={page => setCurrentPage(page)}
         />
-      </div>
 
       <Select options={['что то там 1', 'что то там 2', 'что то там 3', 'что то там 4']} onChange={() => {}} width={'150px'} />
       <Select onChange={() => {}} isLanguage={true} />
     </div>
+
   )
 }
-
-// export default Page
