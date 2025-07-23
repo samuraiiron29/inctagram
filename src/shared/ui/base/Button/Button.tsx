@@ -12,7 +12,7 @@ const variantStyle: Record<VariantButton, string> = {
 }
 
 export const Button = ({ asChild = false, variant = 'primary', children, ...props }: Props) => {
-  const className = clsx(props.className, baseStyle, variantStyle[variant])
+  const className = clsx(baseStyle, variantStyle[variant])
 
   if (asChild && isValidElement(children)) {
     return cloneElement(children, {
@@ -29,7 +29,6 @@ export type Props = {
   asChild?: boolean
   variant?: VariantButton
   children: React.ReactNode
-  className?: string
 } & React.ButtonHTMLAttributes<HTMLButtonElement> &
   React.AnchorHTMLAttributes<HTMLAnchorElement>
 // export type Props<T extends ElementType = 'button'> = {
