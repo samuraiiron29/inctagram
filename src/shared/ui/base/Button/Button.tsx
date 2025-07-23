@@ -10,5 +10,5 @@ export type Props<T extends ElementType = 'button'> = {
 } & ComponentPropsWithoutRef<T>
 
 export const Button = () => {
-  return <div></div>
+  return <div>123</div>
 }
