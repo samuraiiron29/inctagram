@@ -1,7 +1,6 @@
 @import "tailwindcss";
-@import './test-color.css';
-@import './test-typo.css';
-@import './colors.css';
+@import './color.css';
+@import './typography.css';
 
 @layer base {
   .radix-themes[data-has-background='true'] {

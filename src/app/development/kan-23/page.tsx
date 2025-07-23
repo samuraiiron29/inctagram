@@ -9,7 +9,11 @@ export default function Page() {
     <>
       <Button onClick={() => router.back()}>Назад</Button>
       <Flex gap={'3'} direction={'column'} m={'5'}>
-        <p className="text-regular_link ">
+        <p className="text-regular_link">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, porro perferendis doloremque, asperiores voluptates itaque alias
+          sed excepturi quam ipsam suscipit, pariatur ad dicta placeat veniam? Officiis eaque animi quia.
+        </p>
+        <p className="text-small-link">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, porro perferendis doloremque, asperiores voluptates itaque alias
           sed excepturi quam ipsam suscipit, pariatur ad dicta placeat veniam? Officiis eaque animi quia.
         </p>
