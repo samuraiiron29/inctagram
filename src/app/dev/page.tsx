@@ -1,22 +1,22 @@
 'use client'
 
-import {JSX, useEffect, useState} from 'react'
+import { JSX, useEffect, useState } from 'react'
 import { notFound } from 'next/navigation'
 
 export default function DevPage() {
-    const [DevPanel, setDevPanel] = useState<null | (() => JSX.Element)>(null)
+  const [DevPanel, setDevPanel] = useState<null | (() => JSX.Element)>(null)
 
-    useEffect(() => {
-        if (process.env.NODE_ENV !== 'development') {
-            notFound() // Не пускаем в продакшн
-        } else {
-            import('../../dev/page').then((mod) => {
-                setDevPanel(() => mod.default)
-            })
-        }
-    }, [])
+  useEffect(() => {
+    if (process.env.NODE_ENV !== 'development') {
+      notFound() // Не пускаем в продакшн
+    } else {
+      import('../../dev/page').then(mod => {
+        setDevPanel(() => mod.default)
+      })
+    }
+  }, [])
 
-    if (process.env.NODE_ENV !== 'development') return null
+  if (process.env.NODE_ENV !== 'development') return null
 
-    return DevPanel && <DevPanel />
+  return DevPanel && <DevPanel />
 }

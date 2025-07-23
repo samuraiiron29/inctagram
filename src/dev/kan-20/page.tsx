@@ -15,23 +15,22 @@ export default function Page() {
       <>
         <Button onClick={() => router.back()}>Назад</Button>
       </>
-        <ul>
-          {currentData.map(item => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
+      <ul>
+        {currentData.map(item => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
 
-        <Pagination
-          totalItems={totalItems}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          setPageSize={setPageSize}
-          onPageChange={page => setCurrentPage(page)}
-        />
+      <Pagination
+        totalItems={totalItems}
+        pageSize={pageSize}
+        currentPage={currentPage}
+        setPageSize={setPageSize}
+        onPageChange={page => setCurrentPage(page)}
+      />
 
       <Select options={['что то там 1', 'что то там 2', 'что то там 3', 'что то там 4']} onChange={() => {}} width={'150px'} />
       <Select onChange={() => {}} isLanguage={true} />
     </div>
-
   )
 }

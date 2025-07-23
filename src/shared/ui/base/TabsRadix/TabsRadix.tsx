@@ -1,27 +1,27 @@
-import { Tabs } from "radix-ui";
+import { Tabs } from 'radix-ui'
 
 export type Tab = {
-    id: string
-    title: string
-    content: React.ReactNode
-    disabled: boolean
+  id: string
+  title: string
+  content: React.ReactNode
+  disabled: boolean
 }
 
 type TabsProps = {
-    tabs: Tab[]
-    width?: string
+  tabs: Tab[]
+  width?: string
 }
 
-export const TabsRadix = ({tabs, width}: TabsProps) => {
-    return (
-        <Tabs.Root defaultValue={tabs[0]?.id} className={`flex w-[${width}] flex-col gap-2" defaultValue="tab1`}>
-            <Tabs.List className="flex" aria-label="Manage your account">
-                {tabs.map((tab) => (
-                    <Tabs.Trigger
-                        key={tab.id}
-                        value={tab.id}
-                        disabled={tab.disabled}
-                        className={`
+export const TabsRadix = ({ tabs, width }: TabsProps) => {
+  return (
+    <Tabs.Root defaultValue={tabs[0]?.id} className={`flex w-[${width}] flex-col gap-2" defaultValue="tab1`}>
+      <Tabs.List className="flex" aria-label="Manage your account">
+        {tabs.map(tab => (
+          <Tabs.Trigger
+            key={tab.id}
+            value={tab.id}
+            disabled={tab.disabled}
+            className={`
               relative px-4 py-1 text-sm font-medium outline-none transition
               text-[#397DF6]
               disabled:border-b-3 disabled:border-[#234e99CC] disabled:cursor-not-allowed disabled:text-[#73a5ff33] disabled:hover:bg-[]
@@ -32,17 +32,17 @@ export const TabsRadix = ({tabs, width}: TabsProps) => {
 
               not-disabled:hover:bg-[#234e9933]
             `}
-                    >
-                        {tab.title}
-                    </Tabs.Trigger>
-                ))}
-            </Tabs.List>
+          >
+            {tab.title}
+          </Tabs.Trigger>
+        ))}
+      </Tabs.List>
 
-            {tabs.map((tab) => (
-                <Tabs.Content key={tab.id} value={tab.id} className="mt-2 text-white">
-                    {tab.content}
-                </Tabs.Content>
-            ))}
-        </Tabs.Root>
-    );
-};
+      {tabs.map(tab => (
+        <Tabs.Content key={tab.id} value={tab.id} className="mt-2 text-white">
+          {tab.content}
+        </Tabs.Content>
+      ))}
+    </Tabs.Root>
+  )
+}
