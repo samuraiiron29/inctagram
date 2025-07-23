@@ -7,5 +7,6 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "prettier.arrowParens": "avoid",
   "cSpell.words": ["Inctagram"],
-  "prettier.bracketSameLine": false
+  "prettier.bracketSameLine": false,
+  "prettier.printWidth": 80
 }
