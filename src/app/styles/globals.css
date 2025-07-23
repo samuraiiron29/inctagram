@@ -1,23 +1,11 @@
 @import "tailwindcss";
-@import './typography.css';
-@import './colors.css';
 @import './test-color.css';
 @import './test-typo.css';
+@import './colors.css';
 
 @layer base {
-  html {
-      /* --color-background: var(--color-dark-700);
-                --color-text: #var(--color-light-100); */
-      --color-background: 'red';
-      --color-text: 'green';
-  
-      /* font-family: var(--font-body); */
-    }
-  body {
-    background-color: var(--color-background);
-    }
-    
-    p {
-      color: var(--color-text);
+  .radix-themes[data-has-background='true'] {
+      background-color: var(--color-dark-700) !important;
+      color: var(--color-light-100) !important;
   }
 }
