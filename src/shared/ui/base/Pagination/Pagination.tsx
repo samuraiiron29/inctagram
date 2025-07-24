@@ -1,7 +1,7 @@
 import React from 'react'
 import { Select } from '@/shared/ui/base/Select/Select'
 
-interface PaginationProps {
+type Props = {
   totalItems: number
   pageSize: number
   currentPage: number
@@ -10,7 +10,7 @@ interface PaginationProps {
   siblingCount?: number
 }
 
-const Pagination: React.FC<PaginationProps> = ({ totalItems, pageSize, currentPage, onPageChange, setPageSize, siblingCount = 1 }) => {
+const Pagination = ({ totalItems, pageSize, currentPage, onPageChange, setPageSize, siblingCount = 1 }: Props) => {
   const totalPages = Math.ceil(totalItems / pageSize)
 
   const getPagination = (): (number | string)[] => {
@@ -41,7 +41,7 @@ const Pagination: React.FC<PaginationProps> = ({ totalItems, pageSize, currentPa
   const pagination = getPagination()
 
   return (
-    <div className="flex gap-2 items-center text-white">
+    <div className="flex gap-2 items-center text-amber-50">
       <button disabled={currentPage === 1} onClick={() => onPageChange(currentPage - 1)} className="px-2 py-1 rounded disabled:opacity-30">
         ‹
       </button>
@@ -51,7 +51,7 @@ const Pagination: React.FC<PaginationProps> = ({ totalItems, pageSize, currentPa
           key={idx}
           disabled={page === '...'}
           onClick={() => typeof page === 'number' && onPageChange(page)}
-          className={`px-2 py-1 rounded ${currentPage === page ? 'bg-white text-black' : 'hover:bg-gray-700'}`}
+          className={`px-2 py-1 rounded ${currentPage === page ? 'bg-amber-50 text-dark-900' : 'hover:bg-dark-100'}`}
         >
           {page}
         </button>

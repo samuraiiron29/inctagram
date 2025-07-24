@@ -3,11 +3,9 @@
 import { Button, Flex } from '@radix-ui/themes'
 import { useRouter } from 'next/navigation'
 export default function Page() {
-  const router = useRouter()
 
   return (
     <>
-      <Button onClick={() => router.back()}>Назад</Button>
       <Flex gap={'3'} direction={'column'} m={'5'}>
         <p className="text-regular_link">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, porro perferendis doloremque, asperiores voluptates itaque alias

@@ -11,7 +11,7 @@ export default function DevPage() {
       notFound() // Не пускаем в продакшн
     } else {
       import('../../dev/page').then(mod => {
-        setDevPanel(() => mod.default)
+        setDevPanel(() => mod.default || <div>fsdfsfs</div>)
       })
     }
   }, [])

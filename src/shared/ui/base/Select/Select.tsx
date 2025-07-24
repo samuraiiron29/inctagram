@@ -70,11 +70,11 @@ export const Select = ({
   }
 
   return (
-    <div className="text-white" style={{ width: `${isLanguage ? '200px' : width}` }} ref={selectRef}>
+    <div className="text-amber-50" style={{ width: `${isLanguage ? '200px' : width}` }} ref={selectRef}>
       {title && <span className="text-sm font-medium">{title}</span>}
       {label && (
         <label className="text-sm font-medium">
-          {label} {required && <span className="text-red-500">*</span>}
+          {label} {required && <span className="text-danger-500">*</span>}
         </label>
       )}
 
@@ -82,26 +82,25 @@ export const Select = ({
         <button
           onClick={toggleDropdown}
           className={`
-                        w-full px-3 py-2 text-left border rounded-md 
-                        hover:border-gray-400 
+                        w-full px-3 py-2 text-left border rounded-md
                         focus:outline-none
                         flex justify-between items-center gap-1
-                        ${isOpen ? 'border-gray-300' : 'border-gray-600'}
+                        ${isOpen ? 'border-light-700' : 'border-dark-100'}
                       `}
         >
           <div className="flex items-center gap-2">
             {isLanguage && <Image src={language === 'Russian' ? '/flagRussia.svg' : '/flag.svg'} alt="flag" width={20} height={20} />}
-            <span className={`${!internalValue && placeholder ? 'text-gray-500' : ''}`}>{internalValue || placeholder || 'select'}</span>
+            <span className={`${!internalValue && placeholder ? 'text-dark-100' : ''}`}>{internalValue || placeholder || 'select'}</span>
           </div>
           <Image src={isOpen ? '/arrow2.svg' : '/arrow1.svg'} alt="arrow" width={14} height={8} />
         </button>
 
         {isOpen && (
-          <ul className="absolute top-10 z-50 mt-1 w-full max-h-52 overflow-auto bg-black border border-gray-600 rounded-md shadow-lg">
+          <ul className="absolute top-10 z-50 mt-1 w-full max-h-52 overflow-auto bg-dark-900 border border-b-dark-100 rounded-md shadow-lg">
             {actualOptions?.map((option, i) => (
               <li
                 key={i}
-                className={`px-3 py-2 cursor-pointer hover:bg-gray-700 ${internalValue === option ? 'text-blue-400' : ''}`}
+                className={`px-3 py-2 cursor-pointer hover:bg-dark-100 ${internalValue === option ? 'text-accent-300' : ''}`}
                 onClick={() => handleOptionClick(option)}
               >
                 {option}
@@ -111,7 +110,7 @@ export const Select = ({
         )}
       </div>
 
-      {error && <span className="text-red-500 text-sm">{error}</span>}
+      {error && <span className="text-danger-500 text-sm">{error}</span>}
     </div>
   )
 }
