@@ -24,7 +24,6 @@ export const Button = ({ asChild = false, variant = 'primary', children, ...prop
   return <button className={className} {...props} children={children} />
 }
 
-
 export type VariantButton = 'primary' | 'secondary' | 'outlined' | 'textButton' | 'variant21'
 export type Props = {
   asChild?: boolean
