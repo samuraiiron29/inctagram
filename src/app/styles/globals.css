@@ -7,4 +7,8 @@
     background-color: var(--color-dark-700) !important;
     color: var(--color-light-100) !important;
   }
+
+  button {
+    cursor: pointer !important;
+  }
 }
