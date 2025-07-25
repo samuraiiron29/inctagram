@@ -1,7 +1,13 @@
 'use client'
 import { cloneElement, isValidElement } from 'react'
 import clsx from 'clsx'
-
+export type VariantButton = 'primary' | 'secondary' | 'outlined' | 'textButton' | 'variant21'
+export type Props = {
+  asChild?: boolean
+  variant?: VariantButton
+  children: React.ReactNode
+} & React.ButtonHTMLAttributes<HTMLButtonElement> &
+  React.AnchorHTMLAttributes<HTMLAnchorElement>
 const baseStyle = `text-h3 rounded-[2px] py-1.5 px-6 gap-2.5`
 const variantStyle: Record<VariantButton, string> = {
   primary: `bg-accent-500 active:bg-accent-700 hover:bg-accent-100 focus:border-2 disabled:bg-accent-900`,
@@ -24,13 +30,7 @@ export const Button = ({ asChild = false, variant = 'primary', children, ...prop
   return <button className={className} {...props} children={children} />
 }
 
-export type VariantButton = 'primary' | 'secondary' | 'outlined' | 'textButton' | 'variant21'
-export type Props = {
-  asChild?: boolean
-  variant?: VariantButton
-  children: React.ReactNode
-} & React.ButtonHTMLAttributes<HTMLButtonElement> &
-  React.AnchorHTMLAttributes<HTMLAnchorElement>
+
 // export type Props<T extends ElementType = 'button'> = {
 //   asChild?: T
 //   variant?: VariantButton
