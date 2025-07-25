@@ -1,24 +1,17 @@
 'use client'
-import { Button } from '@/shared/ui/base/Button/Button'
-import Image from 'next/image'
+import { Alert } from '@/shared/ui/base/Alert/Alert'
 import { Button as RadixButton, Flex } from '@radix-ui/themes'
-import { useRouter } from 'next/navigation'
-import { Toaster } from '@/shared/ui/base/Alert/Alert'
-import { toast } from 'react-hot-toast'
-export default function Page() {
-  const router = useRouter()
-  const hello = () => toast('Привет!')
-  const success = () => toast.success('success!')
-  const danger = () => toast.error('error!')
-  return (
-    <Flex p={'3'} direction={'column'} gap={'5'}>
-      <RadixButton onClick={() => router.back()}>Назад</RadixButton>
+import { useState } from 'react'
 
-      <Flex className="bg-dark-500" justify={'center'} align={'center'} gap={'5'} m={'5'} height={'200px'}>
-        <RadixButton onClick={hello} color="bronze" children={'hello'} />
-        <RadixButton onClick={success} color="green" children={'success'} />
-        <RadixButton onClick={danger} color="red" children={'danger'} />
-      </Flex>
+export default function Page() {
+  const [showSuccess, setShowSuccess] = useState(false)
+  const [showError, setShowError] = useState(false)
+  return (
+    <Flex p="3" direction="column" gap="5" width="20%">
+      <RadixButton onClick={() => setShowSuccess(true)} color="green" children={'call success'} />
+      <RadixButton onClick={() => setShowError(true)} color="red" children={'call error'} />
+      {showSuccess && <Alert message="well good" variant="success" />}
+      {showError && <Alert message="well bad" variant="error" />}
     </Flex>
   )
 }
