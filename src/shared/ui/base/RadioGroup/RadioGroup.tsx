@@ -34,7 +34,7 @@ export const RadioGroupComponent = ({ options, value, onChangeAction, name, defa
 
   return (
     <RadioGroup.Root
-      className={`flex flex-row gap-[50px] ${className}`}
+      className={`flex flex-row gap-[44px] p-[20px] ${className}`}
       value={currentValue}
       onValueChange={onValueChangeHandler}
       name={name}
@@ -42,27 +42,29 @@ export const RadioGroupComponent = ({ options, value, onChangeAction, name, defa
     >
       {options.map(({ label, value }) => (
         <Fragment key={value}>
-          <label htmlFor={value} className={`relative inline-flex items-center gap-[10px] ${!disabled && 'cursor-pointer'} group`}>
+          <label htmlFor={value} className={`relative inline-flex items-center p-[6px] gap-[10px] ${!disabled && 'cursor-pointer'} group`}>
             {/* Кружок */}
             <div className="relative inline-flex items-center justify-center w-5 h-5">
               {!disabled && (
                 <span
                   className="
-                                    pointer-events-none
-                                    absolute
-                                    top-1/2 left-1/2
-                                    -translate-x-1/2 -translate-y-1/2
-                                    w-[36px] h-[36px]
-                                    rounded-full
-                                    bg-[var(--dark-100)]
-                                    opacity-0
-                                    transition-opacity transition-colors duration-150
-                                    group-hover:opacity-100
-                                    group-hover:bg-[var(--dark-300)]
-                                    group-active:opacity-100
-                                    group-active:bg-[var(--dark-100)]
-                                    z-0
-                                "
+                    pointer-events-none
+                    absolute
+                    top-1/2 left-1/2
+                    -translate-x-1/2 -translate-y-1/2
+                    w-[36px] h-[36px]
+                    rounded-full
+                    bg-[var(--dark-100)]
+                    opacity-0
+                    transition-opacity transition-colors duration-150
+                    group-hover:opacity-100
+                    group-hover:bg-[var(--dark-300)]
+                    group-active:opacity-100
+                    group-active:bg-[var(--dark-100)]
+                    group-focus-within:opacity-100
+                    group-focus-within:bg-[var(--dark-500)]
+                    z-0
+                  "
                 />
               )}
 
@@ -70,31 +72,31 @@ export const RadioGroupComponent = ({ options, value, onChangeAction, name, defa
                 value={value}
                 id={value}
                 className="
-                                    relative
-                                    h-5 w-5
-                                    rounded-full
-                                    border-2 border-[var(--light-100)]
-                                    bg-transparent
-                                    focus:outline-none
-                                    disabled:opacity-50
-                                    z-10
-                                    flex-shrink-0
-                                "
+                  relative
+                  h-5 w-5
+                  rounded-full
+                  border-2 border-[var(--light-100)]
+                  bg-transparent
+                  focus:outline-none
+                  disabled:opacity-50
+                  z-10
+                  flex-shrink-0
+                "
               >
                 <RadioGroup.Indicator
                   className="
-                                        absolute
-                                        top-1/2 left-1/2
-                                        -translate-x-1/2 -translate-y-1/2
-                                        w-[10px] h-[10px]
-                                        rounded-full
-                                        bg-[var(--light-100)]
-                                        z-20
-                                    "
+                    absolute
+                    top-1/2 left-1/2
+                    -translate-x-1/2 -translate-y-1/2
+                    w-[10px] h-[10px]
+                    rounded-full
+                    bg-[var(--light-100)]
+                    z-20
+                  "
                 />
               </RadioGroup.Item>
             </div>
-            <span className={`text-sm select-none text-[var(--light-100)] ${disabled && 'opacity-50'}`}>{label}</span>
+            <span className={`text-regular_text14 select-none text-[var(--light-100)] ${disabled && 'opacity-50'}`}>{label}</span>
           </label>
         </Fragment>
       ))}
