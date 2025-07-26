@@ -8,13 +8,11 @@ export default function Sidebar() {
   return (
     <aside
       className={
-        'h-screen w-[220px] relative before:content-[""] ' +
-        'before:absolute before:top-0 before:right-0 before:w-[1px] before:h-full ' +
-        'before:bg-[var(--color-dark-300)] '
+        'fixed top-0 left-0 z-50 h-[100vh] pt-[134px] pr-[45px] pb-[50px] pl-[45px] border-r border-dark-100' // да-да ***ис :) именно так легко оно пишется, без всяких мудростей и абсолютов
       }
       aria-label="Main sidebar navigation"
     >
-      <ul className="flex flex-col gap-[20px] justify-start pl-[60px]">
+      <ul className="flex flex-col gap-[20px] justify-start">
         <div className={'mt-[72px]'}>
           <SidebarItem
             href="/feed"

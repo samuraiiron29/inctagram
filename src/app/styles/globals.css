@@ -11,4 +11,20 @@
   button {
     cursor: pointer !important;
   }
+
+  @keyframes progress {
+    0% {
+      left: -50%;
+    }
+    50% {
+      left: 100%;
+    }
+    100% {
+      left: -50%;
+    }
+  }
+
+  .webkit::-webkit-scrollbar {
+    width: 0;
+  }
 }

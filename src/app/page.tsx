@@ -1,14 +1,15 @@
-'use client'
-import { useRouter } from 'next/navigation'
-import { Button, Flex } from '@radix-ui/themes'
+import { HomePage } from '@/shared/ui/HomePage/HomePage'
 
-export default function Home() {
-  const router = useRouter()
+export default async function Home() {
 
-  return (
-    <Flex direction={'column'} align={'center'} justify={'center'} className="gap-4 p-8 text-white">
-      <span>Привет, я пока пустая, но есть компоненты в разработке:</span>
-      <Button children={'Go to development'} onClick={() => router.push('/dev')} />
-    </Flex>
-  )
+    try {
+      const usersResponse = await fetch('https://inctagram.work/api/v1/public-user')
+      const usersCount = await usersResponse.json()
+
+      return (
+          <HomePage count={usersCount.totalCount}/>
+      )
+    } catch (error) {
+        console.error(error)
+    }
 }
