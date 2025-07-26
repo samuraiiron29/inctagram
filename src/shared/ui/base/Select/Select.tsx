@@ -85,18 +85,19 @@ export const Select = ({
                         w-full px-3 py-2 text-left border rounded-md
                         focus:outline-none
                         flex justify-between items-center gap-1
-                        ${isOpen ? 'border-light-700' : 'border-dark-100'}
+                        border-dark-100
+                       
                       `}
         >
           <div className="flex items-center gap-2">
             {isLanguage && <Image src={language === 'Russian' ? '/flagRussia.svg' : '/flag.svg'} alt="flag" width={20} height={20} />}
             <span className={`${!internalValue && placeholder ? 'text-dark-100' : ''}`}>{internalValue || placeholder || 'select'}</span>
           </div>
-          <Image src={isOpen ? '/arrow2.svg' : '/arrow1.svg'} alt="arrow" width={14} height={8} />
+          <Image src={isOpen ? '/arrow1.svg' : '/arrow2.svg'} alt="arrow" width={14} height={8} />
         </button>
 
         {isOpen && (
-          <ul className="absolute top-10 z-50 mt-1 w-full max-h-52 overflow-auto bg-dark-900 border border-b-dark-100 rounded-md shadow-lg">
+          <ul className="absolute top-10 z-50 mt-1 w-full max-h-52 overflow-auto bg-dark-500 border border-dark-100 rounded-md shadow-lg">
             {actualOptions?.map((option, i) => (
               <li
                 key={i}
