@@ -1,6 +1,7 @@
 import { NotificationBell } from '@/shared/ui/base/Notification/NotificationBell/NotificationBell'
 import { Select } from '@/shared/ui/base/Select/Select'
-import React from 'react'
+import { Button } from '@/shared/ui/base/Button/Button'
+import Link from 'next/link'
 
 export type Props = {
   isLoggedIn: boolean
@@ -9,7 +10,7 @@ export type Props = {
 export const AuthStatusControls = ({ isLoggedIn }: Props) => {
   {
     /*todo заглушка на колбэке, написать потом колбэк в зависимости от нашей дальнешей логики работы приложения,
-          т.е. сохранение например языка в локал сторадж, задиспатчить что-нибудь и тд*/
+                  т.е. сохранение например языка в локал сторадж, задиспатчить что-нибудь и тд*/
   }
 
   const handleLanguageChange = (value: string) => {
@@ -27,9 +28,12 @@ export const AuthStatusControls = ({ isLoggedIn }: Props) => {
         <div className="flex items-center gap-[36px]">
           <Select isLanguage value="English" onChange={handleLanguageChange} />
           <div className="flex gap-[24px]">
-            {/* todo вставить кнопки как ребята доделают */}
-            <button>Log In</button>
-            <button>Sign Up</button>
+            <Button asChild variant={'textButton'}>
+              <Link href="/auth/sign-in">Log in</Link>
+            </Button>
+            <Button asChild>
+              <Link href="/auth/sign-up">Sign up</Link>
+            </Button>
           </div>
         </div>
       )}
