@@ -3,6 +3,7 @@ import '@radix-ui/themes/styles.css'
 import './styles/globals.css'
 import StoreProvider from '@/store/StoreProvider'
 import { Theme } from '@radix-ui/themes'
+import HeaderSidebarProvider from '@/widgets/header/HeaderSidebarProvider'
 
 
 
@@ -16,7 +17,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={`antialiased`}>
         <StoreProvider>
-          <Theme children={children} />
+          <Theme>
+            <HeaderSidebarProvider>
+              {children}
+            </HeaderSidebarProvider>
+          </Theme>
         </StoreProvider>
       </body>
     </html>
