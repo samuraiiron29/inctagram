@@ -54,15 +54,15 @@ export const RadioGroupComponent = ({ options, value, onChangeAction, name, defa
                     -translate-x-1/2 -translate-y-1/2
                     w-[36px] h-[36px]
                     rounded-full
-                    bg-[var(--dark-100)]
+                    bg-dark-100
                     opacity-0
                     transition-opacity transition-colors duration-150
                     group-hover:opacity-100
-                    group-hover:bg-[var(--dark-300)]
+                    group-hover:bg-dark-300
                     group-active:opacity-100
-                    group-active:bg-[var(--dark-100)]
+                    group-active:bg-dark-100
                     group-focus-within:opacity-100
-                    group-focus-within:bg-[var(--dark-500)]
+                    group-focus-within:bg-dark-500
                     z-0
                   "
                 />
@@ -75,7 +75,7 @@ export const RadioGroupComponent = ({ options, value, onChangeAction, name, defa
                   relative
                   h-5 w-5
                   rounded-full
-                  border-2 border-[var(--light-100)]
+                  border-2 border-light-100
                   bg-transparent
                   focus:outline-none
                   disabled:opacity-50
@@ -90,13 +90,19 @@ export const RadioGroupComponent = ({ options, value, onChangeAction, name, defa
                     -translate-x-1/2 -translate-y-1/2
                     w-[10px] h-[10px]
                     rounded-full
-                    bg-[var(--light-100)]
+                    bg-light-100
                     z-20
                   "
                 />
               </RadioGroup.Item>
             </div>
-            <span className={`text-regular_text14 select-none text-[var(--light-100)] ${disabled && 'opacity-50'}`}>{label}</span>
+            <span
+              className={`text-regular_text14 select-none 
+            text-light-100
+            ${disabled && 'opacity-50'}`}
+            >
+              {label}
+            </span>
           </label>
         </Fragment>
       ))}
