@@ -10,7 +10,7 @@ type Props = {
   children: React.ReactNode
 }
 
-const HeaderSidebarProvider = ({children}: Props) => {
+const HeaderSidebarProvider = ({ children }: Props) => {
   const status = useAppSelector(selectAppStatus)
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
 
@@ -19,9 +19,7 @@ const HeaderSidebarProvider = ({children}: Props) => {
       <Header isLoggedIn={isLoggedIn} />
       {status === 'loading' && <LinearProgress />}
       {isLoggedIn && <Sidebar />}
-      <div>
-        {children}
-      </div>
+      <div className={'pl-[244px] pr-[244px]'}>{children}</div>
     </>
   )
 }

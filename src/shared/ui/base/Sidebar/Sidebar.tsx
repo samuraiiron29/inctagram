@@ -7,22 +7,18 @@ type Props = {}
 export default function Sidebar() {
   return (
     <aside
-      className={
-        'fixed top-0 left-0 z-50 h-[100vh] pt-[134px] pr-[45px] pb-[50px] pl-[45px] border-r border-dark-100' // да-да ***ис :) именно так легко оно пишется, без всяких мудростей и абсолютов
-      }
+      className={'fixed top-0 left-0 z-50 h-[100vh] pt-[132px] w-[220px] pb-[50px] pl-[60px] border-r border-dark-300'}
       aria-label="Main sidebar navigation"
     >
       <ul className="flex flex-col gap-[20px] justify-start">
-        <div className={'mt-[72px]'}>
-          <SidebarItem
-            href="/feed"
-            iconDefault={'/sidebarIcons/default/home.svg'}
-            iconHover={'/sidebarIcons/hover/home.svg'}
-            iconActive={'/sidebarIcons/active/home.svg'}
-            label="Feed"
-            alt={'Feed'}
-          />
-        </div>
+        <SidebarItem
+          href="/feed"
+          iconDefault={'/sidebarIcons/default/home.svg'}
+          iconHover={'/sidebarIcons/hover/home.svg'}
+          iconActive={'/sidebarIcons/active/home.svg'}
+          label="Feed"
+          alt={'Feed'}
+        />
         <SidebarItem
           href="/posts"
           iconDefault={'/sidebarIcons/default/plus-square.svg'}
@@ -54,7 +50,6 @@ export default function Sidebar() {
           iconActive={'/sidebarIcons/active/search.svg'}
           label="Search"
           alt={'Search'}
-          disabled
         />
         <div className={'mt-[38px]'}>
           <SidebarItem
