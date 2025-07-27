@@ -48,7 +48,7 @@ const HeaderSidebarProvider = ({children}: Props) => {
           <Header isLoggedIn={isLoggedIn} />
           {status === 'loading' && <LinearProgress />}
           {isLoggedIn && <Sidebar />}
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center pl-[244px] pr-[244px]">
             {children}
           </div>
         </>
