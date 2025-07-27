@@ -10,7 +10,7 @@ export default function Page() {
           value=""
           onChange={()=>{}}
           error=""
-          size="large"
+          size="small"
           disabled={false}
         />
     )
