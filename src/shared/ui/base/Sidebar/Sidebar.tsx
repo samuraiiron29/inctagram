@@ -7,7 +7,7 @@ type Props = {}
 export default function Sidebar() {
   return (
     <aside
-      className={'fixed top-0 left-0 z-50 h-[100vh] pt-[132px] w-[220px] pb-[50px] pl-[60px] border-r border-dark-300'}
+      className={'fixed top-[60px] left-0 z-50 h-[100vh] pt-[72px] w-[220px] pb-[50px] pl-[60px] border-r border-dark-300'}
       aria-label="Main sidebar navigation"
     >
       <ul className="flex flex-col gap-[20px] justify-start">
