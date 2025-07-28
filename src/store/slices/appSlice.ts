@@ -15,7 +15,7 @@ const initialState: AppState = {
   status: 'idle',
   error: null,
   email: null,
-  isLoggedIn: true,
+  isLoggedIn: false,
   userId: null,
   dev: false
 }
