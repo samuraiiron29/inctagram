@@ -40,8 +40,8 @@ export default function Sidebar() {
           iconDefault={'/sidebarIcons/default/message-circle.svg'}
           iconHover={'/sidebarIcons/hover/message-circle.svg'}
           iconActive={'/sidebarIcons/active/message-circle.svg'}
-          label="messenger"
-          alt={'messenger'}
+          label="Messenger"
+          alt={'Messenger'}
         />
         <SidebarItem
           href="/search"
@@ -66,8 +66,8 @@ export default function Sidebar() {
           iconDefault={'/sidebarIcons/default/bookmark.svg'}
           iconHover={'/sidebarIcons/hover/bookmark.svg'}
           iconActive={'/sidebarIcons/active/bookmark.svg'}
-          label="favorites"
-          alt={'favorites'}
+          label="Favorites"
+          alt={'Favorites'}
         />
         <div className={'mt-[180px]'}>
           <SidebarItem
