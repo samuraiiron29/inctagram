@@ -3,7 +3,7 @@ FROM node:20.11-alpine as dependencies
 WORKDIR /app
 COPY package*.json ./
 RUN corepack enable && corepack prepare pnpm@latest --activate
-
+ RUN pnpm install
 #Билдим приложение
 #Кэширование зависимостей — если файлы в проекте изменились,
 #но package.json остался неизменным, то стейдж с установкой зависимостей повторно не выполняется, что экономит время.
