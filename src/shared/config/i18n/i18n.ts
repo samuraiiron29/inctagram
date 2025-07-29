@@ -19,7 +19,7 @@ i18n
     defaultNS: 'translation',
     interpolation: {
       escapeValue: false,   // не экранировать HTML
-    },
+    }
   })
 
 export default i18n
