@@ -9,7 +9,7 @@ RUN pnpm install --frozen-lockfile
 #но package.json остался неизменным, то стейдж с установкой зависимостей повторно не выполняется, что экономит время.
 FROM node:20.11-alpine as builder
 WORKDIR /app
-
+RUN corepack enable && corepack prepare pnpm@latest --activate
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
 RUN pnpm run build:production
