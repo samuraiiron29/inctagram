@@ -7,7 +7,7 @@ type TextAreaProps = {
   label: string;
   placeholder: string;
   error?: string;
-  disabled: boolean;
+  disabled?: boolean;
   value: string;
   size: TextAreaSize
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
@@ -15,7 +15,7 @@ type TextAreaProps = {
 export const TextArea = ({label, placeholder, error, value, size, onChange, disabled = false}: TextAreaProps) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-
+ 
   const sizeClass = size === 'large' 
   ? 'w-[740px] h-[84px]' 
   : 'w-[248px] h-[84px]';
@@ -25,7 +25,7 @@ export const TextArea = ({label, placeholder, error, value, size, onChange, disa
     "border-accent-500": isFocused && !error,
     "border-dark-100": isHovered && !isFocused && !error,
     "border-dark-300": !isFocused && !isHovered && !error,
-    "border-dark-700": disabled,
+    //"border-dark-700": disabled,
   });
 
   const textColor = clsx({
@@ -39,7 +39,7 @@ export const TextArea = ({label, placeholder, error, value, size, onChange, disa
 });
 
   return (
-    <div className="flex flex-col gap-1, text-sm">  
+    <div className="flex flex-col gap-1 text-sm">  
       <label className="text-xs text-light-900">{label}</label>
       <textarea
         value={value}
