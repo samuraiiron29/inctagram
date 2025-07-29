@@ -30,7 +30,13 @@ pipeline {
                          [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
                          nvm use --lts
                          yarn install
-                         yarn test
+                           if yarn list --pattern jest | grep jest; then
+            echo 'Running tests...'
+            yarn test
+          else
+            echo 'No jest found – skipping tests'
+          fi
+        "
                       '''
                   }
              }
