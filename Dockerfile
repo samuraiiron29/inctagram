@@ -17,6 +17,7 @@ RUN pnpm run build:production
 #Стейдж запуска
 FROM node:20.11-alpine as runner
 WORKDIR /app
+RUN corepack enable && corepack prepare pnpm@latest --activate
 ENV NODE_ENV=production
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next ./.next
