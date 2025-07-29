@@ -20,7 +20,6 @@ const HeaderSidebarProvider = ({children}: Props) => {
 
   const dispatch = useAppDispatch()
   const router = useRouter()
-  const pathname = usePathname()
 
 
 
@@ -30,12 +29,12 @@ const HeaderSidebarProvider = ({children}: Props) => {
 
 
   useEffect(() => {
-    if (dev && !pathname.startsWith('/dev')) {
+    if (dev) {
       router.push('/dev')
-    } else if (!dev && pathname !== '/') {
+    } else if (!dev) {
       router.push('/')
     }
-  }, [dev, pathname, router])
+  }, [dev, router])
 
   return (
     <>
