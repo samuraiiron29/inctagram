@@ -1,10 +1,10 @@
-import { usePathname } from 'next/navigation'
 import { useState } from 'react'
-import { clsx } from 'clsx'
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
+import { clsx } from 'clsx'
 
-type SidebarItemProps = {
+type Props = {
   iconDefault: string
   iconHover: string
   iconActive: string
@@ -13,7 +13,7 @@ type SidebarItemProps = {
   alt: string
   disabled?: boolean
 }
-export const SidebarItem = ({ href, label, alt, iconDefault, iconActive, iconHover, disabled = false }: SidebarItemProps) => {
+export const SidebarItem = ({ href, label, alt, iconDefault, iconActive, iconHover, disabled = false }: Props) => {
   const pathname = usePathname()
   const isActive = pathname === href
   const [isHovered, setIsHovered] = useState(false)
@@ -29,7 +29,7 @@ export const SidebarItem = ({ href, label, alt, iconDefault, iconActive, iconHov
     <li
       onMouseEnter={() => !disabled && setIsHovered(true)}
       onMouseLeave={() => !disabled && setIsHovered(false)}
-      className={clsx('group flex', disabled ? 'pointer-events-none opacity-50' : 'hover:text-[var(--color-accent-100)]')}
+      className={clsx('group flex', disabled ? 'pointer-events-none opacity-50' : 'hover:text-accent-100')}
     >
       <Link
         tabIndex={disabled ? -1 : 0}
@@ -38,17 +38,11 @@ export const SidebarItem = ({ href, label, alt, iconDefault, iconActive, iconHov
         className={clsx(
           'inline-flex gap-[12px] pr-[3px]',
           !disabled &&
-            'border-2 border-transparent focus-visible:outline-none focus-visible:border focus-visible:border-[var(--color-accent-100)] focus-visible:rounded-[4px] focus-visible:border-2'
+            'border-2 border-transparent focus-visible:outline-none focus-visible:border-accent-100 focus-visible:rounded-[4px] focus-visible:border-2'
         )}
       >
         <Image src={getIcon()} alt={alt} width={24} height={24} />
-        <span
-          className={clsx(
-            isActive && 'text-[var(--color-accent-500)]',
-            !disabled && 'group-hover:text-[var(--color-accent-100)]',
-            'text-medium_text14'
-          )}
-        >
+        <span className={clsx(isActive && 'text-accent-500', !disabled && 'group-hover:text-accent-100', 'text-medium_text14')}>
           {label}
         </span>
       </Link>
