@@ -5,8 +5,7 @@ import StoreProvider from '@/store/StoreProvider'
 import { Theme } from '@radix-ui/themes'
 import HeaderSidebarProvider from '@/widgets/header/HeaderSidebarProvider'
 import '../shared/config/i18n/i18n'
-
-
+import { AuthInitializer } from '@/shared/providers/AuthInitializer'
 
 export const metadata: Metadata = {
   title: 'Inctagram',
@@ -18,9 +17,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={`antialiased`} suppressHydrationWarning>
         <StoreProvider>
-          <Theme>
-            <HeaderSidebarProvider>{children}</HeaderSidebarProvider>
-          </Theme>
+          <AuthInitializer>
+            <Theme>
+              <HeaderSidebarProvider>{children}</HeaderSidebarProvider>
+            </Theme>
+          </AuthInitializer>
         </StoreProvider>
       </body>
     </html>
