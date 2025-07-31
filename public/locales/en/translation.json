@@ -1,8 +1,19 @@
 {
   "header": {
+    "mainLogo": "Inctagram",
     "buttons": {
       "login": "Log in",
       "sign": "Sign Up"
     }
+  },
+  "sidebar": {
+    "feed": "Feed",
+    "create": "Create",
+    "my profile": "My Profile",
+    "messenger": "messenger",
+    "search": "Search",
+    "statistics": "Statistics",
+    "favorites": "Favorites",
+    "logout": "Log Out"
   }
 }
