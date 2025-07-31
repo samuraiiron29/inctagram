@@ -1,10 +1,34 @@
 'use client'
 
 import { SidebarItem } from '@/shared/ui/base/Sidebar/SidebarItem'
+import { useState } from 'react'
+import { Modal } from '@/shared/ui/Modal/Modal'
+import { useAppSelector } from '@/shared/lib/hooks/appHooks'
+import { selectAppEmail } from '@/store/slices/appSlice'
+import { Button } from '@/shared/ui/base/Button/Button'
+import { useLogoutMutation } from '@/shared/api/authApi'
+import { PATH } from '@/shared/lib/path/path'
+import Image from 'next/image'
 
 type Props = {}
 
 export default function Sidebar() {
+  const [showModal, setShowModal] = useState(false)
+  const email = useAppSelector(selectAppEmail)
+
+  const [logout] = useLogoutMutation()
+
+  const logoutHandler = async () => {
+    try {
+      await logout().unwrap()
+      window.location.replace(PATH.AUTH.LOGIN)
+    } catch (error) {
+      console.error('Logout failed:', error)
+    } finally {
+      setShowModal(false)
+    }
+  }
+
   return (
     <aside
       className={'fixed top-[60px] left-0 z-50 h-[100vh] pt-[72px] w-[220px] pb-[50px] pl-[60px] border-r border-dark-300'}
@@ -69,17 +93,33 @@ export default function Sidebar() {
           label="Favorites"
           alt={'Favorites'}
         />
-        <div className={'mt-[180px]'}>
-          <SidebarItem
-            href="/sign-in"
-            iconDefault={'/sidebarIcons/default/log-out.svg'}
-            iconHover={'/sidebarIcons/hover/log-out.svg'}
-            iconActive={'/sidebarIcons/active/log-out.svg'}
-            label="Log out"
-            alt={'Log out'}
-          />
-        </div>
+        {/*<div className={'mt-[180px]'}>*/}
+        {/*  <SidebarItem*/}
+        {/*    href=""*/}
+        {/*    iconDefault={'/sidebarIcons/default/log-out.svg'}*/}
+        {/*    iconHover={'/sidebarIcons/hover/log-out.svg'}*/}
+        {/*    iconActive={'/sidebarIcons/active/log-out.svg'}*/}
+        {/*    label="Log out"*/}
+        {/*    alt={'Log out'}*/}
+        {/*    onClick={() => setShowModal(true)}*/}
+        {/*  />*/}
+        {/*</div>*/}
       </ul>
+      <button onClick={() => setShowModal(true)} className={'flex items-center justify-center gap-[15px] mt-[180px]'}>
+        <Image src={'/sidebarIcons/default/log-out.svg'} alt={''} width={'18'} height={'20'} />
+        Log Out
+      </button>
+      {showModal && (
+        <Modal open={showModal} onClose={() => setShowModal(false)} modalTitle={'Log Out'}>
+          <p className={'text-amber-50'}>Are you sure you want to log out {email}?</p>
+          <div className={''}>
+            <div className={'flex gap-[15px] mt-[18px]'}>
+              <Button variant={'outlined'} onClick={logoutHandler}>Yes</Button>
+              <Button variant={'primary'}  onClick={() => setShowModal(false)}>No</Button>
+            </div>
+          </div>
+        </Modal>
+      )}
     </aside>
   )
 }
