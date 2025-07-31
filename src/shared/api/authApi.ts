@@ -21,7 +21,19 @@ export const authApi = baseApi.injectEndpoints({
         }
       },
     }),
+    logout: build.mutation<void, void>({
+      query: () => ({
+        url: 'auth/logout',
+        method: 'POST',
+        credentials: 'include',
+      }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        await queryFulfilled
+        dispatch(setIsLoggedIn(false))
+        dispatch(setAppEmail(null))
+      },
+    }),
   }),
 })
 
-export const { useMeQuery } = authApi
+export const { useMeQuery, useLogoutMutation } = authApi
