@@ -1,6 +1,5 @@
 import { baseApi } from '@/store/services/baseApi'
 import { setAppEmail, setIsLoggedIn, setUserId } from '@/store/slices/appSlice'
-import { BaseQueryArg } from '@reduxjs/toolkit/query'
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: build => ({
