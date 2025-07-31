@@ -3,3 +3,4 @@ const Page = () => {
 }
 
 export default Page
+// news
