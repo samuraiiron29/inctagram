@@ -39,13 +39,17 @@ const appSlice = createSlice({
     setAppDev: build.reducer<boolean>((state, action) => {
       state.dev = action.payload
     }),
+    setUserId: build.reducer<number>((state, action) => {
+      state.userId = action.payload
+    }),
   }),
   selectors: {
     selectAppStatus: state => state.status,
     selectAppError: state => state.error,
     selectAppEmail: state => state.email,
     selectIsLoggedIn: state => state.isLoggedIn,
-    selectAppDev: state => state.dev
+    selectAppDev: state => state.dev,
+    selectUserId: state => state.userId
   },
   extraReducers: builder => {
     builder
@@ -61,8 +65,8 @@ const appSlice = createSlice({
   },
 })
 
-export const { setAppStatus, setAppError, setAppEmail, setIsLoggedIn, setAppDev } = appSlice.actions
-export const { selectAppEmail, selectAppStatus, selectAppError, selectIsLoggedIn, selectAppDev } =
+export const { setAppStatus, setAppError, setAppEmail, setIsLoggedIn, setAppDev, setUserId } = appSlice.actions
+export const { selectAppEmail, selectAppStatus, selectAppError, selectIsLoggedIn, selectAppDev, selectUserId } =
   appSlice.selectors
 
 export default appSlice.reducer

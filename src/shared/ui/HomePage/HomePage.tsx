@@ -10,32 +10,13 @@ import 'swiper/css/pagination'
 import { UserHeader } from '@/shared/ui/UserHeader/UserHeader'
 import { formatTimeAgo } from '@/shared/lib/utils/formatTimeAgo'
 import Image from 'next/image'
-import { useMeQuery } from '@/shared/api/authApi'
-import { useEffect, useState } from 'react'
-import { useAppDispatch } from '@/shared/lib/hooks/appHooks'
-import { setIsLoggedIn } from '@/store/slices/appSlice'
 
 type Props = {
   count: string
 }
 export const HomePage = ({ count }: Props) => {
-  const [isInitialized, setIsInitialized] = useState(false)
-  const { data, isLoading } = useMeQuery()
   const { data: postsData } = useGetPublicPostsQuery(4)
-  const dispatch = useAppDispatch()
 
-  useEffect(() => {
-    if (isLoading) return
-    setIsInitialized(true)
-    debugger
-    if (data?.email) {
-      dispatch(setIsLoggedIn(true))
-    }
-  }, [isLoading])
-
-  if (!isInitialized) {
-    return <div>Loading..</div>
-  }
 
   const totalCount = count.toString().padStart(6, '0')
 

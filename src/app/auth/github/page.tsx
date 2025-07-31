@@ -24,5 +24,5 @@ export default function Page() {
     }
   }, [])
 
-  return <div>Авторизация через GitHub...</div>
+  return <div className={'flex justify-center items-center'}>Авторизация через GitHub...</div>
 }
