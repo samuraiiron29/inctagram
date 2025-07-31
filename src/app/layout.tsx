@@ -16,12 +16,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`antialiased`}>
+      <body className={`antialiased`} suppressHydrationWarning>
         <StoreProvider>
           <Theme>
-            <HeaderSidebarProvider>
-              {children}
-            </HeaderSidebarProvider>
+            <HeaderSidebarProvider>{children}</HeaderSidebarProvider>
           </Theme>
         </StoreProvider>
       </body>
