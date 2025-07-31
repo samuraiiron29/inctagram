@@ -12,8 +12,9 @@ type Props = {
   label: string
   alt: string
   disabled?: boolean
+  onClick?: () => void
 }
-export const SidebarItem = ({ href, label, alt, iconDefault, iconActive, iconHover, disabled = false }: Props) => {
+export const SidebarItem = ({ href, label, alt, iconDefault, onClick, iconActive, iconHover, disabled = false }: Props) => {
   const pathname = usePathname()
   const isActive = pathname === href
   const [isHovered, setIsHovered] = useState(false)
@@ -34,6 +35,7 @@ export const SidebarItem = ({ href, label, alt, iconDefault, iconActive, iconHov
       <Link
         tabIndex={disabled ? -1 : 0}
         aria-disabled={disabled}
+        onClick={onClick}
         href={href}
         className={clsx(
           'inline-flex gap-[12px] pr-[3px]',

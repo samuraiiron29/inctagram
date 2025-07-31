@@ -1,10 +1,33 @@
 'use client'
 
 import { SidebarItem } from '@/shared/ui/base/Sidebar/SidebarItem'
+import { useState } from 'react'
+import { Modal } from '@/shared/ui/Modal/Modal'
+import { useAppSelector } from '@/shared/lib/hooks/appHooks'
+import { selectAppEmail } from '@/store/slices/appSlice'
+import { Button } from '@/shared/ui/base/Button/Button'
+import { useLogoutMutation } from '@/shared/api/authApi'
+import { PATH } from '@/shared/lib/path/path'
 
 type Props = {}
 
 export default function Sidebar() {
+  const [showModal, setShowModal] = useState(false)
+  const email = useAppSelector(selectAppEmail)
+
+  const [logout] = useLogoutMutation()
+
+  const logoutHandler = async () => {
+    try {
+      await logout().unwrap()
+      window.location.replace(PATH.AUTH.LOGIN)
+    } catch (error) {
+      console.error('Logout failed:', error)
+    } finally {
+      setShowModal(false)
+    }
+  }
+
   return (
     <aside
       className={'fixed top-[60px] left-0 z-50 h-[100vh] pt-[72px] w-[220px] pb-[50px] pl-[60px] border-r border-dark-300'}
@@ -71,15 +94,27 @@ export default function Sidebar() {
         />
         <div className={'mt-[180px]'}>
           <SidebarItem
-            href="/sign-in"
+            href=""
             iconDefault={'/sidebarIcons/default/log-out.svg'}
             iconHover={'/sidebarIcons/hover/log-out.svg'}
             iconActive={'/sidebarIcons/active/log-out.svg'}
             label="Log out"
             alt={'Log out'}
+            onClick={() => setShowModal(true)}
           />
         </div>
       </ul>
+      {showModal && (
+        <Modal open={showModal} onClose={() => setShowModal(false)} modalTitle={'Log Out'}>
+          <p>Are you sure you want to log out {email}?</p>
+          <div className={''}>
+            <div className={''}>
+              <Button variant={'outlined'} onClick={logoutHandler}>No</Button>
+              <Button variant={'primary'}  onClick={() => setShowModal(false)}>Yes</Button>
+            </div>
+          </div>
+        </Modal>
+      )}
     </aside>
   )
 }

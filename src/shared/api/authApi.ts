@@ -1,5 +1,6 @@
 import { baseApi } from '@/store/services/baseApi'
 import { setAppEmail, setIsLoggedIn, setUserId } from '@/store/slices/appSlice'
+import { BaseQueryArg } from '@reduxjs/toolkit/query'
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: build => ({
@@ -21,7 +22,19 @@ export const authApi = baseApi.injectEndpoints({
         }
       },
     }),
+    logout: build.mutation<void, void>({
+      query: () => ({
+        url: 'auth/logout',
+        method: 'POST',
+        credentials: 'include',
+      }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        await queryFulfilled
+        dispatch(setIsLoggedIn(false))
+        dispatch(setAppEmail(null))
+      },
+    }),
   }),
 })
 
-export const { useMeQuery } = authApi
+export const { useMeQuery, useLogoutMutation } = authApi
