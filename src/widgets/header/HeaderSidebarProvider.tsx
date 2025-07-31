@@ -21,35 +21,28 @@ const HeaderSidebarProvider = ({children}: Props) => {
   const dispatch = useAppDispatch()
   const router = useRouter()
 
-
-
   const changeDev = () => {
     dispatch(setAppDev(!dev))
   }
 
-
-  useEffect(() => {
-    if (dev) {
-      router.push('/dev')
-    } else if (!dev) {
-      router.push('/')
-    }
-  }, [dev, router])
+  // useEffect(() => {
+  //   if (dev) {
+  //     router.push('/dev')
+  //   } else if (!dev) {
+  //     router.push('/')
+  //   }
+  // }, [dev, router])
 
   return (
     <>
       {dev ? (
-        <div>
-          {children}
-        </div>
+        <div>{children}</div>
       ) : (
         <>
           <Header isLoggedIn={isLoggedIn} />
           {status === 'loading' && <LinearProgress />}
           {isLoggedIn && <Sidebar />}
-          <div className="flex justify-center items-center pl-[244px] pr-[244px]">
-            {children}
-          </div>
+          <div className="flex justify-center items-center pl-[244px] pr-[244px]">{children}</div>
         </>
       )}
       <div className="flex justify-center items-center mb-4">
