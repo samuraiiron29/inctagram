@@ -5,8 +5,9 @@ import Image from 'next/image'
 
 type Props = {
   imageUrl: string
+  firstName: string
 };
-export const UserHeader = ({imageUrl}: Props) => {
+export const UserHeader = ({imageUrl, firstName}: Props) => {
   return (
     <div className={'flex gap-[12px] items-center'}>
       <Image
@@ -17,7 +18,7 @@ export const UserHeader = ({imageUrl}: Props) => {
         className={'w-[36px] h-[36px] rounded-full'}
       />
       <Link href={''} className={''}>
-        URLProfiele
+        {firstName}
       </Link>
     </div>
   )

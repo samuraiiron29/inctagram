@@ -8,6 +8,7 @@ import { selectAppEmail } from '@/store/slices/appSlice'
 import { Button } from '@/shared/ui/base/Button/Button'
 import { useLogoutMutation } from '@/shared/api/authApi'
 import { PATH } from '@/shared/lib/path/path'
+import Image from 'next/image'
 
 type Props = {}
 
@@ -92,25 +93,29 @@ export default function Sidebar() {
           label="Favorites"
           alt={'Favorites'}
         />
-        <div className={'mt-[180px]'}>
-          <SidebarItem
-            href=""
-            iconDefault={'/sidebarIcons/default/log-out.svg'}
-            iconHover={'/sidebarIcons/hover/log-out.svg'}
-            iconActive={'/sidebarIcons/active/log-out.svg'}
-            label="Log out"
-            alt={'Log out'}
-            onClick={() => setShowModal(true)}
-          />
-        </div>
+        {/*<div className={'mt-[180px]'}>*/}
+        {/*  <SidebarItem*/}
+        {/*    href=""*/}
+        {/*    iconDefault={'/sidebarIcons/default/log-out.svg'}*/}
+        {/*    iconHover={'/sidebarIcons/hover/log-out.svg'}*/}
+        {/*    iconActive={'/sidebarIcons/active/log-out.svg'}*/}
+        {/*    label="Log out"*/}
+        {/*    alt={'Log out'}*/}
+        {/*    onClick={() => setShowModal(true)}*/}
+        {/*  />*/}
+        {/*</div>*/}
       </ul>
+      <button onClick={() => setShowModal(true)} className={'flex items-center justify-center gap-[15px] mt-[180px]'}>
+        <Image src={'/sidebarIcons/default/log-out.svg'} alt={''} width={'18'} height={'20'} />
+        Log Out
+      </button>
       {showModal && (
         <Modal open={showModal} onClose={() => setShowModal(false)} modalTitle={'Log Out'}>
-          <p>Are you sure you want to log out {email}?</p>
+          <p className={'text-amber-50'}>Are you sure you want to log out {email}?</p>
           <div className={''}>
-            <div className={''}>
-              <Button variant={'outlined'} onClick={logoutHandler}>No</Button>
-              <Button variant={'primary'}  onClick={() => setShowModal(false)}>Yes</Button>
+            <div className={'flex gap-[15px] mt-[18px]'}>
+              <Button variant={'outlined'} onClick={logoutHandler}>Yes</Button>
+              <Button variant={'primary'}  onClick={() => setShowModal(false)}>No</Button>
             </div>
           </div>
         </Modal>

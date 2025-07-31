@@ -27,8 +27,6 @@ export const Modal = ({ modalTitle, width, height, onClose, children, open, ...r
           'transform -translate-x-1/2 -translate-y-1/2',
           'overflow-auto w-[90vw] max-w-[500px] max-h-[85vh]',
           'bg-dark-300 border border-dark-100',
-          'shadow-[0_4px_12px_rgba(0,0,0,0.3)]',
-          'animate-[contentShow_150ms_cubic-bezier(0.16,1,0.3,1)]',
           'focus:outline-none'
         )}
         style={{ width, height }}
@@ -41,14 +39,12 @@ export const Modal = ({ modalTitle, width, height, onClose, children, open, ...r
             {modalTitle}
           </Dialog.Title>
 
-          <Dialog.Close asChild>
+          <Dialog.Close>
             <button
               className={clsx(
                 'cursor-pointer flex items-center justify-center w-8 h-8',
                 'bg-transparent border-none',
-                'transition-all duration-200',
-                'hover:-translate-y-[10%] hover:scale-110',
-                'focus:outline-none focus:ring-2 focus:ring-[var(--accent-500)]'
+                'focus:outline-none focus:ring-2'
               )}
               aria-label="Close"
             >
@@ -56,7 +52,7 @@ export const Modal = ({ modalTitle, width, height, onClose, children, open, ...r
             </button>
           </Dialog.Close>
         </div>
-        <div className="m-[30px_24px] text-[16px] font-normal leading-6 text-[var(--light-100)]">
+        <div className="m-[30px_24px] text-[16px] font-normal leading-6 text-amber-50">
           {children}
         </div>
       </Dialog.Content>
