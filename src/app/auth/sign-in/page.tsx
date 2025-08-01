@@ -1,8 +1,7 @@
 import React from 'react'
-import { Registration } from './Registation/ui/Registration'
 
 function Page() {
-  return <Registration />
+  return <span>sign in</span>
 }
 
 export default Page
