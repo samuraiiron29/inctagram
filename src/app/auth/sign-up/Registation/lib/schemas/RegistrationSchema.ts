@@ -11,7 +11,11 @@ export const registrationSchema = z.object({
       error: `Пароль должен содержать хотя бы одну цифру, строчную, заглавную букву. Разрешены спецсимволы: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ { | } ~)
           `,
     }),
-  rememberMe: z.boolean(),
+  username: z
+    .string()
+    .min(6, 'Минимум 6 символов')
+    .max(30, 'Максимум 30 символов')
+    .regex(/^[a-zA-Z0-9_-]+$/, 'Разрешены только латинские буквы, цифры, _ и -'),
 })
 
 export type ZodInputs = z.infer<typeof registrationSchema>
