@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Page() {
-  return <div>Sign-in</div>
+  return <span>sign in</span>
 }
 
 export default Page
