@@ -1,23 +1,37 @@
 import { ChangeEvent, KeyboardEvent, useState } from "react"
-import { InputImage } from "./InputImage/inputImage"
+import Image from "next/image"
 
 type PropsType = {
   inputType?: string
   placeholder: string
   disabled?: boolean
+  imageSrc?: string
+  width?: number
+  height?: number
+  left?:boolean
   onChangeInput?: (text: string) => void
 }
 
-export const Input = ({inputType, placeholder, disabled, onChangeInput}: PropsType) => {
+export const Input = ({
+  inputType, 
+  placeholder, 
+  disabled, 
+  imageSrc, 
+  width, 
+  height, 
+  left, 
+  onChangeInput
+}: PropsType) => {
 
   const [text, setText] = useState("")
   const [typeInput, setTypeInput] = useState(inputType)
+  const [inputImage, setInputImage] = useState<string | undefined>(imageSrc)
   const [error, setError] = useState<string | null>(null)
 
   const onChangeHandler = () => {
     const trimmedText = text.trim()
     if (trimmedText !== "") {
-      // props.changeInput(trimmedText)
+      // changeInput(trimmedText)
       setText("")
     } else {
       setError(`${inputType} is required`)
@@ -40,14 +54,23 @@ export const Input = ({inputType, placeholder, disabled, onChangeInput}: PropsTy
   }
 
   const onChangeTypeInput = ()=>{
-    typeInput === "password" ? setTypeInput('text') : setTypeInput('password')
-    
+    if (typeInput === "password") {
+      setTypeInput('text'), 
+      setInputImage('/pass_eye.svg')
+    } else {
+      setTypeInput('password'), 
+      setInputImage(imageSrc)
+    }
   }
 
   const inputStyle = {
-    primary: `${inputType === "search" ? 'pl-[40px]': 'pl-[5px]'}  border rounded-xs outline-none border-[#333] 
+    input: `${inputType === "search" ? 'pl-[40px]': 'pl-[5px]'}  border rounded-xs outline-none border-[#333] 
     w-[280px] ${error ? 'border-danger-500' : 'border-[#333]'} 
     active:border-[#fff] hover:border-[#8D9094] focus:border-[#397DF6] disabled:border-[#4C4C4C] `,
+    image: {
+      password: `right-[8px] top-[1px]`,
+	    search: `left-[8px] top-[2px] z-[-1]`
+    }
   }
   
   return (
@@ -56,7 +79,7 @@ export const Input = ({inputType, placeholder, disabled, onChangeInput}: PropsTy
         value={text}
         onChange={changeTextHandler}
         type={typeInput}
-        className={inputStyle.primary}
+        className={inputStyle.input}
         onKeyDown={onEnterHandler}
         onBlur={onBlurHandler}
         placeholder={placeholder}
@@ -65,14 +88,15 @@ export const Input = ({inputType, placeholder, disabled, onChangeInput}: PropsTy
       <div className={'text-danger-500 absolute left-[5px] bottom-[-25px]'}>
         {error}
       </div>
-      {
-        inputType === "password" &&
-        <InputImage inputType={inputType} width={24} height={24} onChangeTypeInput={onChangeTypeInput}/>
-      }
-      {
-        inputType === "search" &&
-         <InputImage inputType={inputType} width={20} height={20}/>
-      }
+      {imageSrc && 
+      <Image 
+        src={`${inputImage}`} 
+        alt="svg" 
+        width={width} 
+        height={height} 
+        onClick={onChangeTypeInput} 
+        className={`cursor-pointer absolute ${left ? inputStyle.image.search : inputStyle.image.password}`}
+      />}
     </div>
   )
 }
