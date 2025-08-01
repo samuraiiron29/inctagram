@@ -18,8 +18,8 @@ const Page = () => {
           onClick={handleGitHubLogin}
           src="/oauthIcons/github.svg"
           alt="GitHub auth"
-          width={24}
-          height={24}
+          width={36}
+          height={36}
           className="cursor-pointer"
         />
       </div>
