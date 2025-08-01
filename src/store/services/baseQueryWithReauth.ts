@@ -1,5 +1,6 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { BaseQueryFn } from '@reduxjs/toolkit/query';
+import { deleteCookie, getCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
 
 export const baseQueryWithReauth: BaseQueryFn = async (args, api, extraOptions) => {
 
@@ -7,7 +8,7 @@ export const baseQueryWithReauth: BaseQueryFn = async (args, api, extraOptions) 
     baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
     credentials: 'include',
     prepareHeaders: (headers) => {
-      const token = localStorage.getItem('accessToken');
+      const token = getCookie('accessToken')
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
       }
@@ -26,17 +27,21 @@ export const baseQueryWithReauth: BaseQueryFn = async (args, api, extraOptions) 
       extraOptions
     );
 
-    const accessToken = (refreshResult.data as { accessToken: string })?.accessToken;
 
-    if (accessToken) {
-      localStorage.setItem('accessToken', accessToken);
-      // Повторяем запрос с новым токеном
-      result = await baseQuery(args, api, extraOptions);
-    } else {
-      localStorage.removeItem('accessToken');
-      if (typeof window !== 'undefined') {
-        window.location.href = 'auth/sign-in';
+
+
+    if (refreshResult.data) {
+      const accessToken = (refreshResult.data as { accessToken: string })?.accessToken;
+      if (accessToken) {
+        setCookie('accessToken', accessToken.trim(), 7);
+        // Повторяем запрос с новым токеном
+        result = await baseQuery(args, api, extraOptions);
+        if (typeof window !== 'undefined') {
+          window.location.reload()
+        }
       }
+    } else {
+      deleteCookie('accessToken');
     }
   }
 

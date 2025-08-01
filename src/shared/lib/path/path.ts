@@ -10,5 +10,12 @@ export const PATH = {
     REGISTRATION_CONFIRMATION: '/auth/registration-confirmation',
     REGISTRATION_EMAIL_RESENDING: '/auth/registration-email-resending',
     TERMS_OF_SERVICE: '/auth/terms-of-service',
-  }
+  },
+  FEED: '/feed',
+  POSTS: '/posts',
+  PROFILE: '/profile',
+  MESSENGER: '/messenger',
+  SEARCH: '/search',
+  STATISTICS: '/statistics',
+  FAVORITES: '/favorites',
 }
