@@ -23,7 +23,7 @@ export const Modal = ({ modalTitle, width, height, onClose, children, open, ...r
       />
       <Dialog.Content
         className={clsx(
-          'fixed z-[99999] top-1/2 left-1/2',
+          'fixed top-1/2 left-1/2',
           'transform -translate-x-1/2 -translate-y-1/2',
           'overflow-auto w-[90vw] max-w-[500px] max-h-[85vh]',
           'bg-dark-300 border border-dark-100',

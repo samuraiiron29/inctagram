@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAppDispatch } from '@/shared/lib/hooks/appHooks'
 import { setIsLoggedIn } from '@/store/slices/appSlice'
+import { setCookie } from '@/shared/lib/utils/cookieUtils'
 
 export default function Page() {
   const router = useRouter()
@@ -16,7 +17,7 @@ export default function Page() {
     const email = searchParams.get('email')
 
     if (accessToken && email) {
-      localStorage.setItem('accessToken', accessToken)
+      setCookie('accessToken', accessToken, 7)
       dispatch(setIsLoggedIn(true))
       router.push('/')
     } else {
