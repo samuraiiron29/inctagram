@@ -1,3 +1,4 @@
+'use client'
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
 import { type ZodInputs, registrationSchema } from '../lib/schemas/RegistrationSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -38,9 +39,9 @@ export const Registration = () => {
     <form onSubmit={handleSubmit(submitHandler)}>
       <Form.Root>
         <Form.Field name="email">
-          <Form.Label children={'email'} />
-          <Form.Message match={'valueMissing'} children={'enter your email'} />
-          <Form.Message match={'typeMismatch'} children={'enter a valid email'} />
+          <Form.Label>email</Form.Label>
+          <Form.Message match="valueMissing">enter your email</Form.Message>
+          <Form.Message match="typeMismatch">enter a valid email</Form.Message>
           <Form.Control>
             <TextArea id="email" required />
           </Form.Control>
