@@ -1,8 +1,19 @@
 {
   "header": {
+    "mainLogo": "Инктаграм",
     "buttons": {
       "login": "Зарегистрироваться",
       "sign": "Войти"
     }
+  },
+  "sidebar": {
+    "feed": "Новости",
+    "create": "Создать",
+    "my profile": "Мой Профиль",
+    "messenger": "Сообщения",
+    "search": "Поиск",
+    "statistics": "Статистика",
+    "favorites": "Избранное",
+    "logout": "Выйти"
   }
 }
