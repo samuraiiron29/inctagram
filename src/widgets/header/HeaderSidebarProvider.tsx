@@ -13,6 +13,7 @@ type Props = {
 const HeaderSidebarProvider = ({ children }: Props) => {
   const status = useAppSelector(selectAppStatus)
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
+
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />

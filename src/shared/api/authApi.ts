@@ -1,5 +1,6 @@
 import { baseApi } from '@/store/services/baseApi'
 import { setAppEmail, setIsLoggedIn, setUserId } from '@/store/slices/appSlice'
+import { deleteCookie } from '@/shared/lib/utils/cookieUtils'
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: build => ({
@@ -29,8 +30,10 @@ export const authApi = baseApi.injectEndpoints({
       }),
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         await queryFulfilled
+        deleteCookie('accessToken')
         dispatch(setIsLoggedIn(false))
         dispatch(setAppEmail(null))
+        dispatch(authApi.util.resetApiState())
       },
     }),
   }),

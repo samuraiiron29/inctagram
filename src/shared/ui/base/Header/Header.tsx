@@ -1,5 +1,6 @@
 import { AuthStatusControls } from '@/shared/ui/base/Header/AuthStatusControls/AuthStatusControls'
 import Link from 'next/link'
+import { useMeQuery } from '@/shared/api/authApi'
 import { useTranslation } from 'react-i18next'
 
 type Props = {
@@ -7,6 +8,7 @@ type Props = {
 }
 
 export const Header = ({ isLoggedIn = false }: Props) => {
+
   const { t } = useTranslation()
   return (
     <header className={'relative z-100 border-b border-dark-300 box-border'}>
