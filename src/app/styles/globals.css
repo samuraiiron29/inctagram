@@ -8,10 +8,6 @@
     color: var(--color-light-100) !important;
   }
 
-  button {
-    cursor: pointer !important;
-  }
-
   @keyframes progress {
     0% {
       left: -50%;
