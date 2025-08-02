@@ -33,7 +33,7 @@ export const Registration = () => {
   //       reset()}})}
 
   return (
-    <Flex direction={'column'} align={'center'} className="bg-fuchsia-900 p-5 m-5 rounded-3xl">
+    <Flex direction={'column'} align={'center'} className="bg-dark-100 p-5 m-5 rounded-3xl">
       <span>Sign Up</span>
       <Flex gap={'2'}>
         <Button children={'Gmail'} />
@@ -54,7 +54,7 @@ export const Registration = () => {
 
           <Form.Field name="email">
             <Flex className={fieldClassName}>
-              <Form.Label children={<span>Email</span>}></Form.Label>
+              <Form.Label children={<span>Email</span>} />
               <Form.Control asChild children={<input type="email" {...register('email')} />} />
             </Flex>
           </Form.Field>
