@@ -1,13 +1,11 @@
 'use client'
-
 import { useEffect, useState } from 'react'
 import { setIsLoggedIn } from '@/store/slices/appSlice'
 import LinearProgress from '@/shared/ui/base/Liner/LinearProgress'
 import { useAppDispatch } from '../lib/hooks'
 import { useMeQuery } from '../api'
 import { skipToken } from '@reduxjs/toolkit/query'
-import { getCookie } from '@/shared/lib/utils/cookieUtils'
- 
+import { getCookie } from '../lib/utils/cookieUtils'
 
 export function AuthInitializer({ children }: { children: React.ReactNode }) {
   const token = getCookie('accessToken')
