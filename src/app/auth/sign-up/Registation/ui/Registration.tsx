@@ -7,10 +7,10 @@ import { Box, Button, Flex, Text, TextArea } from '@radix-ui/themes'
 import { useAppDispatch } from '@/shared/lib/hooks/appHooks'
 import Checkbox from '@/shared/ui/base/CheckBox/CheckBox'
 import { useSignInMutation } from '@/shared/api/authApi'
+import type { Error, SingInResponse } from '@/shared/lib/types'
 
 export const Registration = () => {
   const [singIn] = useSignInMutation()
-  const dispatch = useAppDispatch()
   const fieldClassName = 'flex-col gap-3'
   const {
     register,
@@ -18,7 +18,7 @@ export const Registration = () => {
     watch,
     reset,
     control,
-
+    setError,
     formState: { errors, isValid },
   } = useForm<ZodInputs>({
     resolver: zodResolver(registrationSchema),
@@ -34,7 +34,6 @@ export const Registration = () => {
   })
 
   const onSubmit = async (data: ZodInputs) => {
-    console.log(data)
     try {
       await singIn({ userName: data.firstName, email: data.email, password: data.password }).unwrap()
       reset({
@@ -45,21 +44,26 @@ export const Registration = () => {
         rememberMe: false,
       })
     } catch (error) {
-      debugger
-      throw error
+      const er = error as Error
+      // console.log(er)
+      // throw error
+      if (er.status === 400 && er.data.messages.length > 0) {
+        const message = er.data.messages[0].message
+        // debugger
+        if (message.includes('email')) {
+          // debugger
+          setError('email', { type: 'server', message: er.data.messages[0].message })
+        } else if (message.includes('userName')) {
+          setError('firstName', { message: er.data.messages[0].message })
+        } else {
+          console.log('unknown error')
+          setError('root', { message: 'unknown error' })
+        }
+      } else {
+        console.log('servers error', error)
+      }
     }
-
-    // alert('sended message')
   }
-  // const onSubmit: SubmitHandler<Inputs> = data => {
-  //   login(data).then(res => {
-  //     if (res.data?.resultCode === ResultCode.Success) {
-  //       dispatch(setIsLoggedInAC({ isLoggedIn: true }))
-  //       localStorage.setItem(AUTH_TOKEN, res.data.data.token)
-  //       reset()}})}
-
-  // console.log(watch('email'))
-  console.log(isValid)
   return (
     <Flex direction={'column'} align={'center'} className="bg-dark-100 p-5 m-5 rounded-3xl">
       <span>Sign Up</span>
@@ -78,7 +82,7 @@ export const Registration = () => {
             />
             {errors.firstName && (
               <Text color="red" size="1">
-                {errors.firstName.message}
+                {errors.firstName?.message}
               </Text>
             )}
           </Flex>
@@ -91,7 +95,7 @@ export const Registration = () => {
           </Flex>
           {errors.email && (
             <Text color="red" size="1">
-              {errors.email.message}
+              {errors.email?.message}
             </Text>
           )}
         </Form.Field>
@@ -102,7 +106,7 @@ export const Registration = () => {
             <Form.Control asChild children={<input type="text" autoComplete="password" {...register('password')} />} />
             {errors.password && (
               <Text color="red" size="1">
-                {errors.password.message}
+                {errors.password?.message}
               </Text>
             )}
           </Flex>
@@ -110,7 +114,7 @@ export const Registration = () => {
 
         <Form.Field name="confirmPassword">
           <Flex className={fieldClassName}>
-            <h1>Qwerty1234!2</h1>
+            {/* <h1>Qwerty1234!2</h1> */}
             <Form.Label children={<span>confirmPassword</span>} />
             <Form.Control asChild children={<input type="text" autoComplete="confirmPassword" {...register('confirmPassword')} />} />
             {errors.confirmPassword && (

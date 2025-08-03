@@ -11,11 +11,13 @@ import { UserHeader } from '@/shared/ui/UserHeader/UserHeader'
 import { formatTimeAgo } from '@/shared/lib/utils/formatTimeAgo'
 import Image from 'next/image'
 import { RegistrationUsers } from '@/shared/ui/HomePage/registrationUsers'
-import { useConfirmMutation } from '@/shared/api/authApi'
+
 import { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 import { PATH } from '@/shared/lib/path/path'
+import { Button } from '@radix-ui/themes'
+import { useDeleteUserProfileMutation } from '@/shared/api/authApi'
 
 type Props = {
   count: string
@@ -23,23 +25,17 @@ type Props = {
 
 export const HomePage = ({ count }: Props) => {
   const { data: postsData } = useGetPublicPostsQuery(4)
-  const [confirm] = useConfirmMutation()
-
-  const searchParams = useSearchParams()
-  const route = useRouter()
-  const code = searchParams.get('code')
-  useEffect(() => {
-    if (!code) {
-      route.push(PATH.AUTH.LOGIN)
-    } else {
-      confirm({ confirmationCode: code })
-      route.push(PATH.AUTH.REGISTRATION_CONFIRMATION)
-    }
-  }, [])
+  const [deleteUser] = useDeleteUserProfileMutation()
   return (
     <div className={'max-w-[972px] mx-auto my-[24px]'}>
       <RegistrationUsers count={count} />
-
+      <Button
+        onClick={() => {
+          debugger
+          deleteUser()
+        }}
+        children={'deletni menya'}
+      />
       <div className="grid grid-cols-4 gap-4 w-full">
         {postsData?.items.map(post => (
           <div key={post.id} className="rounded overflow-hidden w-[240px] h-[390px]">

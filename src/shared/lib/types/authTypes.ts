@@ -5,9 +5,12 @@ export type SingInResponse = {
 }
 
 export type Error = {
-  statusCode: StatusCode
-  messages: ErrorMessage[]
-  error: string
+  data: {
+    statusCode: number
+    messages: ErrorMessage[]
+    error: string
+  }
+  status: number
 }
 export type ErrorMessage = {
   message: string
