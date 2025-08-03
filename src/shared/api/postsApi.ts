@@ -1,5 +1,6 @@
 import { baseApi } from '@/store/services/baseApi'
-import { GetPublicPostsResponse } from '@/shared/lib/types/postsTypes'
+import type { GetPublicPostsResponse } from '../lib/types'
+
 
 export const postsApi = baseApi.injectEndpoints({
   endpoints: build => ({

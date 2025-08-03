@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { PATH } from '@/shared/lib/path/path'
+import { PATH } from './shared/lib/path'
+
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl

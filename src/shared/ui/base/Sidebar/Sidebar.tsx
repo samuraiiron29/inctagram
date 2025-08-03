@@ -1,12 +1,10 @@
 'use client'
-
 import { SidebarItem } from '@/shared/ui/base/Sidebar/SidebarItem'
 import { useState } from 'react'
 import Image from 'next/image'
 import { LogOut } from '@/shared/ui/base/LogOut/LogOut'
-import { PATH } from '@/shared/lib/path/path'
 import { useTranslation } from 'react-i18next'
-
+import { PATH } from '@/shared/lib/path'
 export default function Sidebar() {
   const [showModal, setShowModal] = useState(false)
   const { t } = useTranslation()
