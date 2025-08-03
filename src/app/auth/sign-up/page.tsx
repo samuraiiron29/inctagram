@@ -6,7 +6,7 @@ import { Form } from 'radix-ui'
 import { useForm, Controller } from 'react-hook-form'
 import type { Error, ZodInputs } from '@/shared/lib/types'
 import Checkbox from '@/shared/ui/base/CheckBox/CheckBox'
-import { useSignInMutation } from '@/shared/api'
+import { useSignInMutation, useSignUpMutation } from '@/shared/api'
 
 import { registrationSchema } from '@/shared/lib/schemas'
 
@@ -16,7 +16,7 @@ const Page = () => {
     const loginUrl = `${process.env.NEXT_PUBLIC_BASE_URL}auth/github/login?redirect_url=${redirectUrl}`
     window.location.href = loginUrl
   }
-  const [singIn] = useSignInMutation()
+  const [singUp] = useSignUpMutation()
   const fieldClassName = 'flex-col gap-3'
   const {
     register,
@@ -41,7 +41,7 @@ const Page = () => {
 
   const onSubmit = async (data: ZodInputs) => {
     try {
-      await singIn({ userName: data.firstName, email: data.email, password: data.password }).unwrap()
+      await singUp({ userName: data.firstName, email: data.email, password: data.password }).unwrap()
       reset({
         firstName: '',
         email: '',
@@ -71,11 +71,7 @@ const Page = () => {
     }
   }
   return (
- 
-    <>
- 
     <div>
- 
       <div className={'flex flex-col items-center my-[20px] '}>
         <div>Sign Up</div>
         <div className={'flex flex-col items-center bg-accent-100 rounded py-[16px]'}>
@@ -90,7 +86,7 @@ const Page = () => {
           />
         </div>
       </div>
- 
+
       <Flex direction={'column'} align={'center'} className="bg-dark-100 p-5 m-5 rounded-3xl">
         <span>Sign Up</span>
         <Flex gap={'2'}>
@@ -177,26 +173,7 @@ const Page = () => {
         <span>Do you have an account?</span>
         <Flex className="text-accent-500">Sing In</Flex>
       </Flex>
-    </>
- 
-
-      {/*// <div className={'flex flex-col items-center my-[20px] '}>*/}
-      {/*//   <div>Sign Up</div>*/}
-      {/*//   <div className={'flex flex-col items-center bg-accent-100 rounded py-[16px]'}>*/}
-      {/*//     <p>Sign Up using GitHub</p>*/}
-      {/*//     <Image*/}
-      {/*//       onClick={handleGitHubLogin}*/}
-      {/*//       src="/oauthIcons/github.svg"*/}
-      {/*//       alt="GitHub auth"*/}
-      {/*//       width={24}*/}
-      {/*//       height={24}*/}
-      {/*//       className="cursor-pointer"*/}
-      {/*//     />*/}
-      {/*//   </div>*/}
-      {/*// </div>*/}
-      <Registration />
     </div>
- 
   )
 }
 
