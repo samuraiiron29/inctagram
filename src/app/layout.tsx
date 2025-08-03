@@ -4,7 +4,7 @@ import './styles/globals.css'
 import StoreProvider from '@/store/StoreProvider'
 import { Theme } from '@radix-ui/themes'
 import HeaderSidebarProvider from '@/widgets/header/HeaderSidebarProvider'
-import '../shared/config/i18n/i18n'
+import '../shared/config/i18n'
 import { AuthInitializer } from '@/shared/providers/AuthInitializer'
 
 export const metadata: Metadata = {

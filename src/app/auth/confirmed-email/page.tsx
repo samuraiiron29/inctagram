@@ -1,4 +1,4 @@
-import { RegistrationConfirmation } from '../sign-up/Registation/ui/RegistrationConfirmation'
+import { RegistrationConfirmation } from '../registration-confirmation/RegistrationConfirmation'
 
 const Page = () => {
   return <div>///</div>

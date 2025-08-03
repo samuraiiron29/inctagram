@@ -2,7 +2,8 @@ import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import { baseApi } from '@/store/services/baseApi'
 import appSlice from '@/store/slices/appSlice'
-import { baseDeepSeekApi } from '../shared/api/baseDeepApi'
+import { baseDeepSeekApi } from '@/shared/api'
+
 export const store = configureStore({
   reducer: {
     app: appSlice,

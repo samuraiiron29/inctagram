@@ -1,6 +1,5 @@
 'use client'
 
-import { useGetPublicPostsQuery } from '@/shared/api/postsApi'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination } from 'swiper/modules'
 import Link from 'next/link'
@@ -11,13 +10,9 @@ import { UserHeader } from '@/shared/ui/UserHeader/UserHeader'
 import { formatTimeAgo } from '@/shared/lib/utils/formatTimeAgo'
 import Image from 'next/image'
 import { RegistrationUsers } from '@/shared/ui/HomePage/registrationUsers'
-
-import { useEffect } from 'react'
-import { useSearchParams } from 'next/navigation'
-import { useRouter } from 'next/navigation'
-import { PATH } from '@/shared/lib/path/path'
 import { Button } from '@radix-ui/themes'
-import { useDeleteUserProfileMutation } from '@/shared/api/authApi'
+import { useDeleteUserProfileMutation, useGetPublicPostsQuery } from '@/shared/api'
+
 
 type Props = {
   count: string

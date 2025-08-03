@@ -1,9 +1,10 @@
+'use client'
 import { Button } from '@/shared/ui/base/Button/Button'
 import { Modal } from '@/shared/ui/Modal/Modal'
-import { useAppSelector } from '@/shared/lib/hooks/appHooks'
 import { selectAppEmail } from '@/store/slices/appSlice'
-import { PATH } from '@/shared/lib/path/path'
-import { useLogoutMutation } from '@/shared/api/authApi'
+import { useAppSelector } from '@/shared/lib/hooks'
+import { useLogoutMutation } from '@/shared/api'
+import { PATH } from '@/shared/lib/path'
 
 type Props = {
   showModal: boolean

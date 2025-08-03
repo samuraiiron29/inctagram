@@ -26,5 +26,3 @@ export const registrationSchema = z
     message: 'Пароли не совпадают',
     path: ['confirmPassword'],
   })
-
-export type ZodInputs = z.infer<typeof registrationSchema>

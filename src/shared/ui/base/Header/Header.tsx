@@ -1,6 +1,6 @@
 import { AuthStatusControls } from '@/shared/ui/base/Header/AuthStatusControls/AuthStatusControls'
 import Link from 'next/link'
-import { useMeQuery } from '@/shared/api/authApi'
+
 import { useTranslation } from 'react-i18next'
 
 type Props = {
