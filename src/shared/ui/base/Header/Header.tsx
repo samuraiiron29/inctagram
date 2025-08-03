@@ -8,7 +8,6 @@ type Props = {
 }
 
 export const Header = ({ isLoggedIn = false }: Props) => {
-
   const { t } = useTranslation()
   return (
     <header className={'relative z-100 border-b border-dark-300 box-border'}>

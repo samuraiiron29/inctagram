@@ -10,7 +10,8 @@ import { useMeQuery } from '../api'
 
 
 export function AuthInitializer({ children }: { children: React.ReactNode }) {
-  const { data, isLoading, isError, isSuccess } = useMeQuery()
+  const token = getCookie('accessToken')
+  const { data, isLoading, isError, isSuccess } = useMeQuery(token ? undefined : skipToken)
   const dispatch = useAppDispatch()
   const [isInitialized, setIsInitialized] = useState(false)
 
@@ -27,7 +28,7 @@ export function AuthInitializer({ children }: { children: React.ReactNode }) {
   }, [isLoading, isSuccess, isError, data])
 
   if (!isInitialized) {
-    return <LinearProgress/>
+    return <LinearProgress />
   }
 
   return <>{children}</>

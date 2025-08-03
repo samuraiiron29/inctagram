@@ -97,7 +97,7 @@ export const Select = ({
         </button>
 
         {isOpen && (
-          <ul className="absolute top-10 z-50 mt-1 w-full max-h-52 overflow-auto bg-dark-500 border border-dark-100 rounded-md shadow-lg">
+          <ul className="absolute top-9 z-50 mt-1 w-full max-h-52 overflow-auto bg-dark-500 border border-dark-100 rounded-md shadow-lg">
             {actualOptions?.map((option, i) => (
               <li
                 key={i}
