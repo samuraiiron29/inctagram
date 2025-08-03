@@ -6,13 +6,10 @@ import { Form } from 'radix-ui'
 import { Box, Button, Flex, Text, TextArea } from '@radix-ui/themes'
 import { useAppDispatch } from '@/shared/lib/hooks/appHooks'
 import Checkbox from '@/shared/ui/base/CheckBox/CheckBox'
-
-// import { ResultCode } from '@/common/enums'
-// import { useLoginMutation } from '@/features/auth/api/authApi'
-// import { setIsLoggedInAC } from '@/app/app-slice'
+import { useSignInMutation } from '@/shared/api/authApi'
 
 export const Registration = () => {
-  // const [login] = useLoginMutation()
+  const [singIn] = useSignInMutation()
   const dispatch = useAppDispatch()
   const fieldClassName = 'flex-col gap-3'
   const {
@@ -27,7 +24,7 @@ export const Registration = () => {
     resolver: zodResolver(registrationSchema),
     mode: 'all',
     defaultValues: {
-      firstName: 'Qwertyyyy',
+      firstName: 'Qwerty',
       email: 'aaaa@mail.com',
       password: 'Qwerty12345!@#',
       confirmPassword: 'Qwerty12345!@#',
@@ -35,8 +32,24 @@ export const Registration = () => {
     },
     shouldFocusError: true,
   })
-  const onSubmit = (data: ZodInputs) => {
+
+  const onSubmit = async (data: ZodInputs) => {
     console.log(data)
+    try {
+      await singIn({ userName: data.firstName, email: data.email, password: data.password }).unwrap()
+      reset({
+        firstName: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        rememberMe: false,
+      })
+    } catch (error) {
+      debugger
+      throw error
+    }
+
+    // alert('sended message')
   }
   // const onSubmit: SubmitHandler<Inputs> = data => {
   //   login(data).then(res => {
@@ -54,11 +67,6 @@ export const Registration = () => {
         <Button children={'Gmail'} />
         <Button children={'GitHub'} />
       </Flex>
-      {/* <TextField label="Email" margin="normal" error={!!errors.email} {...register('email')} />
-        {errors.email && <span className={styles.errorMessage}>{errors.email.message}</span>}
-        <TextField type="password" label="Password" margin="normal" error={!!errors.email} {...register('password')} />
-        {errors.password && <span className={styles.errorMessage}>{errors.password.message}</span>} */}
-
       <Form.Root onSubmit={handleSubmit(onSubmit)}>
         <Form.Field name="firstName">
           <Flex className={fieldClassName}>
@@ -112,13 +120,6 @@ export const Registration = () => {
             )}
           </Flex>
         </Form.Field>
-
-        {/* <Form.Field name="password">
-          <Flex className={fieldClassName}>
-            <Form.Label children={<span>Password confirmation</span>} />
-            <Form.Control asChild children={<input type="password" {...register('password')} />} />
-          </Flex>
-        </Form.Field> */}
 
         <Flex>
           <Controller

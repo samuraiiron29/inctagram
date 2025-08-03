@@ -1,8 +1,7 @@
 import { RegistrationConfirmation } from '../sign-up/Registation/ui/RegistrationConfirmation'
 
 const Page = () => {
-  return <div>///</div>
+  return <RegistrationConfirmation />
 }
 
 export default Page
-// news

@@ -1,13 +1,17 @@
 import { baseApi } from '@/store/services/baseApi'
 import { setAppEmail, setIsLoggedIn, setUserId } from '@/store/slices/appSlice'
 import { deleteCookie } from '@/shared/lib/utils/cookieUtils'
+import type { SingInResponse } from '../lib/types'
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+const baseUrl2 = 'http://localhost:3000/'
 export const authApi = baseApi.injectEndpoints({
   endpoints: build => ({
     me: build.query<{ userId: number; userName: string; email: string; isBlocked: boolean }, void>({
       query: () => ({
         url: 'auth/me',
         method: 'GET',
+        credentials: 'include',
       }),
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
@@ -36,7 +40,22 @@ export const authApi = baseApi.injectEndpoints({
         dispatch(authApi.util.resetApiState())
       },
     }),
+    signIn: build.mutation<void, SingInResponse>({
+      query: args => ({
+        url: 'auth/registration',
+        method: 'POST',
+        body: { ...args, baseUrl2 },
+      }),
+    }),
+    confirm: build.mutation<void, { confirmationCode: string }>({
+      query: args => ({
+        url: 'auth/registration-confirmation',
+        method: 'POST',
+        body: { ...args },
+      }),
+    }),
   }),
 })
 
-export const { useMeQuery, useLogoutMutation } = authApi
+export const { useMeQuery, useLogoutMutation, useSignInMutation, useConfirmMutation } = authApi
+

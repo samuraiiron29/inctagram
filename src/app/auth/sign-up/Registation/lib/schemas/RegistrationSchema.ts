@@ -18,7 +18,9 @@ export const registrationSchema = z
         message: `Пароль должен содержать хотя бы одну цифру, строчную, заглавную букву. Разрешены спецсимволы: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ { | } ~)`,
       }),
     confirmPassword: z.string(),
-    rememberMe: z.boolean(),
+    rememberMe: z.boolean().refine(val => val === true, {
+      message: 'You must accept the terms',
+    }),
   })
   .refine(data => data.password === data.confirmPassword, {
     message: 'Пароли не совпадают',

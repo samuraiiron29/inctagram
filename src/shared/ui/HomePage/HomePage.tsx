@@ -11,18 +11,33 @@ import { UserHeader } from '@/shared/ui/UserHeader/UserHeader'
 import { formatTimeAgo } from '@/shared/lib/utils/formatTimeAgo'
 import Image from 'next/image'
 import { RegistrationUsers } from '@/shared/ui/HomePage/registrationUsers'
+import { useConfirmMutation } from '@/shared/api/authApi'
+import { useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
+import { PATH } from '@/shared/lib/path/path'
 
 type Props = {
   count: string
 }
 
-
 export const HomePage = ({ count }: Props) => {
   const { data: postsData } = useGetPublicPostsQuery(4)
+  const [confirm] = useConfirmMutation()
 
+  const searchParams = useSearchParams()
+  const route = useRouter()
+  const code = searchParams.get('code')
+  useEffect(() => {
+    if (!code) {
+      route.push(PATH.AUTH.LOGIN)
+    } else {
+      confirm({ confirmationCode: code })
+      route.push(PATH.AUTH.REGISTRATION_CONFIRMATION)
+    }
+  }, [])
   return (
     <div className={'max-w-[972px] mx-auto my-[24px]'}>
-
       <RegistrationUsers count={count} />
 
       <div className="grid grid-cols-4 gap-4 w-full">
