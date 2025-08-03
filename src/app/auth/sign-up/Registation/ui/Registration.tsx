@@ -17,20 +17,28 @@ export const Registration = () => {
   const {
     register,
     handleSubmit,
+    watch,
     reset,
     control,
+
     formState: { errors },
   } = useForm<ZodInputs>({
     resolver: zodResolver(registrationSchema),
-    defaultValues: { email: '', password: '', username: '' },
+    mode: 'onSubmit',
+    defaultValues: { firstName: '', email: '', password: '', confirmPassword: '' },
+    shouldFocusError: true,
   })
-  const submitHandler = () => {}
+  const onSubmit = (data: ZodInputs) => {
+    console.log(data)
+  }
   // const onSubmit: SubmitHandler<Inputs> = data => {
   //   login(data).then(res => {
   //     if (res.data?.resultCode === ResultCode.Success) {
   //       dispatch(setIsLoggedInAC({ isLoggedIn: true }))
   //       localStorage.setItem(AUTH_TOKEN, res.data.data.token)
   //       reset()}})}
+
+  // console.log(watch('email'))
 
   return (
     <Flex direction={'column'} align={'center'} className="bg-dark-100 p-5 m-5 rounded-3xl">
@@ -43,54 +51,86 @@ export const Registration = () => {
         {errors.email && <span className={styles.errorMessage}>{errors.email.message}</span>}
         <TextField type="password" label="Password" margin="normal" error={!!errors.email} {...register('password')} />
         {errors.password && <span className={styles.errorMessage}>{errors.password.message}</span>} */}
-      <form onSubmit={handleSubmit(submitHandler)}>
-        <Form.Root>
-          <Form.Field name="username">
-            <Flex className={fieldClassName}>
-              <Form.Label children={<span>Username</span>} />
-              <Form.Control asChild children={<input type="text" {...register('username')} />} />
-            </Flex>
-          </Form.Field>
 
-          <Form.Field name="email">
-            <Flex className={fieldClassName}>
-              <Form.Label children={<span>Email</span>} />
-              <Form.Control asChild children={<input type="email" {...register('email')} />} />
-            </Flex>
-          </Form.Field>
-
-          <Form.Field name="password">
-            <Flex className={fieldClassName}>
-              <Form.Label children={<span>Password</span>} />
-              <Form.Control asChild children={<input type="password" {...register('password')} />} />
-            </Flex>
-          </Form.Field>
-
-          <Form.Field name="password">
-            <Flex className={fieldClassName}>
-              <Form.Label children={<span>Password confirmation</span>} />
-              <Form.Control asChild children={<input type="password" {...register('password')} />} />
-            </Flex>
-          </Form.Field>
-
-          <Flex>
-            <Checkbox />
-            <Text>
-              <span>I agree to the </span>
-              <Button variant="outline">
-                <span>Terms of Service</span>
-              </Button>
-              <span>and</span>
-              <Button variant="outline">
-                <span>Privacy Policy</span>
-              </Button>
-            </Text>
+      <Form.Root onSubmit={handleSubmit(onSubmit)}>
+        <Form.Field name="firstName">
+          <Flex className={fieldClassName}>
+            <Form.Label children={<span>Username</span>} />
+            <Form.Control
+              asChild
+              children={<input type="text" autoComplete="firstName" {...register('firstName')} />}
+              placeholder="Hello"
+            />
+            {errors.firstName && (
+              <Text color="red" size="1">
+                {errors.firstName.message}
+              </Text>
+            )}
           </Flex>
-          <Form.Submit asChild children={<Button type="submit" variant="classic" children={'Sign Up'} />} />
-        </Form.Root>
-      </form>
+        </Form.Field>
+
+        <Form.Field name="email">
+          <Flex className={fieldClassName}>
+            <Form.Label children={<span>Email</span>} />
+            <Form.Control asChild children={<input type="email" autoComplete="email" {...register('email')} />} />
+          </Flex>
+          {errors.email && (
+            <Text color="red" size="1">
+              {errors.email.message}
+            </Text>
+          )}
+        </Form.Field>
+
+        <Form.Field name="password">
+          <Flex className={fieldClassName}>
+            <Form.Label children={<span>Password</span>} />
+            <Form.Control asChild children={<input type="text" autoComplete="password" {...register('password')} />} />
+            {errors.password && (
+              <Text color="red" size="1">
+                {errors.password.message}
+              </Text>
+            )}
+          </Flex>
+        </Form.Field>
+
+        <Form.Field name="confirmPassword">
+          <Flex className={fieldClassName}>
+            <h1>Qwerty1234!2</h1>
+            <Form.Label children={<span>confirmPassword</span>} />
+            <Form.Control asChild children={<input type="text" autoComplete="confirmPassword" {...register('confirmPassword')} />} />
+            {errors.confirmPassword && (
+              <Text color="red" size="1">
+                {errors.confirmPassword.message}
+              </Text>
+            )}
+          </Flex>
+        </Form.Field>
+
+        {/* <Form.Field name="password">
+          <Flex className={fieldClassName}>
+            <Form.Label children={<span>Password confirmation</span>} />
+            <Form.Control asChild children={<input type="password" {...register('password')} />} />
+          </Flex>
+        </Form.Field> */}
+
+        <Flex>
+          <Checkbox />
+          <Text>
+            <span>I agree to the </span>
+            <Button variant="ghost">
+              <span>Terms of Service</span>
+            </Button>
+            <span>and</span>
+            <Button variant="ghost">
+              <span>Privacy Policy</span>
+            </Button>
+          </Text>
+        </Flex>
+        <Form.Submit asChild children={<Button type="submit" variant="classic" children={'Sign Up'} />} />
+      </Form.Root>
+
       <span>Do you have an account?</span>
-      <Button>Sing In</Button>
+      <Flex className="text-accent-500">Sing In</Flex>
     </Flex>
   )
 }
