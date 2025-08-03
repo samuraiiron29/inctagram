@@ -28,7 +28,7 @@ export default function Sidebar() {
       alt: t('sidebar.create'),
     },
     {
-      href: PATH.PROFILE,
+      href: PATH.USERS.PROFILE,
       iconDefault: '/sidebarIcons/default/person.svg',
       iconHover: '/sidebarIcons/hover/person.svg',
       iconActive: '/sidebarIcons/active/person.svg',

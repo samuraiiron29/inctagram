@@ -71,7 +71,11 @@ const Page = () => {
     }
   }
   return (
+ 
     <>
+ 
+    <div>
+ 
       <div className={'flex flex-col items-center my-[20px] '}>
         <div>Sign Up</div>
         <div className={'flex flex-col items-center bg-accent-100 rounded py-[16px]'}>
@@ -86,6 +90,7 @@ const Page = () => {
           />
         </div>
       </div>
+ 
       <Flex direction={'column'} align={'center'} className="bg-dark-100 p-5 m-5 rounded-3xl">
         <span>Sign Up</span>
         <Flex gap={'2'}>
@@ -173,6 +178,25 @@ const Page = () => {
         <Flex className="text-accent-500">Sing In</Flex>
       </Flex>
     </>
+ 
+
+      {/*// <div className={'flex flex-col items-center my-[20px] '}>*/}
+      {/*//   <div>Sign Up</div>*/}
+      {/*//   <div className={'flex flex-col items-center bg-accent-100 rounded py-[16px]'}>*/}
+      {/*//     <p>Sign Up using GitHub</p>*/}
+      {/*//     <Image*/}
+      {/*//       onClick={handleGitHubLogin}*/}
+      {/*//       src="/oauthIcons/github.svg"*/}
+      {/*//       alt="GitHub auth"*/}
+      {/*//       width={24}*/}
+      {/*//       height={24}*/}
+      {/*//       className="cursor-pointer"*/}
+      {/*//     />*/}
+      {/*//   </div>*/}
+      {/*// </div>*/}
+      <Registration />
+    </div>
+ 
   )
 }
 
