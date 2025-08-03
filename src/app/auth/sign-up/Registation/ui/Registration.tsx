@@ -3,8 +3,9 @@ import { Controller, type SubmitHandler, useForm } from 'react-hook-form'
 import { type ZodInputs, registrationSchema } from '../lib/schemas/RegistrationSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form } from 'radix-ui'
-import { Box, Button, Checkbox, Flex, Text, TextArea } from '@radix-ui/themes'
+import { Box, Button, Flex, Text, TextArea } from '@radix-ui/themes'
 import { useAppDispatch } from '@/shared/lib/hooks/appHooks'
+import Checkbox from '@/shared/ui/base/CheckBox/CheckBox'
 
 // import { ResultCode } from '@/common/enums'
 // import { useLoginMutation } from '@/features/auth/api/authApi'
@@ -21,11 +22,17 @@ export const Registration = () => {
     reset,
     control,
 
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<ZodInputs>({
     resolver: zodResolver(registrationSchema),
-    mode: 'onSubmit',
-    defaultValues: { firstName: '', email: '', password: '', confirmPassword: '' },
+    mode: 'all',
+    defaultValues: {
+      firstName: 'Qwertyyyy',
+      email: 'aaaa@mail.com',
+      password: 'Qwerty12345!@#',
+      confirmPassword: 'Qwerty12345!@#',
+      rememberMe: false,
+    },
     shouldFocusError: true,
   })
   const onSubmit = (data: ZodInputs) => {
@@ -39,7 +46,7 @@ export const Registration = () => {
   //       reset()}})}
 
   // console.log(watch('email'))
-
+  console.log(isValid)
   return (
     <Flex direction={'column'} align={'center'} className="bg-dark-100 p-5 m-5 rounded-3xl">
       <span>Sign Up</span>
@@ -114,7 +121,14 @@ export const Registration = () => {
         </Form.Field> */}
 
         <Flex>
-          <Checkbox />
+          <Controller
+            {...register('rememberMe')}
+            name="rememberMe"
+            control={control}
+            render={({ field }) => {
+              return <Checkbox checked={field.value} onChange={checked => field.onChange(checked)} />
+            }}
+          />
           <Text>
             <span>I agree to the </span>
             <Button variant="ghost">
@@ -126,7 +140,7 @@ export const Registration = () => {
             </Button>
           </Text>
         </Flex>
-        <Form.Submit asChild children={<Button type="submit" variant="classic" children={'Sign Up'} />} />
+        <Form.Submit asChild children={<Button type="submit" variant="classic" disabled={!isValid} children={'Sign Up'} />} />
       </Form.Root>
 
       <span>Do you have an account?</span>

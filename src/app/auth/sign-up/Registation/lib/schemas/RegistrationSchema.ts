@@ -13,11 +13,12 @@ export const registrationSchema = z
     password: z
       .string()
       .min(6, { message: 'Пароль должен быть больше 6-ти знаков' })
-      .max(20, { error: 'Пароль должен быть до 20-ти знаков' })
+      .max(20, { message: 'Пароль должен быть до 20-ти знаков' })
       .regex(passwordReges, {
         message: `Пароль должен содержать хотя бы одну цифру, строчную, заглавную букву. Разрешены спецсимволы: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ { | } ~)`,
       }),
     confirmPassword: z.string(),
+    rememberMe: z.boolean(),
   })
   .refine(data => data.password === data.confirmPassword, {
     message: 'Пароли не совпадают',
