@@ -1,14 +1,14 @@
-import { ReactNode } from "react"
+import { FormEvent, HTMLAttributes, ReactNode } from 'react'
 
-type PropsType = {
+type PropsType = HTMLAttributes<HTMLFormElement> & {
   children: ReactNode
-  onSubmitHandler: () => void
+  onSubmit?: (e: FormEvent<HTMLFormElement>) => void
 }
 
-export const Cards = ({children, onSubmitHandler}: PropsType) => {
+export const Cards = ({ children, onSubmit }: PropsType) => {
   return (
-      <form onSubmit={onSubmitHandler} className='bg-[#171717] rounded-xs border border-[#333] p-[24px] m-[auto]'>
-        {children}
-      </form>
+    <form onSubmit={onSubmit} className="bg-[#171717] rounded-xs border border-[#333] p-[24px] m-[auto]">
+      {children}
+    </form>
   )
 }

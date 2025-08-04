@@ -4,6 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { ZodInputs } from '@/shared/lib/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { registrationSchema } from '@/shared/lib/schemas'
+import { Cards } from '@/shared/ui/base/Cards/Cards'
 
 export default function Page() {
   const methods = useForm<ZodInputs>({
@@ -14,11 +15,11 @@ export default function Page() {
   return (
     <>
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(console.log)}>
+        <Cards onSubmit={methods.handleSubmit(console.log)}>
           <Input type="email" name="email" width={'300'} />
           <Input type="password" name="password" width={'300'} />
           <button type="submit">Submit</button>
-        </form>
+        </Cards>
       </FormProvider>
     </>
   )

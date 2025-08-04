@@ -8,24 +8,24 @@ import React from 'react'
 function Page() {
   return (
     <>
-      <Cards onSubmitHandler={()=>{}}>
+      <Cards onSubmitHandler={() => {}}>
         <div>Sign In</div>
         <div className={'flex flex-row justify-around'}>
-          <div >
+          <div>
             <Link href="/">
-              <Image src={'/google.svg'} alt='google' width={36} height={36} />
+              <Image src={'/google.svg'} alt="google" width={36} height={36} />
             </Link>
           </div>
           <div>
             <Link href="/">
-              <Image src={'/git_logo.svg'} alt='google' width={36} height={36} />
+              <Image src={'/git_logo.svg'} alt="google" width={36} height={36} />
             </Link>
           </div>
         </div>
         <span>Email</span>
-        <Input inputType='email' placeholder="Epam@epam.com"/>
+        <Input type="email" name={'email'} />
         <span>Password</span>
-        <Input inputType='password' placeholder="Password" imageSrc={'/eye-off.svg'} width={24} height={24}/>
+        <Input type="password" name={'password'} />
       </Cards>
     </>
   )
