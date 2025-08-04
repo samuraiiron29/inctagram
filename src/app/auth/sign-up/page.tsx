@@ -72,36 +72,130 @@ const Page = () => {
   }
   return (
 
-    <div className={'flex flex-col items-center my-[20px] '}>
-      <div>Sign Up</div>
-      <div className={'flex flex-col items-center bg-accent-100 rounded py-[16px]'}>
-        <p>Sign Up using GitHub</p>
-        <Image
-          onClick={handleGitHubLogin}
-          src="/oauthIcons/github.svg"
-          alt="GitHub auth"
-          width={36}
-          height={36}
-          className="cursor-pointer"
-        />
-      </div>
-    </div>
+    <>
 
-    // <div className={'flex flex-col items-center my-[20px] '}>
-    //   <div>Sign Up</div>
-    //   <div className={'flex flex-col items-center bg-accent-100 rounded py-[16px]'}>
-    //     <p>Sign Up using GitHub</p>
-    //     <Image
-    //       onClick={handleGitHubLogin}
-    //       src="/oauthIcons/github.svg"
-    //       alt="GitHub auth"
-    //       width={24}
-    //       height={24}
-    //       className="cursor-pointer"
-    //     />
-    //   </div>
-    // </div>
-    <Registration />
+    <div>
+
+      <div className={'flex flex-col items-center my-[20px] '}>
+        <div>Sign Up</div>
+        <div className={'flex flex-col items-center bg-accent-100 rounded py-[16px]'}>
+          <p>Sign Up using GitHub</p>
+          <Image
+            onClick={handleGitHubLogin}
+            src="/oauthIcons/github.svg"
+            alt="GitHub auth"
+            width={36}
+            height={36}
+            className="cursor-pointer"
+          />
+        </div>
+      </div>
+
+      <Flex direction={'column'} align={'center'} className="bg-dark-100 p-5 m-5 rounded-3xl">
+        <span>Sign Up</span>
+        <Flex gap={'2'}>
+          <Button children={'Gmail'} />
+          <Button children={'GitHub'} />
+        </Flex>
+        <Form.Root onSubmit={handleSubmit(onSubmit)}>
+          <Form.Field name="firstName">
+            <Flex className={fieldClassName}>
+              <Form.Label children={<span>Username</span>} />
+              <Form.Control
+                asChild
+                children={<input type="text" autoComplete="firstName" {...register('firstName')} />}
+                placeholder="Hello"
+              />
+              {errors.firstName && (
+                <Text color="red" size="1">
+                  {errors.firstName?.message}
+                </Text>
+              )}
+            </Flex>
+          </Form.Field>
+
+          <Form.Field name="email">
+            <Flex className={fieldClassName}>
+              <Form.Label children={<span>Email</span>} />
+              <Form.Control asChild children={<input type="email" autoComplete="email" {...register('email')} />} />
+            </Flex>
+            {errors.email && (
+              <Text color="red" size="1">
+                {errors.email?.message}
+              </Text>
+            )}
+          </Form.Field>
+
+          <Form.Field name="password">
+            <Flex className={fieldClassName}>
+              <Form.Label children={<span>Password</span>} />
+              <Form.Control asChild children={<input type="text" autoComplete="password" {...register('password')} />} />
+              {errors.password && (
+                <Text color="red" size="1">
+                  {errors.password?.message}
+                </Text>
+              )}
+            </Flex>
+          </Form.Field>
+
+          <Form.Field name="confirmPassword">
+            <Flex className={fieldClassName}>
+              {/* <h1>Qwerty1234!2</h1> */}
+              <Form.Label children={<span>confirmPassword</span>} />
+              <Form.Control asChild children={<input type="text" autoComplete="confirmPassword" {...register('confirmPassword')} />} />
+              {errors.confirmPassword && (
+                <Text color="red" size="1">
+                  {errors.confirmPassword.message}
+                </Text>
+              )}
+            </Flex>
+          </Form.Field>
+
+          <Flex>
+            <Controller
+              {...register('rememberMe')}
+              name="rememberMe"
+              control={control}
+              render={({ field }) => {
+                return <Checkbox checked={field.value} onChange={checked => field.onChange(checked)} />
+              }}
+            />
+            <Text>
+              <span>I agree to the </span>
+              <Button variant="ghost">
+                <span>Terms of Service</span>
+              </Button>
+              <span>and</span>
+              <Button variant="ghost">
+                <span>Privacy Policy</span>
+              </Button>
+            </Text>
+          </Flex>
+          <Form.Submit asChild children={<Button type="submit" variant="classic" disabled={!isValid} children={'Sign Up'} />} />
+        </Form.Root>
+
+        <span>Do you have an account?</span>
+        <Flex className="text-accent-500">Sing In</Flex>
+      </Flex>
+    </>
+
+
+      {/*// <div className={'flex flex-col items-center my-[20px] '}>*/}
+      {/*//   <div>Sign Up</div>*/}
+      {/*//   <div className={'flex flex-col items-center bg-accent-100 rounded py-[16px]'}>*/}
+      {/*//     <p>Sign Up using GitHub</p>*/}
+      {/*//     <Image*/}
+      {/*//       onClick={handleGitHubLogin}*/}
+      {/*//       src="/oauthIcons/github.svg"*/}
+      {/*//       alt="GitHub auth"*/}
+      {/*//       width={24}*/}
+      {/*//       height={24}*/}
+      {/*//       className="cursor-pointer"*/}
+      {/*//     />*/}
+      {/*//   </div>*/}
+      {/*// </div>*/}
+      <Registration />
+    </div>
 
   )
 }
