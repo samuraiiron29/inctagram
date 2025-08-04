@@ -6,7 +6,7 @@ import { Form } from 'radix-ui'
 import { useForm, Controller } from 'react-hook-form'
 import type { Error, ZodInputs } from '@/shared/lib/types'
 import Checkbox from '@/shared/ui/base/CheckBox/CheckBox'
-import { useSignInMutation, useSignUpMutation } from '@/shared/api'
+import { useSignUpMutation } from '@/shared/api'
 
 import { registrationSchema } from '@/shared/lib/schemas'
 
