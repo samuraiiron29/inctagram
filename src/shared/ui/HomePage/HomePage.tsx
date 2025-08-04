@@ -26,8 +26,8 @@ export const HomePage = ({ count }: Props) => {
       <RegistrationUsers count={count} />
       <Button
         onClick={() => {
-          debugger
-          deleteUser()
+
+          deleteUser({ id: 3044 })
         }}
         children={'deletni menya'}
       />

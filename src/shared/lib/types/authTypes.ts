@@ -4,10 +4,10 @@ export type SingInResponse = {
   password: string
 }
 
-export type Error = {
+export type Error<T = ErrorMessage[]> = {
   data: {
     statusCode: number
-    messages: ErrorMessage[]
+    messages: T
     error: string
   }
   status: number
@@ -19,3 +19,6 @@ export type ErrorMessage = {
 export enum StatusCode {
   'error' = 0,
 }
+
+
+
