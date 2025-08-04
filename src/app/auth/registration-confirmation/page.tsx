@@ -19,7 +19,13 @@ const Page = () => {
       route.push(PATH.AUTH.LOGIN)
     } else {
       confirm({ confirmationCode: code })
-      setIsInitialized(true)
+        .unwrap()
+        .then(() => setIsInitialized(true))
+        .catch(() => {
+          // need pouter.push()
+        })
+
+
     }
   }, [])
 

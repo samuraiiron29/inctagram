@@ -13,9 +13,10 @@ type PropsType = {
   name: string
   placeholder?: string
   width?: string
+  label: string
 }
 
-export const Input = ({ type = 'default', disabled, name, placeholder, width }: PropsType) => {
+export const Input = ({ type = 'default', disabled, name, placeholder, width, label }: PropsType) => {
   const form = (() => {
     try {
       return useFormContext<ZodInputs>()
@@ -50,7 +51,7 @@ export const Input = ({ type = 'default', disabled, name, placeholder, width }: 
 
   return (
     <div style={{ width: width }}>
-      <label className="mb-1 block text-sm opacity-50">{name.charAt(0).toUpperCase() + name.slice(1)}</label>
+      <label className="mb-1 block text-sm opacity-50">{label}</label>
 
       <div className="relative flex items-center">
         {type === 'search' && getIconSrc() && (
