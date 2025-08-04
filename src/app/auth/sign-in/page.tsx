@@ -3,11 +3,13 @@ import { useSignInMutation } from '@/shared/api'
 import { PATH } from '@/shared/lib/path'
 import type { Error } from '@/shared/lib/types'
 import { Flex, Button, Text } from '@radix-ui/themes'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 import { Form } from 'radix-ui'
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 export type SignInArgs = {
   email: string
   password: string
@@ -18,6 +20,7 @@ function Page() {
     const loginUrl = `${process.env.NEXT_PUBLIC_BASE_URL}auth/github/login?redirect_url=${redirectUrl}`
     window.location.href = loginUrl
   }
+  const { t } = useTranslation()
   const router = useRouter()
   const [singIn] = useSignInMutation()
   const fieldClassName = 'flex-col gap-3'
@@ -37,7 +40,6 @@ function Page() {
     },
     shouldFocusError: true,
   })
-
   const onSubmit = async (data: SignInArgs) => {
     try {
       await singIn({ email: data.email, password: data.password }).unwrap()
@@ -64,7 +66,7 @@ function Page() {
   }
   return (
     <div>
-      {/* <div className={'flex flex-col items-center my-[20px] '}>
+      <div className={'flex flex-col items-center my-[20px] '}>
         <div>Sign Up</div>
         <div className={'flex flex-col items-center bg-accent-100 rounded py-[16px]'}>
           <p>Sign Up using GitHub</p>
@@ -77,10 +79,10 @@ function Page() {
             className="cursor-pointer"
           />
         </div>
-      </div> */}
+      </div>
 
       <Flex direction={'column'} align={'center'} className="bg-dark-100 p-5 m-5 rounded-3xl">
-        <span>Sign Up</span>
+        <span>Sign Up {t('auth.email')}</span>
         <Flex gap={'2'}>
           <Button children={'Gmail'} />
           <Button children={'GitHub'} />
@@ -88,7 +90,7 @@ function Page() {
         <Form.Root onSubmit={handleSubmit(onSubmit)}>
           <Form.Field name="email">
             <Flex className={fieldClassName}>
-              <Form.Label children={<span>Email</span>} />
+              <Form.Label children={<span>{t('auth.email')}</span>} />
               <Form.Control asChild children={<input type="email" autoComplete="email" {...register('email')} />} />
             </Flex>
             {errors.email && (

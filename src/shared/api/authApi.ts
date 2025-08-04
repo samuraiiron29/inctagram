@@ -2,7 +2,7 @@ import { baseApi } from '@/store/services/baseApi'
 import { setAppEmail, setIsLoggedIn, setUserId } from '@/store/slices/appSlice'
 import { deleteCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
 import type { SingInResponse } from '../lib/types'
-import build from 'next/dist/build'
+
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 const confirmPage = 'http://localhost:3000/auth/registration-confirmation'

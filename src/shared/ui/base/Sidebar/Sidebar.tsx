@@ -32,8 +32,8 @@ export default function Sidebar() {
       iconDefault: '/sidebarIcons/default/person.svg',
       iconHover: '/sidebarIcons/hover/person.svg',
       iconActive: '/sidebarIcons/active/person.svg',
-      label: t('sidebar.my profile'),
-      alt: t('sidebar.my profile'),
+      label: t('sidebar.myProfile'),
+      alt: t('sidebar.myProfile'),
     },
     {
       href: PATH.MESSENGER,
@@ -89,7 +89,7 @@ export default function Sidebar() {
       </ul>
       <button onClick={() => setShowModal(true)} className={'flex items-center justify-center gap-[15px] mt-[180px]'}>
         <Image src={'/sidebarIcons/default/log-out.svg'} alt={''} width={'18'} height={'20'} />
-        <span className={'text-medium_text14'}>{t('sidebar.logout')}</span>
+        <span className={'text-medium_text14'}>{t('auth.logout')}</span>
       </button>
       {showModal && <LogOut showModal={showModal} setShowModal={setShowModal} />}
     </aside>
