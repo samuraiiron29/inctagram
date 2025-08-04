@@ -3,9 +3,8 @@ import { setAppEmail, setIsLoggedIn, setUserId } from '@/store/slices/appSlice'
 import { deleteCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
 import type { SingInResponse } from '../lib/types'
 
-
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-const confirmPage = 'http://localhost:3000/auth/registration-confirmation'
+// const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+const baseUrl = 'http://localhost:3000'
 export const authApi = baseApi.injectEndpoints({
   endpoints: build => ({
     me: build.query<{ userId: number; userName: string; email: string; isBlocked: boolean }, void>({
@@ -45,7 +44,7 @@ export const authApi = baseApi.injectEndpoints({
       query: args => ({
         url: 'auth/registration',
         method: 'POST',
-        body: { ...args, confirmPage },
+        body: { ...args, baseUrl: 'http://localhost:3000/auth/registration-confirmation' },
       }),
     }),
     confirm: build.mutation<void, { confirmationCode: string }>({
@@ -64,6 +63,7 @@ export const authApi = baseApi.injectEndpoints({
         try {
           await queryFulfilled
           deleteCookie('accessToken')
+          deleteCookie('refreshToken')
         } catch (error) {
           throw error
         }

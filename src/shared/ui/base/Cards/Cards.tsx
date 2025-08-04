@@ -1,6 +1,6 @@
-import { FormEvent, HTMLAttributes, ReactNode } from 'react'
+import { FormEvent, ReactNode } from 'react'
 
-type PropsType = HTMLAttributes<HTMLFormElement> & {
+type PropsType = {
   children: ReactNode
   onSubmit?: (e: FormEvent<HTMLFormElement>) => void
 }

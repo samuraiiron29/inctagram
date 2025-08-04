@@ -13,9 +13,10 @@ type PropsType = {
   name: string
   placeholder?: string
   width?: string
+  label: string
 }
 
-export const Input = ({ type = 'default', disabled, name, placeholder, width }: PropsType) => {
+export const Input = ({ type = 'default', disabled, name, placeholder, width, label }: PropsType) => {
   const form = (() => {
     try {
       return useFormContext<ZodInputs>()
@@ -49,8 +50,8 @@ export const Input = ({ type = 'default', disabled, name, placeholder, width }: 
   const inputType = showPassword && type === 'password' ? 'text' : type
 
   return (
-    <div className={`w-[${width}px]`}>
-      <label className="mb-1 block text-sm opacity-50">{name.charAt(0).toUpperCase() + name.slice(1)}</label>
+    <div style={{ width: width }}>
+      <label className="mb-1 block text-sm opacity-50">{label}</label>
 
       <div className="relative flex items-center">
         {type === 'search' && getIconSrc() && (

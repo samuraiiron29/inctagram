@@ -13,7 +13,6 @@ import { RegistrationUsers } from '@/shared/ui/HomePage/registrationUsers'
 import { Button } from '@radix-ui/themes'
 import { useDeleteUserProfileMutation, useGetPublicPostsQuery } from '@/shared/api'
 
-
 type Props = {
   count: string
 }
@@ -21,16 +20,19 @@ type Props = {
 export const HomePage = ({ count }: Props) => {
   const { data: postsData } = useGetPublicPostsQuery(4)
   const [deleteUser] = useDeleteUserProfileMutation()
+
+  const deleteUsers = async () => {
+    try {
+      await deleteUser({ id: 2496 }).unwrap()
+    } catch (error) {
+      console.log('твою мать:', error)
+    }
+  }
+
   return (
     <div className={'max-w-[972px] mx-auto my-[24px]'}>
       <RegistrationUsers count={count} />
-      <Button
-        onClick={() => {
-
-          deleteUser({ id: 3044 })
-        }}
-        children={'deletni menya'}
-      />
+      <Button onClick={deleteUsers} children={'deletni menya'} />
       <div className="grid grid-cols-4 gap-4 w-full">
         {postsData?.items.map(post => (
           <div key={post.id} className="rounded overflow-hidden w-[240px] h-[390px]">
