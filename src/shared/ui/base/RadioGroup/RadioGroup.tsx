@@ -34,7 +34,7 @@ export const RadioGroupComponent = ({ options, value, onChangeAction, name, defa
 
   return (
     <RadioGroup.Root
-      className={`flex flex-row gap-[44px] p-[20px] ${className}`}
+      className={`flex flex-row gap-[44px] p-[20px] ${className} ${disabled ? 'cursor-not-allowed' : ''}`}
       value={currentValue}
       onValueChange={onValueChangeHandler}
       name={name}
@@ -42,7 +42,14 @@ export const RadioGroupComponent = ({ options, value, onChangeAction, name, defa
     >
       {options.map(({ label, value }) => (
         <Fragment key={value}>
-          <label htmlFor={value} className={`relative inline-flex items-center p-[6px] gap-[10px] ${!disabled && 'cursor-pointer'} group`}>
+          <label
+            htmlFor={value}
+            className={`
++             relative inline-flex items-center p-[6px] gap-[10px]
++             ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}
++             group
++           `}
+          >
             {/* Кружок */}
             <div className="relative inline-flex items-center justify-center w-5 h-5">
               {!disabled && (
@@ -71,7 +78,7 @@ export const RadioGroupComponent = ({ options, value, onChangeAction, name, defa
               <RadioGroup.Item
                 value={value}
                 id={value}
-                className="
+                className={`
                   relative
                   h-5 w-5
                   rounded-full
@@ -81,10 +88,11 @@ export const RadioGroupComponent = ({ options, value, onChangeAction, name, defa
                   disabled:opacity-50
                   z-10
                   flex-shrink-0
-                "
+                  ${disabled && 'cursor-not-allowed'}
+                  `}
               >
                 <RadioGroup.Indicator
-                  className="
+                  className={`
                     absolute
                     top-1/2 left-1/2
                     -translate-x-1/2 -translate-y-1/2
@@ -92,7 +100,8 @@ export const RadioGroupComponent = ({ options, value, onChangeAction, name, defa
                     rounded-full
                     bg-light-100
                     z-20
-                  "
+                    ${disabled && 'cursor-not-allowed'}
+                    `}
                 />
               </RadioGroup.Item>
             </div>

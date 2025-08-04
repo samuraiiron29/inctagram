@@ -13,20 +13,14 @@ const eslintConfig = [
   {
     ignores: ['**/node_modules/**', '**/.next/**', '**/dist/**'],
   },
-  ...compat.extends(
-    [
-      'next/core-web-vitals',
-      'next',
-      'next/typescript',
-      'plugin:prettier/recommended',
-    ]
-  ),
+  ...compat.extends(['next/core-web-vitals', 'next/typescript', 'plugin:prettier/recommended']),
   {
     rules: {
-      'react/display-name': 'off'
-    }
-  }
+      'react/display-name': 'off',
+      'tailwindcss/classnames-order': 'warn',
+      'prettier/prettier': 'error',
+    },
+  },
 ]
-
 
 export default eslintConfig

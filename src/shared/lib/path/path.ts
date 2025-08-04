@@ -10,5 +10,17 @@ export const PATH = {
     REGISTRATION_CONFIRMATION: '/auth/registration-confirmation',
     REGISTRATION_EMAIL_RESENDING: '/auth/registration-email-resending',
     TERMS_OF_SERVICE: '/auth/terms-of-service',
-  }
+  },
+  USERS: {
+    PROFILE: '/users/profile',
+    PROFILE_USERID: (userId: number) => `/users/profile/${userId}`,
+    PROFILE_SETTINGS: (userId: number) => `/users/profile/${userId}/settings`,
+  },
+
+  FEED: '/feed',
+  POSTS: '/posts',
+  MESSENGER: '/messenger',
+  SEARCH: '/search',
+  STATISTICS: '/statistics',
+  FAVORITES: '/favorites',
 }

@@ -23,12 +23,12 @@ export const TabsRadix = ({ tabs, width }: TabsProps) => {
             disabled={tab.disabled}
             className={`
               relative px-4 py-1 text-sm font-medium outline-none transition
-              text-[#397DF6]
+              text-accent-500
               disabled:border-b-3 disabled:border-[#234e99CC] disabled:cursor-not-allowed disabled:text-[#73a5ff33] disabled:hover:bg-[]
 
               data-[state=active]:bg-[#73a5ff33]
-              data-[state=active]:text-[#397DF6]
-              data-[state=active]:border-b-[3px] data-[state=active]:border-[#397DF6]
+              data-[state=active]:text-accent-500
+              data-[state=active]:border-b-[3px] data-[state=active]:border-accent-500
 
               not-disabled:hover:bg-[#234e9933]
             `}
@@ -39,7 +39,7 @@ export const TabsRadix = ({ tabs, width }: TabsProps) => {
       </Tabs.List>
 
       {tabs.map(tab => (
-        <Tabs.Content key={tab.id} value={tab.id} className="mt-2 text-white">
+        <Tabs.Content key={tab.id} value={tab.id} className="mt-2 text-amber-50">
           {tab.content}
         </Tabs.Content>
       ))}

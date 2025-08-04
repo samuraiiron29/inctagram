@@ -6,7 +6,7 @@
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "prettier.arrowParens": "avoid",
-  "cSpell.words": ["Inctagram"],
+  "cSpell.words": ["DEEPSEEK", "Inctagram"],
   "prettier.bracketSameLine": false,
   "prettier.printWidth": 80
 }

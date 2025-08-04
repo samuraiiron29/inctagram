@@ -16,8 +16,7 @@ export const AuthStatusControls = ({ isLoggedIn }: Props) => {
     i18n.changeLanguage(value)
   }
 
-  console.log('Current language:', i18n.language)
-
+  // console.log('Current language:', i18n.language)
 
   return (
     <>

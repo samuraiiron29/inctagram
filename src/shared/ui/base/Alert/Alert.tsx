@@ -3,6 +3,8 @@ import clsx from 'clsx'
 import { useEffect, useState } from 'react'
 
 type Props = {
+  open: boolean
+  onOpenChange?: (v: boolean) => void
   message: string
   variant: 'success' | 'error'
   position?: 'toast' | 'modal'
@@ -19,24 +21,27 @@ const positionStyle = {
 }
 const getVariantAlert = (text: string) => text[0].toUpperCase() + text.slice(1) + '! '
 
-export const Alert = ({ variant, message, position = 'toast' }: Props) => {
-  const [isOpen, setIsOpen] = useState(true)
-
+export const Alert = ({ variant, message, position = 'toast', open, onOpenChange }: Props) => {
   useEffect(() => {
-    const timer = setTimeout(() => setIsOpen(false), 3000)
+    const timer = setTimeout(() => onOpenChange?.(false), 3000)
     return () => clearTimeout(timer)
   }, [])
-  const isOpenHandler = () => setIsOpen(false)
+
+
+
+  const close = () => onOpenChange?.(false);
   const className = clsx(baseStyle, variantStyle[variant], positionStyle[position])
-  if (!isOpen) return null
+
+
+  if (!open) return null
+
   return (
     <div className={className}>
       <div className="w-[291px]">
         <span className="text-bold_text16">{getVariantAlert(variant)}</span>
         <span className="text-regular_text16">{message}</span>
       </div>
-      <button onClick={isOpenHandler} children={'✕'} />
+      <button onClick={close} children={'✕'} />
     </div>
   )
 }
-

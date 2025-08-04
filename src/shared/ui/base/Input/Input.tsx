@@ -1,57 +1,89 @@
-import { ChangeEvent, KeyboardEvent, useState } from "react"
+'use client'
+
+import { ChangeEvent, useState } from 'react'
+import Image from 'next/image'
+import { useFormContext } from 'react-hook-form'
+import type { ZodInputs } from '@/shared/lib/types'
+
+type InputType = 'password' | 'email' | 'search' | 'default'
 
 type PropsType = {
-  inputType?: string
-  placeholder: string
+  type?: InputType
   disabled?: boolean
-  onChangeInput?: (text: string) => void
+  name: string
+  placeholder?: string
+  width?: string
 }
 
-export const Input = (props: PropsType) => {
+export const Input = ({ type = 'default', disabled, name, placeholder, width }: PropsType) => {
+  const form = (() => {
+    try {
+      return useFormContext<ZodInputs>()
+    } catch {
+      return null
+    }
+  })()
 
-  const [text, setText] = useState("")
-  const [error, setError] = useState<string | null>(null)
+  const [inputValue, setInputValue] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
 
-  const onChangeHandler = () => {
-    const trimmedText = text.trim()
-    if (trimmedText !== "") {
-      // props.changeInput(trimmedText)
-      setText("")
-    } else {
-      setError(`${props.inputType} is required`)
+  const errorMessage =
+    form && name in form.formState.errors ? (form.formState.errors[name as keyof ZodInputs]?.message as string) : undefined
+
+  const getIconSrc = (): string | null => {
+    if (type === 'password') return showPassword ? '/eye-off-outline.svg' : '/eye-outline.svg'
+    if (type === 'search') return '/search-outline.svg'
+    return null
+  }
+
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value)
+  }
+
+  const handleIconClick = () => {
+    if (type === 'password') {
+      setShowPassword(prev => !prev)
     }
   }
 
-  const changeTextHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setText(event.currentTarget.value)
-    setError(null)
-  }
+  const inputType = showPassword && type === 'password' ? 'text' : type
 
-  const onEnterHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      onChangeHandler()
-    }
-  }
-
-  const onBlurHandler = () => {
-      text.length <= 1 ? setError('enter text') : setError('')
-  }
-  
   return (
-    <div>
-      <input
-        value={text}
-        onChange={changeTextHandler}
-        type={props.inputType}
-        className={'border rounded-xs border-[#333] w-2xs'}
-        onKeyDown={onEnterHandler}
-        onBlur={onBlurHandler}
-        placeholder={props.placeholder}
-        disabled={props.disabled}
-      />
-      <div className={'text-[#cc1439]'}>
-        {error}
+    <div className={`w-[${width}px]`}>
+      <label className="mb-1 block text-sm opacity-50">{name.charAt(0).toUpperCase() + name.slice(1)}</label>
+
+      <div className="relative flex items-center">
+        {type === 'search' && getIconSrc() && (
+          <button type="button" className="cursor-pointer absolute z-1 flex items-center left-[12px]" onClick={handleIconClick}>
+            <Image src={getIconSrc()!} alt="icon" width={24} height={24} />
+          </button>
+        )}
+
+        <input
+          type={inputType}
+          {...(form
+            ? form.register(name as keyof ZodInputs)
+            : {
+                value: inputValue,
+                onChange: onChangeHandler,
+              })}
+          className={`
+            input border rounded-xs w-2xs py-1.5 px-3
+            ${getIconSrc() && type === 'search' ? 'pl-[41px]' : ''}
+            ${errorMessage ? 'border-danger-500 text-danger-500' : 'border-[#333]'}
+          `}
+          placeholder={placeholder ?? (type === 'password' ? '******************' : type === 'email' ? 'Epam@epam.com' : 'Введите текст')}
+          disabled={disabled}
+          name={name}
+        />
+
+        {type === 'password' && getIconSrc() && (
+          <button type="button" onClick={handleIconClick} className="cursor-pointer absolute z-1 flex items-center right-[20px]">
+            <Image src={getIconSrc()!} alt="icon" width={24} height={24} />
+          </button>
+        )}
       </div>
+      {errorMessage && <span className="text-danger-500 text-xs mt-1 block">{errorMessage}</span>}
     </div>
   )
 }
