@@ -1,19 +1,47 @@
 {
   "header": {
     "mainLogo": "Inctagram",
-    "buttons": {
-      "login": "Log in",
-      "sign": "Sign Up"
-    }
+    "language": "English"
   },
   "sidebar": {
     "feed": "Feed",
     "create": "Create",
-    "my profile": "My Profile",
+    "myProfile": "My Profile",
     "messenger": "messenger",
     "search": "Search",
     "statistics": "Statistics",
-    "favorites": "Favorites",
-    "logout": "Log Out"
+    "favorites": "Favorites"
+
+  },
+  "auth": {
+      "email": "Email",
+      "password": "Password",
+      "passwordConfirm": "Password confirmation",
+      "userName": "UserName",
+      "signIn": "Login",
+      "signUp": "Sign Up",
+      "logout": "Logout",
+      "termsOfService":"Terms of Service",
+      "privacyPolicy":"Privacy Policy",
+      "additionalElements": {
+        "doYouHaveAnAccount": "Do you have an account?",
+        "iAgreeToThe":"I agree to the",
+        "and":"and"
+      },
+      "errors": {
+        "emailAlreadyRegistered":
+        "User with this username is already registered",
+        "emailIncorrect":"Incorrect email address",
+        "userNameMaxCharacters":"Maximum number of characters 30",
+        "userNameMinCharacters":"Minimum number of characters 6",
+        "userNameCharacters":
+        "Resolve latin letters, numbers, _ and - symbols",
+        "passwordMaxCharacters":"Maximum number of characters 20",
+        "passwordMinCharacters":"Minimum number of characters 6",
+        "passwordsMatch":"The passwords must match",
+        "passwordCharacters":
+     "Password must contain at least one digit, lowercase, uppercase letter. Special characters allowed: ! \" # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _ { | } ~)",
+        "termsAccept":"You must accept the terms and the Policy!"
+      }
   }
 }
