@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useAppDispatch } from '@/shared/lib/hooks/appHooks'
 import { setIsLoggedIn } from '@/store/slices/appSlice'
 import { setCookie } from '@/shared/lib/utils/cookieUtils'
+import { PATH } from '@/shared/lib/path/path'
 
 export default function Page() {
   const router = useRouter()
@@ -20,8 +21,9 @@ export default function Page() {
       setCookie('accessToken', accessToken, 7)
       dispatch(setIsLoggedIn(true))
       router.push('/')
+      setCookie('isGitHub', 'true', 7)
     } else {
-      console.error('Нет accessToken или email в query-параметрах')
+      router.push(PATH.AUTH.LOGIN)
     }
   }, [])
 

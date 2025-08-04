@@ -2,6 +2,16 @@ import { baseApi } from '@/store/services/baseApi'
 import { setAppEmail, setIsLoggedIn, setUserId } from '@/store/slices/appSlice'
 import { deleteCookie } from '@/shared/lib/utils/cookieUtils'
 
+type GoogleAuthResponse = {
+  accessToken: string
+  email: string
+}
+
+type GoogleAuthRequest = {
+  code: string
+  redirectUrl: string
+}
+
 export const authApi = baseApi.injectEndpoints({
   endpoints: build => ({
     me: build.query<{ userId: number; userName: string; email: string; isBlocked: boolean }, void>({
@@ -31,12 +41,20 @@ export const authApi = baseApi.injectEndpoints({
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         await queryFulfilled
         deleteCookie('accessToken')
+        deleteCookie('isGitHub')
         dispatch(setIsLoggedIn(false))
         dispatch(setAppEmail(null))
         dispatch(authApi.util.resetApiState())
       },
     }),
+    googleAuth: build.mutation<GoogleAuthResponse, GoogleAuthRequest>({
+      query: ({ code, redirectUrl }) => ({
+        url: '/auth/google/login',
+        method: 'POST',
+        body: { code, redirectUrl },
+      }),
+    }),
   }),
 })
 
-export const { useMeQuery, useLogoutMutation } = authApi
+export const { useMeQuery, useLogoutMutation, useGoogleAuthMutation } = authApi
