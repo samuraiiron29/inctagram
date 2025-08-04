@@ -48,22 +48,6 @@ export const authApi = baseApi.injectEndpoints({
         body: { ...args, confirmPage },
       }),
     }),
-    signIn: build.mutation<{ accessToken: string }, { email: string; password: string }>({
-      query: args => ({
-        url: 'auth/login',
-        method: 'POST',
-        body: { ...args },
-      }),
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
-        try {
-          const response = await queryFulfilled
-          setCookie('accessToken', response.data.accessToken.trim(), 7)
-          await dispatch(authApi.endpoints.me.initiate())
-        } catch (error) {
-          throw error
-        }
-      },
-    }),
     confirm: build.mutation<void, { confirmationCode: string }>({
       query: args => ({
         url: 'auth/registration-confirmation',
@@ -88,6 +72,4 @@ export const authApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { useMeQuery, useLogoutMutation, useSignInMutation, useConfirmMutation, useSignUpMutation, useDeleteUserProfileMutation } =
-  authApi
-
+export const { useMeQuery, useLogoutMutation, useConfirmMutation, useSignUpMutation, useDeleteUserProfileMutation } = authApi
