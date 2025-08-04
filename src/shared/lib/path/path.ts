@@ -17,7 +17,7 @@ export const PATH = {
     PROFILE_SETTINGS: (userId: number) => `/users/profile/${userId}/settings`,
   },
 
-  FEED: '/feed',
+  FEED: '/users/feed',
   POSTS: '/posts',
   MESSENGER: '/messenger',
   SEARCH: '/search',

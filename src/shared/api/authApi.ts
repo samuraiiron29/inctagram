@@ -69,7 +69,24 @@ export const authApi = baseApi.injectEndpoints({
         }
       },
     }),
+    signIn: build.mutation<{ accessToken: string }, { email: string; password: string }>({
+      query: args => ({
+        url: 'auth/login',
+        method: 'POST',
+        body: { ...args },
+      }),
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const response = await queryFulfilled
+          setCookie('accessToken', response.data.accessToken.trim(), 7)
+          await dispatch(authApi.endpoints.me.initiate())
+        } catch (error) {
+          throw error
+        }
+      },
+    }),
   }),
 })
 
-export const { useMeQuery, useLogoutMutation, useConfirmMutation, useSignUpMutation, useDeleteUserProfileMutation } = authApi
+export const { useMeQuery, useLogoutMutation, useConfirmMutation, useSignUpMutation, useDeleteUserProfileMutation, useSignInMutation } =
+  authApi

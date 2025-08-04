@@ -23,7 +23,7 @@ export const HomePage = ({ count }: Props) => {
 
   const deleteUsers = async () => {
     try {
-      await deleteUser({ id: 2496 }).unwrap()
+      await deleteUser({ id: 3048 }).unwrap()
     } catch (error) {
       console.log('твою мать:', error)
     }
