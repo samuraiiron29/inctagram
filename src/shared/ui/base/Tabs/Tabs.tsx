@@ -34,10 +34,10 @@ export default function TabsComponent({ tabs, defaultTab }: TabsProps) {
               px-4 py-1 text-sm font-medium transition
               ${
                 tab.disabled
-                  ? 'text-[#73a5ff33] cursor-not-allowed border-b-3 border-[#234e99CC]' //todo: не понятно зачем бордер, если дизейбл и как выглядит невыбранный таб
+                  ? 'text-accent-100/20 cursor-not-allowed border-b-3 border-accent-900/80' //todo: не понятно зачем бордер, если дизейбл и как выглядит невыбранный таб
                   : activeTab === tab.id
-                    ? 'bg-[#73a5ff33] text-[#397DF6] border-b-3 border-blue-500'
-                    : 'text-[#397DF6] hover:bg-[#234e9933]'
+                    ? 'bg-accent-100/20 text-accent-500 border-accent-500 border-b-3 '
+                    : 'text-accent-500 hover:bg-accent-900/20'
               }
             `}
           >
@@ -45,7 +45,7 @@ export default function TabsComponent({ tabs, defaultTab }: TabsProps) {
           </button>
         ))}
       </div>
-      <div className="text-white min-h-[80px]">{activeTabContent}</div>
+      <div className="text-light-100 min-h-[80px]">{activeTabContent}</div>
     </div>
   )
 }
