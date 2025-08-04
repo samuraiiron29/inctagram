@@ -49,7 +49,7 @@ export const Input = ({ type = 'default', disabled, name, placeholder, width }: 
   const inputType = showPassword && type === 'password' ? 'text' : type
 
   return (
-    <div className={`w-[${width}px]`}>
+    <div style={{ width: width }}>
       <label className="mb-1 block text-sm opacity-50">{name.charAt(0).toUpperCase() + name.slice(1)}</label>
 
       <div className="relative flex items-center">

@@ -26,7 +26,7 @@ const Page = () => {
   if (!isInitialized) return <div>load</div>
 
   return (
-    <div>
+    <div className={'flex justify-center flex-col items-center'}>
       <h1>Congratulations!</h1>
       <h3>Your email has been confirmed</h3>
       <Link href={PATH.AUTH.LOGIN}>

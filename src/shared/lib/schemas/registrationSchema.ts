@@ -26,3 +26,14 @@ export const registrationSchema = z
     message: 'Пароли не совпадают',
     path: ['confirmPassword'],
   })
+
+export const registerTest = z.object({
+  email: z.email({ message: 'Incorrect email address' }),
+  password: z
+    .string()
+    .min(6, { message: 'Пароль должен быть больше 6-ти знаков' })
+    .max(20, { message: 'Пароль должен быть до 20-ти знаков' })
+    .regex(passwordReges, {
+      message: `Пароль должен содержать хотя бы одну цифру, строчную, заглавную букву. Разрешены спецсимволы: ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \ ] ^ _ { | } ~)`,
+    }),
+})
