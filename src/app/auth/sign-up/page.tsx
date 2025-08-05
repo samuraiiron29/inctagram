@@ -12,13 +12,14 @@ import { Button } from '@/shared/ui/base/Button/Button'
 import { useState } from 'react'
 import { Modal } from '@/shared/ui/Modal/Modal'
 import { useTranslation } from 'react-i18next'
-import Link from 'next/link'
+import { useSignUpText } from '@/shared/lib/hooks/useSignUpText'
 
 const Page = () => {
   const [isModal, setIsModal] = useState(false)
   const [email, setEmail] = useState('')
   const [singUp] = useSignUpMutation()
   const { t } = useTranslation()
+  const signUpText = useSignUpText(t)
   const methods = useForm<ZodInputs>({
     resolver: zodResolver(registrationSchema),
     mode: 'onChange',
@@ -61,61 +62,48 @@ const Page = () => {
       }
     }
   }
-  const text = {
-    signUp: t('auth.signUp'),
-    signIn: t('auth.signIn'),
-    username: t('auth.username'),
-    email: t('auth.email'),
-    password: t('auth.password'),
-    passwordConfirm: t('auth.passwordConfirm'),
-    doYouHaveAnAccount: t('auth.additionalElements.doYouHaveAnAccount'),
-    weHaveSent: t('auth.additionalElements.weHaveSent'),
-    emailSent: t('auth.emailSent'),
-    agree: `${t('auth.additionalElements.iAgreeToThe')} ${t('auth.termsOfService')} ${t('auth.additionalElements.and')} ${t('auth.privacyPolicy')}`,
-  }
-  const AgreeText = () => {
-    return (
-      <div>
-        <span>{t('auth.additionalElements.iAgreeToThe')}</span>
-        <Button>qwe</Button>
-        <span>{t('auth.additionalElements.and')}</span>
-        <Link href="/auth/sign-up">{t('auth.signUp')}</Link>
-      </div>
-    )
-  }
+
   return (
-    <div>
+    <div className="mt-4 w-[378px] h-[678px]">
       <FormProvider {...methods}>
         <Cards onSubmit={methods.handleSubmit(onSubmit)}>
           <div className={'flex flex-col items-center my-[20px]'}>
             <div className="">
-              <span>{text.signUp}</span>
+              <span className={'text-h1'}>{signUpText.signUp}</span>
             </div>
             <div className={'flex items-center gap-16 mt-[13px] mb-[24px]'}>
               <Image onClick={handleGitHubLogin} src="/git_logo.svg" alt="GitHub auth" width={36} height={36} className="cursor-pointer" />
               <Image src="/google.svg" alt="GitHub auth" width={36} height={36} className="cursor-pointer" />
             </div>
-            <Input type={'default'} name="firstName" width={'300px'} label={text.username} />
-            <Input type="email" name="email" width={'300px'} label={text.email} />
-            <Input type="password" name="password" width={'300px'} label={text.password} />
-            <Input type={'default'} name="confirmPassword" width={'300px'} label={text.passwordConfirm} />
+            <Input type={'default'} name="firstName" width={'300px'} label={signUpText.username} />
+            <Input type="email" name="email" width={'300px'} label={signUpText.email} />
+            <Input type="password" name="password" width={'300px'} label={signUpText.password} />
+            <Input type={'default'} name="confirmPassword" width={'300px'} label={signUpText.passwordConfirm} />
             <Controller
               {...methods.register('rememberMe')}
               name="rememberMe"
               control={methods.control}
-              render={({ field }) => <Checkbox checked={field.value} onChange={checked => field.onChange(checked)} label={text.agree} />}
+              render={({ field }) => {
+                return (
+                  <div className="flex justify-center text-center w-full my-4 gap-3">
+                    <Checkbox checked={field.value} onChange={checked => field.onChange(checked)} />
+                    {signUpText.agree()}
+                  </div>
+                )
+              }}
             />
+
             <Button type="submit" variant={'primary'} disabled={!methods.formState.isValid} width={'100%'}>
-              {text.signUp}
+              {signUpText.signUp}
             </Button>
-            <p>{text.doYouHaveAnAccount}</p>
-            <Button variant={'textButton'} children={text.signIn} width={'100%'} />
+            <p className="mt-2.5">{signUpText.doYouHaveAnAccount}</p>
+            <span className="text-h3 text-accent-500">{signUpText.signIn}</span>
           </div>
         </Cards>
       </FormProvider>
       {isModal && (
-        <Modal open={isModal} onClose={() => setIsModal(false)} modalTitle={text.emailSent}>
-          <p>{`${text.weHaveSent} ${email}`}</p>
+        <Modal open={isModal} onClose={() => setIsModal(false)} modalTitle={signUpText.emailSent}>
+          <p>{`${signUpText.weHaveSent} ${email}`}</p>
           <Button children={'Ok'} onClick={() => setIsModal(false)} /> {/* todo: или роутер.пуш на страницу авторизации*/}
         </Modal>
       )}

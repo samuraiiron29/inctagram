@@ -51,7 +51,7 @@ export const Input = ({ type = 'default', disabled, name, placeholder, width, la
 
   return (
     <div style={{ width: width }}>
-      <label className="mb-1 block text-sm opacity-50">{label}</label>
+      <label className="mb-1 block text-regular_text14 opacity-50">{label}</label>
 
       <div className="relative flex items-center">
         {type === 'search' && getIconSrc() && (
@@ -69,7 +69,7 @@ export const Input = ({ type = 'default', disabled, name, placeholder, width, la
                 onChange: onChangeHandler,
               })}
           className={`
-            input border rounded-xs w-2xs py-1.5 px-3
+            input border rounded-xs w-2xs py-1.5 px-3 placeholder:text-regular_text16 text-regular_text16
             ${getIconSrc() && type === 'search' ? 'pl-[41px]' : ''}
             ${errorMessage ? 'border-danger-500 text-danger-500' : 'border-[#333]'}
           `}
@@ -84,7 +84,7 @@ export const Input = ({ type = 'default', disabled, name, placeholder, width, la
           </button>
         )}
       </div>
-      {errorMessage && <span className="text-danger-500 text-xs mt-1 block">{errorMessage}</span>}
+      {errorMessage && <span className="text-danger-500 text-regular_text14 mt-1 block">{errorMessage}</span>}
     </div>
   )
 }
