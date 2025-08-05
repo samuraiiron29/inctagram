@@ -40,7 +40,7 @@ const Page = () => {
   const onSubmit = async (data: ZodInputs) => {
     try {
       debugger
-      await singUp({ username: data.firstName, email: data.email, password: data.password }).unwrap()
+      await singUp({ userName: data.firstName, email: data.email, password: data.password }).unwrap()
       methods.reset({
         firstName: '',
         email: '',
@@ -79,12 +79,12 @@ const Page = () => {
             </div>
             <div className={'flex items-center gap-16 mt-[13px] mb-[24px]'}>
               <Image onClick={handleGitHubLogin} src="/git_logo.svg" alt="GitHub auth" width={36} height={36} className="cursor-pointer" />
-              <Image src="/google.svg" alt="Google auth" width={36} height={36} className="cursor-pointer"  onClick={handleGoogleLogin} />
+              <Image src="/google.svg" alt="Google auth" width={36} height={36} className="cursor-pointer" onClick={handleGoogleLogin} />
             </div>
             <Input type={'default'} name="firstName" width={'300px'} label={signUpText.username} />
             <Input type="email" name="email" width={'300px'} label={signUpText.email} />
             <Input type="password" name="password" width={'300px'} label={signUpText.password} />
-            <Input type={'default'} name="confirmPassword" width={'300px'} label={signUpText.passwordConfirm} />
+            <Input type={'password'} name="confirmPassword" width={'300px'} label={signUpText.passwordConfirm} />
             <Controller
               {...methods.register('rememberMe')}
               name="rememberMe"
