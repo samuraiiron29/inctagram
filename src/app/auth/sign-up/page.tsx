@@ -22,7 +22,7 @@ const Page = () => {
   const signUpText = useSignUpText(t)
   const methods = useForm<ZodInputs>({
     resolver: zodResolver(registrationSchema),
-    mode: 'onChange',
+    mode: 'all',
   })
 
   const handleGitHubLogin = () => {
