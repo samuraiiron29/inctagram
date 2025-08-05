@@ -3,8 +3,18 @@ import { setAppEmail, setIsLoggedIn, setUserId } from '@/store/slices/appSlice'
 import { deleteCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
 import type { SignInResponse } from '../lib/types'
 
-// const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-const baseUrl = 'http://localhost:3000'
+type GoogleAuthResponse = {
+  accessToken: string
+  email: string
+}
+
+type GoogleAuthRequest = {
+  code: string
+  redirectUrl: string
+}
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+
 export const authApi = baseApi.injectEndpoints({
   endpoints: build => ({
     me: build.query<{ userId: number; userName: string; email: string; isBlocked: boolean }, void>({
@@ -35,10 +45,19 @@ export const authApi = baseApi.injectEndpoints({
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         await queryFulfilled
         deleteCookie('accessToken')
+        deleteCookie('isGitHub')
         dispatch(setIsLoggedIn(false))
         dispatch(setAppEmail(null))
         dispatch(authApi.util.resetApiState())
       },
+    }),
+
+    googleAuth: build.mutation<GoogleAuthResponse, GoogleAuthRequest>({
+      query: ({ code, redirectUrl }) => ({
+        url: '/auth/google/login',
+        method: 'POST',
+        body: { code, redirectUrl },
+      }),
     }),
     signUp: build.mutation<void, SignInResponse>({
       query: args => ({
@@ -72,4 +91,4 @@ export const authApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { useMeQuery, useLogoutMutation, useConfirmMutation, useSignUpMutation, useDeleteUserProfileMutation } = authApi
+export const { useMeQuery, useLogoutMutation, useConfirmMutation, useSignUpMutation, useDeleteUserProfileMutation, useLogoutMutation, useGoogleAuthMutation } = authApi
