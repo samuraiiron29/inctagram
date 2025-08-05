@@ -17,24 +17,26 @@
       "email": "Email",
       "password": "Password",
       "passwordConfirm": "Password confirmation",
-      "userName": "UserName",
+      "username": "Username",
       "signIn": "Login",
       "signUp": "Sign Up",
       "logout": "Logout",
       "termsOfService":"Terms of Service",
       "privacyPolicy":"Privacy Policy",
+      "emailSent": "Email sent",
       "additionalElements": {
         "doYouHaveAnAccount": "Do you have an account?",
         "iAgreeToThe":"I agree to the",
-        "and":"and"
+        "and":"and",
+        "weHaveSent":"We have sent a link to confirm your email to"
       },
       "errors": {
         "emailAlreadyRegistered":
         "User with this username is already registered",
         "emailIncorrect":"Incorrect email address",
-        "userNameMaxCharacters":"Maximum number of characters 30",
-        "userNameMinCharacters":"Minimum number of characters 6",
-        "userNameCharacters":
+        "usernameMaxCharacters":"Maximum number of characters 30",
+        "usernameMinCharacters":"Minimum number of characters 6",
+        "usernameCharacters":
         "Resolve latin letters, numbers, _ and - symbols",
         "passwordMaxCharacters":"Maximum number of characters 20",
         "passwordMinCharacters":"Minimum number of characters 6",

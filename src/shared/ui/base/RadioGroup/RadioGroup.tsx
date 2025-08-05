@@ -106,7 +106,7 @@ export const RadioGroupComponent = ({ options, value, onChangeAction, name, defa
               </RadioGroup.Item>
             </div>
             <span
-              className={`text-regular_text14 select-none 
+              className={`text-regular_text14 select-none
             text-light-100
             ${disabled && 'opacity-50'}`}
             >
