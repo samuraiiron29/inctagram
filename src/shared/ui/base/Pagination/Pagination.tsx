@@ -42,7 +42,11 @@ const Pagination = ({ totalItems, pageSize, currentPage, onPageChange, setPageSi
 
   return (
     <div className="flex gap-2 items-center text-amber-50">
-      <button disabled={currentPage === 1} onClick={() => onPageChange(currentPage - 1)} className="px-2 py-1 rounded disabled:opacity-30">
+      <button
+        disabled={currentPage === 1}
+        onClick={() => onPageChange(currentPage - 1)}
+        className="px-2 py-1 rounded disabled:opacity-30 cursor-pointer"
+      >
         ‹
       </button>
 
@@ -51,7 +55,7 @@ const Pagination = ({ totalItems, pageSize, currentPage, onPageChange, setPageSi
           key={idx}
           disabled={page === '...'}
           onClick={() => typeof page === 'number' && onPageChange(page)}
-          className={`px-2 py-1 rounded ${currentPage === page ? 'bg-amber-50 text-dark-900' : 'hover:bg-dark-100'}`}
+          className={`px-2 py-1 rounded cursor-pointer ${currentPage === page ? 'bg-amber-50 text-dark-900' : 'hover:bg-dark-100'}`}
         >
           {page}
         </button>
@@ -60,7 +64,7 @@ const Pagination = ({ totalItems, pageSize, currentPage, onPageChange, setPageSi
       <button
         disabled={currentPage === totalPages}
         onClick={() => onPageChange(currentPage + 1)}
-        className="px-2 py-1 rounded disabled:opacity-30"
+        className="px-2 py-1 rounded disabled:opacity-30 cursor-pointer"
       >
         ›
       </button>

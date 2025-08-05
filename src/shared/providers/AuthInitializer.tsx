@@ -1,13 +1,15 @@
 'use client'
-
 import { useEffect, useState } from 'react'
-import { useMeQuery } from '@/shared/api/authApi'
-import { useAppDispatch } from '@/shared/lib/hooks/appHooks'
 import { setIsLoggedIn } from '@/store/slices/appSlice'
 import LinearProgress from '@/shared/ui/base/Liner/LinearProgress'
+import { useAppDispatch } from '../lib/hooks'
+import { useMeQuery } from '../api'
+import { skipToken } from '@reduxjs/toolkit/query'
+import { getCookie } from '../lib/utils/cookieUtils'
 
 export function AuthInitializer({ children }: { children: React.ReactNode }) {
-  const { data, isLoading, isError, isSuccess } = useMeQuery()
+  const token = getCookie('accessToken')
+  const { data, isLoading, isError, isSuccess } = useMeQuery(token ? undefined : skipToken)
   const dispatch = useAppDispatch()
   const [isInitialized, setIsInitialized] = useState(false)
 
@@ -24,7 +26,7 @@ export function AuthInitializer({ children }: { children: React.ReactNode }) {
   }, [isLoading, isSuccess, isError, data])
 
   if (!isInitialized) {
-    return <LinearProgress/>
+    return <LinearProgress />
   }
 
   return <>{children}</>

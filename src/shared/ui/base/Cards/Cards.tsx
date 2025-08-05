@@ -1,8 +1,14 @@
-// type Props = {}
-import { Box } from '@radix-ui/themes'
+import { FormEvent, ReactNode } from 'react'
 
-export const Cards = () => {
+type PropsType = {
+  children: ReactNode
+  onSubmit?: (e: FormEvent<HTMLFormElement>) => void
+}
+
+export const Cards = ({ children, onSubmit }: PropsType) => {
   return (
-      <Box width={'100px'} height={'100px'} className='bg-[#171717] rounded-xs border border-[#333]'></Box>
+    <form onSubmit={onSubmit} className="bg-[#171717] rounded-xs border border-[#333] p-[24px] m-[auto]">
+      {children}
+    </form>
   )
 }

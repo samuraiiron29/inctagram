@@ -16,8 +16,7 @@ export const AuthStatusControls = ({ isLoggedIn }: Props) => {
     i18n.changeLanguage(value)
   }
 
-  console.log('Current language:', i18n.language)
-
+  // console.log('Current language:', i18n.language)
 
   return (
     <>
@@ -31,10 +30,10 @@ export const AuthStatusControls = ({ isLoggedIn }: Props) => {
           <Select isLanguage value={i18n.language} onChange={handleLanguageChange} />
           <div className="flex gap-[24px]">
             <Button asChild variant={'textButton'}>
-              <Link href="/auth/sign-in">{t('header.buttons.login')}</Link>
+              <Link href="/auth/sign-in">{t('auth.signIn')}</Link>
             </Button>
             <Button asChild>
-              <Link href="/auth/sign-up">{t('header.buttons.sign')}</Link>
+              <Link href="/auth/sign-up">{t('auth.signUp')}</Link>
             </Button>
           </div>
         </div>

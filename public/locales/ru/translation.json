@@ -1,19 +1,48 @@
 {
   "header": {
     "mainLogo": "Инктаграм",
-    "buttons": {
-      "login": "Зарегистрироваться",
-      "sign": "Войти"
-    }
+    "language": "Русский"
   },
   "sidebar": {
     "feed": "Новости",
     "create": "Создать",
-    "my profile": "Мой Профиль",
+    "myProfile": "Мой Профиль",
     "messenger": "Сообщения",
     "search": "Поиск",
     "statistics": "Статистика",
-    "favorites": "Избранное",
-    "logout": "Выйти"
+    "favorites": "Избранное"
+  },
+   "auth": {
+      "email": "Электронная почта",
+      "password": "Пароль",
+      "passwordConfirm": "Подтверждение пароля",
+      "username": "Имя пользователя",
+      "signIn": "Войти",
+      "signUp": "Зарегистрироваться",
+      "logout": "Выйти",
+      "termsOfService":"Условиями использования",
+      "privacyPolicy":"Политикой приватности",
+         "emailSent": "Письмо отправлено",
+      "additionalElements": {
+        "doYouHaveAnAccount": "Уже есть аккаунт?",
+        "iAgreeToThe":"Я согласен с",
+        "and":"и",
+         "weHaveSent":"Мы отправили ссылку на вашу электронную почту"
+      },
+      "errors": {
+        "emailAlreadyRegistered":
+        "Пользователь с такой электронной почтой уже зарегистрирован",
+        "emailIncorrect":"Неверный адрес электронной почты",
+        "usernameMaxCharacters":"Максимум 30 символов",
+        "usernameMinCharacters":"Минимум 6 символов",
+        "usernameCharacters":
+        "Разрешены латинские буквы, цифры, _ и - символы",
+        "passwordMaxCharacters":"Максимум 20 символов",
+        "passwordMinCharacters":"Минимум 6 символов",
+        "passwordsMatch":"Пароли не совпадают",
+        "passwordCharacters":
+     "Пароли должны содержать минимум 1 цифру, маленькую и большую букву и специальный символ: ! \" # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _ { | } ~)",
+        "termsAccept":"Вы должны согласиться с условиями использования и политикой приватности!"
+      }
   }
 }

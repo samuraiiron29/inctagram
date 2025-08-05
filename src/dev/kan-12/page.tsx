@@ -1,11 +1,29 @@
 'use client'
 import { Input } from '@/shared/ui/base/Input/Input'
-import { Flex } from '@radix-ui/themes'
+import { FormProvider, useForm } from 'react-hook-form'
+import { test, ZodInputs } from '@/shared/lib/types'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { registerTest, registrationSchema } from '@/shared/lib/schemas'
+import { Cards } from '@/shared/ui/base/Cards/Cards'
+import { Button } from '@/shared/ui/base/Button/Button'
+
 export default function Page() {
+  const methods = useForm<test>({
+    resolver: zodResolver(registerTest),
+    mode: 'onChange',
+  })
+
+  const onSubmit = (data: test) => {
+    console.log('Submitted data:', data)
+  }
 
   return (
-    <Flex direction={'column'} gap={'4'}>
-        <Input inputType='email' placeholder="Epam@epam.com"/>
-    </Flex>
+    <FormProvider {...methods}>
+      <Cards onSubmit={methods.handleSubmit(onSubmit)}>
+        <Input type="email" name="email" width="300" />
+        <Input type="password" name="password" width="300" />
+        <Button type="submit">Submit</Button>
+      </Cards>
+    </FormProvider>
   )
 }
