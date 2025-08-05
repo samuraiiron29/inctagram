@@ -4,7 +4,7 @@ import Image from 'next/image'
 type Props = {
   checked: boolean
   onChange: (checked: boolean) => void
-  label?: string
+  label?: string | React.ReactNode
   disabled?: boolean
 }
 
