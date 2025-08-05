@@ -16,24 +16,26 @@
       "email": "Электронная почта",
       "password": "Пароль",
       "passwordConfirm": "Подтверждение пароля",
-      "userName": "Имя пользователя",
+      "username": "Имя пользователя",
       "signIn": "Войти",
       "signUp": "Зарегистрироваться",
       "logout": "Выйти",
       "termsOfService":"Условиями использования",
       "privacyPolicy":"Политикой приватности",
+         "emailSent": "Письмо отправлено",
       "additionalElements": {
         "doYouHaveAnAccount": "Уже есть аккаунт?",
         "iAgreeToThe":"Я согласен с",
-        "and":"и"
+        "and":"и",
+         "weHaveSent":"Мы отправили ссылку на вашу электронную почту"
       },
       "errors": {
         "emailAlreadyRegistered":
         "Пользователь с такой электронной почтой уже зарегистрирован",
         "emailIncorrect":"Неверный адрес электронной почты",
-        "userNameMaxCharacters":"Максимум 30 символов",
-        "userNameMinCharacters":"Минимум 6 символов",
-        "userNameCharacters":
+        "usernameMaxCharacters":"Максимум 30 символов",
+        "usernameMinCharacters":"Минимум 6 символов",
+        "usernameCharacters":
         "Разрешены латинские буквы, цифры, _ и - символы",
         "passwordMaxCharacters":"Максимум 20 символов",
         "passwordMinCharacters":"Минимум 6 символов",

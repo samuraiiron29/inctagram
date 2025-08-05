@@ -19,23 +19,25 @@ export interface I18nResources {
       email: string
       password: string
       passwordConfirm: string
-      userName: string
+      username: string
       signIn: string
       signUp: string
       logout: string
       termsOfService: string
       privacyPolicy: string
+      emailSent: string
       additionalElements: {
         doYouHaveAnAccount: string
         iAgreeToThe: string
         and: string
+        weHaveSent: string
       }
       errors: {
         emailAlreadyRegistered: string
         emailIncorrect: string
-        userNameMaxCharacters: string
-        userNameMinCharacters: string
-        userNameCharacters: string
+        usernameMaxCharacters: string
+        usernameMinCharacters: string
+        usernameCharacters: string
         passwordMaxCharacters: string
         passwordMinCharacters: string
         passwordsMatch: string

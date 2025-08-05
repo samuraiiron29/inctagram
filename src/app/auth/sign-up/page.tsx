@@ -5,33 +5,35 @@ import { Controller, FormProvider, useForm } from 'react-hook-form'
 import type { Error, ZodInputs } from '@/shared/lib/types'
 import Checkbox from '@/shared/ui/base/CheckBox/CheckBox'
 import { useSignUpMutation } from '@/shared/api'
-
 import { registrationSchema } from '@/shared/lib/schemas'
 import { Cards } from '@/shared/ui/base/Cards/Cards'
 import { Input } from '@/shared/ui/base/Input/Input'
 import { Button } from '@/shared/ui/base/Button/Button'
 import { useState } from 'react'
 import { Modal } from '@/shared/ui/Modal/Modal'
+import { useTranslation } from 'react-i18next'
+import Link from 'next/link'
 
 const Page = () => {
-  const handleGitHubLogin = () => {
-    const redirectUrl = 'http://localhost:3000/auth/github'
-    const loginUrl = `${process.env.NEXT_PUBLIC_BASE_URL}auth/github/login?redirect_url=${redirectUrl}`
-    window.location.href = loginUrl
-  }
+  const [isModal, setIsModal] = useState(false)
+  const [email, setEmail] = useState('')
   const [singUp] = useSignUpMutation()
+  const { t } = useTranslation()
   const methods = useForm<ZodInputs>({
     resolver: zodResolver(registrationSchema),
     mode: 'onChange',
   })
 
-  const [isModal, setIsModal] = useState(false)
-  const [email, setEmail] = useState('')
+  const handleGitHubLogin = () => {
+    const redirectUrl = 'http://localhost:3000/auth/github'
+    const loginUrl = `${process.env.NEXT_PUBLIC_BASE_URL}auth/github/login?redirect_url=${redirectUrl}`
+    window.location.href = loginUrl
+  }
 
   const onSubmit = async (data: ZodInputs) => {
     try {
       debugger
-      await singUp({ userName: data.firstName, email: data.email, password: data.password }).unwrap()
+      await singUp({ username: data.firstName, email: data.email, password: data.password }).unwrap()
       methods.reset({
         firstName: '',
         email: '',
@@ -59,45 +61,61 @@ const Page = () => {
       }
     }
   }
+  const text = {
+    signUp: t('auth.signUp'),
+    signIn: t('auth.signIn'),
+    username: t('auth.username'),
+    email: t('auth.email'),
+    password: t('auth.password'),
+    passwordConfirm: t('auth.passwordConfirm'),
+    doYouHaveAnAccount: t('auth.additionalElements.doYouHaveAnAccount'),
+    weHaveSent: t('auth.additionalElements.weHaveSent'),
+    emailSent: t('auth.emailSent'),
+    agree: `${t('auth.additionalElements.iAgreeToThe')} ${t('auth.termsOfService')} ${t('auth.additionalElements.and')} ${t('auth.privacyPolicy')}`,
+  }
+  const AgreeText = () => {
+    return (
+      <div>
+        <span>{t('auth.additionalElements.iAgreeToThe')}</span>
+        <Button>qwe</Button>
+        <span>{t('auth.additionalElements.and')}</span>
+        <Link href="/auth/sign-up">{t('auth.signUp')}</Link>
+      </div>
+    )
+  }
   return (
     <div>
       <FormProvider {...methods}>
         <Cards onSubmit={methods.handleSubmit(onSubmit)}>
           <div className={'flex flex-col items-center my-[20px]'}>
-            <div className="">Sign Up</div>
+            <div className="">
+              <span>{text.signUp}</span>
+            </div>
             <div className={'flex items-center gap-16 mt-[13px] mb-[24px]'}>
               <Image onClick={handleGitHubLogin} src="/git_logo.svg" alt="GitHub auth" width={36} height={36} className="cursor-pointer" />
               <Image src="/google.svg" alt="GitHub auth" width={36} height={36} className="cursor-pointer" />
             </div>
-            <Input type={'default'} name="firstName" width={'300px'} label={'Username'} />
-            <Input type="email" name="email" width={'300px'} label={'Email'} />
-            <Input type="password" name="password" width={'300px'} label={'Password'} />
-            <Input type={'default'} name="confirmPassword" width={'300px'} label={'Confirm password'} />
+            <Input type={'default'} name="firstName" width={'300px'} label={text.username} />
+            <Input type="email" name="email" width={'300px'} label={text.email} />
+            <Input type="password" name="password" width={'300px'} label={text.password} />
+            <Input type={'default'} name="confirmPassword" width={'300px'} label={text.passwordConfirm} />
             <Controller
               {...methods.register('rememberMe')}
               name="rememberMe"
               control={methods.control}
-              render={({ field }) => {
-                return (
-                  <Checkbox
-                    checked={field.value}
-                    onChange={checked => field.onChange(checked)}
-                    label={'I agree to the Terms of Service and Privacy Policy'}
-                  />
-                )
-              }}
+              render={({ field }) => <Checkbox checked={field.value} onChange={checked => field.onChange(checked)} label={text.agree} />}
             />
             <Button type="submit" variant={'primary'} disabled={!methods.formState.isValid} width={'100%'}>
-              Sign Up
+              {text.signUp}
             </Button>
-            <p>Do you have an account?</p>
-            <Button variant={'textButton'} children={'Sign In'} width={'100%'} />
+            <p>{text.doYouHaveAnAccount}</p>
+            <Button variant={'textButton'} children={text.signIn} width={'100%'} />
           </div>
         </Cards>
       </FormProvider>
       {isModal && (
-        <Modal open={isModal} onClose={() => setIsModal(false)} modalTitle={'Email sent'}>
-          <p>We have sent a link to confirm your email to {email} </p>
+        <Modal open={isModal} onClose={() => setIsModal(false)} modalTitle={text.emailSent}>
+          <p>{`${text.weHaveSent} ${email}`}</p>
           <Button children={'Ok'} onClick={() => setIsModal(false)} /> {/* todo: или роутер.пуш на страницу авторизации*/}
         </Modal>
       )}

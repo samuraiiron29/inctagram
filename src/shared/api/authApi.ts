@@ -1,7 +1,7 @@
 import { baseApi } from '@/store/services/baseApi'
 import { setAppEmail, setIsLoggedIn, setUserId } from '@/store/slices/appSlice'
 import { deleteCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
-import type { SingInResponse } from '../lib/types'
+import type { SignInResponse } from '../lib/types'
 
 // const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 const baseUrl = 'http://localhost:3000'
@@ -40,7 +40,7 @@ export const authApi = baseApi.injectEndpoints({
         dispatch(authApi.util.resetApiState())
       },
     }),
-    signUp: build.mutation<void, SingInResponse>({
+    signUp: build.mutation<void, SignInResponse>({
       query: args => ({
         url: 'auth/registration',
         method: 'POST',

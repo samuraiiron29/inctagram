@@ -1,5 +1,5 @@
-export type SingInResponse = {
-  userName: string
+export type SignInResponse = {
+  username: string
   email: string
   password: string
 }
@@ -19,6 +19,3 @@ export type ErrorMessage = {
 export enum StatusCode {
   'error' = 0,
 }
-
-
-
