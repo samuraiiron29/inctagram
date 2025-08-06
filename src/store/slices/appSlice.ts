@@ -1,14 +1,15 @@
 import { createSlice, isFulfilled, isPending, isRejected } from '@reduxjs/toolkit'
+import { Nullable } from '@/shared/types'
 
 export type RequestStatus = 'idle' | 'loading' | 'succeeded' | 'failed'
 
 type AppState = {
   status: RequestStatus
-  error: string | null
-  email: string | null
+  error: Nullable
+  email: Nullable
   isLoggedIn: boolean
-  userId: number | null
-  dev: boolean | null
+  userId: Nullable<number>
+  dev: Nullable<boolean>
 }
 
 const initialState: AppState = {
@@ -17,7 +18,7 @@ const initialState: AppState = {
   email: null,
   isLoggedIn: false,
   userId: null,
-  dev: false
+  dev: false,
 }
 
 const appSlice = createSlice({
@@ -49,7 +50,7 @@ const appSlice = createSlice({
     selectAppEmail: state => state.email,
     selectIsLoggedIn: state => state.isLoggedIn,
     selectAppDev: state => state.dev,
-    selectUserId: state => state.userId
+    selectUserId: state => state.userId,
   },
   extraReducers: builder => {
     builder
@@ -66,7 +67,6 @@ const appSlice = createSlice({
 })
 
 export const { setAppStatus, setAppError, setAppEmail, setIsLoggedIn, setAppDev, setUserId } = appSlice.actions
-export const { selectAppEmail, selectAppStatus, selectAppError, selectIsLoggedIn, selectAppDev, selectUserId } =
-  appSlice.selectors
+export const { selectAppEmail, selectAppStatus, selectAppError, selectIsLoggedIn, selectAppDev, selectUserId } = appSlice.selectors
 
 export default appSlice.reducer
