@@ -26,7 +26,7 @@ const Page = () => {
   })
 
   const handleGitHubLogin = () => {
-    const redirectUrl = 'http://localhost:3000/auth/github'
+    const redirectUrl = 'https://pictory.space/auth/github'
     window.location.assign(`https://inctagram.work/api/v1/auth/github/login?redirect_url=${redirectUrl}`)
   }
   const handleGoogleLogin = () => {
