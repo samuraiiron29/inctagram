@@ -27,8 +27,7 @@ const Page = () => {
 
   const handleGitHubLogin = () => {
     const redirectUrl = 'http://localhost:3000/auth/github'
-    const loginUrl = `${process.env.NEXT_PUBLIC_BASE_URL}auth/github/login?redirect_url=${redirectUrl}`
-    window.location.href = loginUrl
+    window.location.assign(`https://inctagram.work/api/v1/auth/github/login?redirect_url=${redirectUrl}`)
   }
   const handleGoogleLogin = () => {
     const CLIENT_ID = '272583913867-t74i019ufdvmarh05jlv8bcu1ak0a6o6.apps.googleusercontent.com'
