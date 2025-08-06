@@ -111,8 +111,12 @@ const Page = () => {
       </FormProvider>
       {isModal && (
         <Modal open={isModal} onClose={() => setIsModal(false)} modalTitle={signUpText.emailSent}>
-          <p>{`${signUpText.weHaveSent} ${email}`}</p>
-          <Button children={'Ok'} onClick={() => setIsModal(false)} /> {/* todo: или роутер.пуш на страницу авторизации*/}
+          <div className="flex flex-col">
+            <p className="pb-4">{`${signUpText.weHaveSent} ${email}`}</p>
+            <div className=" flex justify-end">
+              <Button children={'OK'} onClick={() => setIsModal(false)} /> {/* todo: или роутер.пуш на страницу авторизации*/}
+            </div>
+          </div>
         </Modal>
       )}
     </div>
