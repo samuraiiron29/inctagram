@@ -87,7 +87,7 @@ export default function Sidebar() {
           ))}
         </div>
       </ul>
-      <button onClick={() => setShowModal(true)} className={'flex items-center justify-center gap-[15px] mt-[180px]'}>
+      <button onClick={() => setShowModal(true)} className={'flex items-center justify-center gap-[15px] mt-[180px] cursor-pointer'}>
         <Image src={'/sidebarIcons/default/log-out.svg'} alt={''} width={'18'} height={'20'} />
         <span className={'text-medium_text14'}>{t('auth.logout')}</span>
       </button>

@@ -3,8 +3,9 @@ import { useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { setIsLoggedIn } from '@/store/slices/appSlice'
 import { setCookie } from '@/shared/lib/utils/cookieUtils'
+import { PATH } from '@/shared/lib/path/path'
 import { useAppDispatch } from '@/shared/lib/hooks'
-import { PATH } from '@/shared/lib/path'
+
 
 export default function Page() {
   const router = useRouter()
@@ -17,9 +18,9 @@ export default function Page() {
       setCookie('accessToken', accessToken, 7)
       dispatch(setIsLoggedIn(true))
       router.push('/')
+      setCookie('isGitHub', 'true', 7)
     } else {
-      console.error('Нет accessToken или email в query-параметрах')
-      router.push(PATH.AUTH.SIGNUP)
+      router.push(PATH.AUTH.LOGIN)
     }
   }, [])
 

@@ -1,5 +1,5 @@
 export type SignInResponse = {
-  username: string
+  userName: string
   email: string
   password: string
 }
