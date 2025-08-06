@@ -25,6 +25,8 @@ const Page = () => {
     mode: 'all',
   })
 
+  //gfdgdff
+
   const handleGitHubLogin = () => {
     const redirectUrl = 'https://pictory.space/auth/github'
     window.location.assign(`https://inctagram.work/api/v1/auth/github/login?redirect_url=${redirectUrl}`)
