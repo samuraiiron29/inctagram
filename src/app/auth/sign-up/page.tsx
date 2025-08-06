@@ -31,7 +31,7 @@ const Page = () => {
   }
   const handleGoogleLogin = () => {
     const CLIENT_ID = '272583913867-t74i019ufdvmarh05jlv8bcu1ak0a6o6.apps.googleusercontent.com'
-    const GOOGLE_REDIRECT_URL = 'http://localhost:3000/auth/google'
+    const GOOGLE_REDIRECT_URL = 'https://pictory.space/auth/google'
     const url = `https://accounts.google.com/o/oauth2/v2/auth?scope=email profile&response_type=code&redirect_uri=${GOOGLE_REDIRECT_URL}&client_id=${CLIENT_ID}`
     window.location.assign(url)
   }
