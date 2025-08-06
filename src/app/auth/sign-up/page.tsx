@@ -13,6 +13,7 @@ import { useState } from 'react'
 import { Modal } from '@/shared/ui/Modal/Modal'
 import { useTranslation } from 'react-i18next'
 import { useSignUpText } from '@/shared/lib/hooks/useSignUpText'
+import { PATH } from '@/shared/lib/path'
 
 const Page = () => {
   const [isModal, setIsModal] = useState(false)
@@ -26,14 +27,15 @@ const Page = () => {
   })
 
   const handleGitHubLogin = () => {
-    const redirectUrl = 'http://localhost:3000/auth/github'
-    const loginUrl = `${process.env.NEXT_PUBLIC_BASE_URL}auth/github/login?redirect_url=${redirectUrl}`
-    window.location.href = loginUrl
+    // const GITHUB_REDIRECT_URL = 'http://localhost:3000/auth/github'
+    const redirect_url = process.env.NODE_ENV === 'development' ? PATH.AUTH.GITHUB_REDIRECT_URL_DEV : PATH.AUTH.GITHUB_REDIRECT_URL_PROD
+    window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}auth/github/login?redirect_url=${redirect_url}`
   }
   const handleGoogleLogin = () => {
     const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID
-    const GOOGLE_REDIRECT_URL = 'http://localhost:3000/auth/google'
-    const url = `https://accounts.google.com/o/oauth2/v2/auth?scope=email profile&response_type=code&redirect_uri=${GOOGLE_REDIRECT_URL}&client_id=${CLIENT_ID}`
+    // const GOOGLE_REDIRECT_URL = 'http://localhost:3000/auth/google'
+    const redirect_url = process.env.NODE_ENV === 'development' ? PATH.AUTH.GOOGLE_REDIRECT_URL_DEV : PATH.AUTH.GOOGLE_REDIRECT_URL_PROD
+    const url = `https://accounts.google.com/o/oauth2/v2/auth?scope=email profile&response_type=code&redirect_uri=${redirect_url}&client_id=${CLIENT_ID}`
     window.location.assign(url)
   }
 
