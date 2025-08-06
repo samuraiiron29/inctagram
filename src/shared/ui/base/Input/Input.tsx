@@ -7,7 +7,7 @@ import type { ZodInputs } from '@/shared/lib/types'
 
 type InputType = 'password' | 'email' | 'search' | 'default'
 
-type PropsType = {
+type Props = {
   type?: InputType
   disabled?: boolean
   name: string
@@ -16,7 +16,7 @@ type PropsType = {
   label: string
 }
 
-export const Input = ({ type = 'default', disabled, name, placeholder, width, label }: PropsType) => {
+export const Input = ({ type = 'default', disabled, name, placeholder, width, label }: Props) => {
   const form = (() => {
     try {
       return useFormContext<ZodInputs>()
