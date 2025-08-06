@@ -16,7 +16,7 @@ export default function Page() {
 
   const [googleAuth] = useGoogleAuthMutation()
   useEffect(() => {
-    googleAuth({ code, redirectUrl: 'http://localhost:3000/auth/google' })
+    googleAuth({ code, redirectUrl: 'https://pictory.space/auth/google' })
       .unwrap()
       .then(response => {
         setCookie('accessToken', response.accessToken, 7)
