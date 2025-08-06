@@ -23,6 +23,7 @@ export const baseQueryWithReauth: BaseQueryFn = async (args, api, extraOptions) 
     const refreshResult = await baseQuery({ url: 'auth/github/update-tokens', method: 'POST' }, api, extraOptions)
 
     if (refreshResult.data) {
+      console.log(123)
       const accessToken = (refreshResult.data as { accessToken: string })?.accessToken
       if (accessToken) {
         setCookie('accessToken', accessToken.trim(), 7)
