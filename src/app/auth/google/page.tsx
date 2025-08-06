@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAppDispatch } from '@/shared/lib/hooks/appHooks'
 import { setIsLoggedIn } from '@/store/slices/appSlice'
-import { setCookie } from '@/shared/lib/utils/cookieUtils'
+import { setCookie } from '@/shared/lib/utils/cookieUtils.client'
 import { useGoogleAuthMutation } from '@/shared/api/authApi'
 
 export default function Page() {
@@ -16,7 +16,7 @@ export default function Page() {
 
   const [googleAuth] = useGoogleAuthMutation()
   useEffect(() => {
-    googleAuth({ code, redirectUrl: 'http://localhost:3000/auth/google' })
+    googleAuth({ code, redirectUrl: 'https://pictory.space/auth/google' })
       .unwrap()
       .then(response => {
         setCookie('accessToken', response.accessToken, 7)

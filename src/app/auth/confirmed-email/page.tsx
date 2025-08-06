@@ -1,5 +1,3 @@
-import { RegistrationConfirmation } from '../registration-confirmation/RegistrationConfirmation'
-
 const Page = () => {
   return <div>///</div>
 }

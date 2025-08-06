@@ -20,8 +20,8 @@ export default function Page() {
   return (
     <FormProvider {...methods}>
       <Cards onSubmit={methods.handleSubmit(onSubmit)}>
-        <Input type="email" name="email" width="300" />
-        <Input type="password" name="password" width="300" />
+        <Input type="email" name="email" width="300" label={''} />
+        <Input type="password" name="password" width="300" label={''} />
         <Button type="submit">Submit</Button>
       </Cards>
     </FormProvider>

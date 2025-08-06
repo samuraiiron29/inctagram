@@ -8,7 +8,7 @@ import React from 'react'
 function Page() {
   return (
     <>
-      <Cards onSubmitHandler={() => {}}>
+      <Cards>
         <div>Sign In</div>
         <div className={'flex flex-row justify-around'}>
           <div>
@@ -23,9 +23,9 @@ function Page() {
           </div>
         </div>
         <span>Email</span>
-        <Input type="email" name={'email'} />
+        <Input type="email" name={'email'} label={''} />
         <span>Password</span>
-        <Input type="password" name={'password'} />
+        <Input type="password" name={'password'} label={''} />
       </Cards>
     </>
   )
