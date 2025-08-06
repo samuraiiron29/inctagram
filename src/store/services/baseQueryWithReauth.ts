@@ -1,6 +1,6 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import type { BaseQueryFn } from '@reduxjs/toolkit/query'
-import { deleteCookie, getCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
+import { deleteCookie, getCookie, setCookie } from '@/shared/lib/utils/cookieUtils.client'
 
 export const baseQueryWithReauth: BaseQueryFn = async (args, api, extraOptions) => {
   const baseQuery = fetchBaseQuery({
