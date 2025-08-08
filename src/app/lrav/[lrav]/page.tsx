@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { Button } from '@radix-ui/themes'
 
 export default function DevKanPage() {
-  const { kan } = useParams()
+  const { lrav } = useParams()
   const [Component, setComponent] = useState<null | React.FC>(null)
 
   function withButton(Component: React.FC) {
@@ -28,15 +28,15 @@ export default function DevKanPage() {
   }, [])
 
   useEffect(() => {
-    if (!kan || typeof kan !== 'string') return
+    if (!lrav || typeof lrav !== 'string') return
 
     // Загружаем динамически компоненту из src/dev/kan-XX/page.tsx
-    import(`@/dev/${kan}/page`)
+    import(`@/lrav/${lrav}/page`)
       .then(mod => setComponent(() => withButton(mod.default)))
       .catch(() => {
-        setComponent(() => () => <div>Страница {kan} не найдена</div>)
+        setComponent(() => () => <div>Страница {lrav} не найдена</div>)
       })
-  }, [kan])
+  }, [lrav])
 
   if (!Component) return <div>Загрузка...</div>
 

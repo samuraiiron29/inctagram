@@ -1,3 +1,4 @@
+'use client'
 import { NotificationBell } from '@/shared/ui/base/Notification/NotificationBell/NotificationBell'
 import { Select } from '@/shared/ui/base/Select/Select'
 import { Button } from '@/shared/ui/base/Button/Button'

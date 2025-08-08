@@ -1,4 +1,4 @@
-import { RegistrationConfirmation } from '../registration-confirmation/RegistrationConfirmation'
+'use client'
 
 const Page = () => {
   return <div>///</div>

@@ -10,7 +10,7 @@ export default function DevPage() {
     if (process.env.NODE_ENV !== 'development') {
       notFound() // Не пускаем в продакшн
     } else {
-      import('../../dev/page').then(mod => {
+      import('../../lrav/page').then(mod => {
         setDevPanel(() => mod.default || <div>fsdfsfs</div>)
       })
     }
