@@ -1,3 +1,4 @@
+'use client'
 import { TextArea } from '@/shared/ui/base/TextArea/TextArea'
 import { useState } from 'react'
 

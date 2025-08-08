@@ -1,3 +1,4 @@
+'use client'
 import Checkbox from '@/shared/ui/base/CheckBox/CheckBox'
 import { useState } from 'react'
 

@@ -1,3 +1,4 @@
+'use client'
 import { FormEvent, ReactNode } from 'react'
 
 type PropsType = {
