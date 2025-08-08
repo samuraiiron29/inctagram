@@ -9,15 +9,13 @@ import z from "zod";
 import { Cards } from "@/shared/ui/base/Cards/Cards";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCreateNewPasswordMutation } from "@/shared/api";
+import { useState } from "react";
+import { Modal } from "@/shared/ui/Modal/Modal";
 
 const newPasswordSchema = registrationSchema.pick({
   password: true,
   confirmPassword: true,
 });
-// .refine((data) => data.password === data.confirmPassword, {
-//     message: "Passwords must match",
-//     path: ["confirmPassword"],
-// })
 
 type NewPasswordForm = z.infer<typeof newPasswordSchema>;
 
@@ -26,8 +24,13 @@ const CreateNewPasswordPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const recoveryCode = searchParams.get("code"); // код приходит в ссылке из письма
-    
+  const email = searchParams.get("email") || "";  
   const [createNewPassword] = useCreateNewPasswordMutation();
+
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
 
   const methods = useForm<NewPasswordForm>({
       resolver: zodResolver(newPasswordSchema),
@@ -43,27 +46,43 @@ const CreateNewPasswordPage = () => {
   } = methods;
 const errors = methods.formState.errors;
 
+  const showModal = (title: string, message: string) => {
+    setModalTitle(title);
+    setModalMessage(message);
+    setModalOpen(true);
+  };
+
 const onSubmit = async(data: NewPasswordForm) => {
+  
    try {
     await createNewPassword({
       newPassword: data.password,
       recoveryCode: recoveryCode || "",
     }).unwrap()
-    alert("Password successfully changed")
-    router.push(PATH.AUTH.LOGIN)
-  } catch (error: any) {
-    if (error.status === 400) {
-      alert("Incorrect data. Please try again.")
-    } else if (error.status === 429) {
-      alert("Too many attempts. Please wait and try again.")
-    } else {
-      alert("Server error")
+     showModal("Password successfully changed", "success");
+     router.push(PATH.AUTH.LOGIN);
+    } catch (error: any) {
+    if (error.status === 400 && error.data?.error === "Invalid or expired link"){
+     router.push(`${PATH.AUTH.RECOVERY_RESENDING}?email=${email}`);
+      } else if (error.status === 400) {
+        showModal("Incorrect data. Please try again.", "error");
+      } else if (error.status === 429) {
+        showModal("Too many attempts. Please wait and try again.", "error");
+      } else {
+        showModal("Server error", "error");
+      }
     }
-  }
-}
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-[var(--color-dark-200)]">
+      <Modal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        modalTitle={modalTitle}
+      >
+        {modalMessage}
+      </Modal>
       <div className="bg-[var(--color-dark-500)] p-8 shadow-lg w-[378px] h-[432px]">
         <h2 className="text-xl font-semibold text-center mb-4 text-[var(--color-light-100)]">
           Create New Password
@@ -71,10 +90,6 @@ const onSubmit = async(data: NewPasswordForm) => {
  
         <FormProvider {...methods}>
           <Cards onSubmit={handleSubmit(onSubmit)}>
-            <h2 className="text-xl font-semibold text-center mb-4 text-[var(--color-light-100)]">
-              Create New Password
-            </h2>
-
             <Input
               type="password"
               name="password"

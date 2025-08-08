@@ -12,6 +12,7 @@ import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForgotPasswordMutation } from "@/shared/api";
 import { ErrorMessage, Error } from "@/shared/lib/types";
+import { Modal } from "@/shared/ui/Modal/Modal";
 
 const forgotPasswordSchema = registrationSchema.pick({
   email: true,
@@ -25,6 +26,10 @@ const ForgotPasswordPage = () => {
   const [serverErrors, setServerErrors] = useState<ErrorMessage[]>([]);
   const [forgotPassword] = useForgotPasswordMutation();
 
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+
   const router = useRouter();
   const methods = useForm<ForgotPasswordForm>({
     defaultValues: { email: "" },
@@ -32,21 +37,27 @@ const ForgotPasswordPage = () => {
     mode: "onChange",
   });
 
+  const showModal = (title: string, message: string) => {
+    setModalTitle(title);
+    setModalMessage(message);
+    setModalOpen(true);
+  };
+
   const onSubmit: SubmitHandler<ForgotPasswordForm> = async (data) => {
     try {
        await forgotPassword({ email: data.email }).unwrap()
       setServerErrors([]);
-       setState("success")
+      setState("success")
+      showModal("We have sent a link to confirm your email.", "success");
   } catch (error: any) {
      const err = error as Error;
       if (err?.data?.messages) {
-        setServerErrors(err.data.messages); // сохраняем массив сообщений
+        setServerErrors(err.data.messages); 
       }
       if (err?.status === 400) {
         setState("error");
-      } else {
-        alert("Server error. Please try again later.");
-      }
+      } 
+      showModal("Server error. Please try again later.", "error");
     }
   };
 
@@ -54,19 +65,27 @@ const ForgotPasswordPage = () => {
      const email = methods.getValues("email");
     try {
       await forgotPassword({ email }).unwrap();
-      alert(`We have sent a link to confirm your email to ${email}`);
+     showModal(`We have sent a link to confirm your email to ${email}`, "success");
     } catch(err:any) {
-      alert(err?.data?.error || "Failed to resend link");
+     showModal(err?.data?.error || "Failed to resend link", "error");
     }
   };
 
  const closeMessage = () => {
+  methods.reset({email:""});  
     setServerErrors([]);
     setState("form");
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-[var(--color-dark-200)]">
+      <Modal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        modalTitle={modalTitle}
+      >
+      {modalMessage}
+      </Modal>
       <div className="w-[378px] h-[432px]">
         <h2 className="text-xl font-semibold text-center mb-4 text-[var(--color-light-100)]">
           Forgot Password
@@ -94,25 +113,25 @@ const ForgotPasswordPage = () => {
               <p className="text-xs text-[var(--color-light-900)] mt-2">
                 Enter your email address and we will send you further instructions
               </p>
-
+              <div className="flex flex-col space-y-[24px]">
               <Button
                 type="submit"
-                variant="primary"
-                disabled={!captchaVerified || !methods.watch("email")}
-                className="w-full mt-4"
+                variant={"primary"}
+                width={"100%"}
+                disabled={!captchaVerified || !methods.formState.isValid}
               >
                 Send Link
               </Button>
 
               <Button
                 type="button"
-                variant="outlined"
+                variant={"outlined"}
+                width={"100%"}
                 onClick={() => router.push(PATH.AUTH.LOGIN)}
-                className="w-full mt-2"
               >
                 Back to Sign In
               </Button>
-
+              </div>
               <div className="mt-3">
                 <Recaptcha
                   sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY || ""}

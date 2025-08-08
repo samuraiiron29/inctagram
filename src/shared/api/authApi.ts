@@ -89,14 +89,14 @@ export const authApi = baseApi.injectEndpoints({
       },
     }),
     //
-      forgotPassword: build.mutation<void, { email: string }>({
+      forgotPassword: build.mutation<void, { email: string  }>({
       query: ({ email }) => ({
-        url: 'auth/password-recovery-resending',
+        url: 'auth/password-recovery',
         method: 'POST',
-        body: { email, baseUrl: 'http://localhost:3000' },
+        body: { email },
       }),
     }),
-     createNewPassword: build.mutation<void, { newPassword: string; recoveryCode: string }>({
+     createNewPassword: build.mutation<void, { newPassword: string, recoveryCode: string }>({
       query: ({ newPassword, recoveryCode }) => ({
         url: 'auth/new-password',
         method: 'POST',
