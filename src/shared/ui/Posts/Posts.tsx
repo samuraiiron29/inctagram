@@ -1,6 +1,7 @@
 'use client'
 import { useGetPostsByUserIdQuery } from '@/shared/api'
 import { PostItem } from './PostItem/PostItem'
+import { Flex } from '@radix-ui/themes'
 
 type Props = {
   userId: number
@@ -14,5 +15,13 @@ export const Posts = (props: Props) => {
     sortDirection: 'desc',
   })
   const posts = data?.items.map(post => <PostItem post={post} key={post.id} />)
-  return <>{posts}</>
+  return (
+    <Flex gap={'4'} m={'5'} ml={'18'}>
+      {posts}
+      <div className="w-32 h-32 bg-accent-700"></div>
+      <div className="w-32 h-32 bg-accent-700"></div>
+      <div className="w-32 h-32 bg-accent-700"></div>
+      <div className="w-32 h-32 bg-accent-700"></div>
+    </Flex>
+  )
 }
