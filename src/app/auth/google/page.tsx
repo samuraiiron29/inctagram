@@ -19,7 +19,6 @@ export default function Page() {
   useEffect(() => {
     const redirect_url = process.env.NODE_ENV === 'development' ? PATH.AUTH.GOOGLE_REDIRECT_URL_DEV : PATH.AUTH.GOOGLE_REDIRECT_URL_PROD
 
-    // googleAuth({ code, redirectUrl: 'http://localhost:3000/auth/google' })
     googleAuth({ code, redirectUrl: redirect_url })
       .unwrap()
       .then(response => {

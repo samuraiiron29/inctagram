@@ -4,9 +4,16 @@ import { useRouter } from 'next/navigation'
 
 const Page = () => {
   const router = useRouter()
+  const handleBack = () => {
+    if (typeof window !== 'undefined' && window.history.length > 1) {
+      router.back()
+    } else {
+      router.push('/auth/sign-up', { scroll: false })
+    }
+  }
   return (
     <div>
-      <Button onClick={() => router.back()} children={'Back'} />
+      <Button onClick={handleBack} children={'Back'} />
       <h1>Privacy policy</h1>
       <div>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fames ac
