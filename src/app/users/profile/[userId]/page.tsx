@@ -1,5 +1,4 @@
 import type { PublicProfile } from '@/shared/api'
-import UserProfile from '@/shared/ui/UserProfile/UserProfile'
 import { notFound } from 'next/navigation'
 
 type Params = { userId: string }
@@ -18,7 +17,7 @@ const UserPage = async ({ params }: { params: Promise<Params> }) => {
       notFound()
     }
 
-    return <UserProfile profile={profile} />
+    return <>ffdsfsd</>
   } catch (error) {
     console.log(error)
   }
