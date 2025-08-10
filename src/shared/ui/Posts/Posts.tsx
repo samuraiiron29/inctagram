@@ -1,12 +1,12 @@
 'use client'
 import { useGetPostsByUserIdQuery } from '@/shared/api'
-import { PostItem } from './PostItem/PostItem'
 import { Flex } from '@radix-ui/themes'
+import PostItem from '@/shared/ui/Posts/PostItem/PostItem'
 
 type Props = {
   userId: number
 }
-export const Posts = (props: Props) => {
+const Posts = (props: Props) => {
   const { data } = useGetPostsByUserIdQuery({
     userId: props.userId,
     endCursorPostId: undefined,
@@ -21,3 +21,5 @@ export const Posts = (props: Props) => {
     </Flex>
   )
 }
+
+export default Posts

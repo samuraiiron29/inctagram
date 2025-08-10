@@ -1,5 +1,5 @@
 import type { PublicProfile } from '@/shared/api'
-import { UserProfile } from '@/shared/ui/UserProfile/userProfile'
+import UserProfile from '@/shared/ui/UserProfile/userProfile'
 
 type Params = { userId: string }
 
