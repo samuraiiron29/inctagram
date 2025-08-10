@@ -1,5 +1,6 @@
 import { baseApi } from '@/store/services/baseApi'
-import type { GetPublicPostsResponse } from '../lib/types'
+import { CreatePostArgs, GetPublicPostsResponse, Post, UploadPostImagesArgs, UploadPostImagesResponse } from '../lib/types'
+import { BaseQueryArg } from '@reduxjs/toolkit/query'
 
 export const postsApi = baseApi.injectEndpoints({
   endpoints: build => ({
@@ -17,10 +18,35 @@ export const postsApi = baseApi.injectEndpoints({
         params: { pageSize, sortBy, sortDirection },
       }),
     }),
+    uploadImagesForPost: build.mutation<UploadPostImagesResponse, UploadPostImagesArgs>({
+      query: ({ files }) => {
+        const form = new FormData()
+
+        files.forEach(f => form.append('file', f))
+
+        return {
+          url: 'posts/image',
+          method: 'POST',
+          body: form,
+        }
+      },
+    }),
+    createPost: build.mutation<Post, CreatePostArgs>({
+      query: ({ description, uploadIds }) => ({
+        url: 'posts',
+        method: 'POST',
+        body: {
+          description,
+          childrenMetadata: uploadIds.map(uploadId => {
+            return { uploadId }
+          }),
+        },
+      }),
+    }),
   }),
 })
 
-export const { useGetPublicPostsQuery, useGetPostsByUserIdQuery } = postsApi
+export const { useGetPublicPostsQuery, useGetPostsByUserIdQuery, useUploadImagesForPostMutation, useCreatePostMutation } = postsApi
 
 export type GetProfilePublicPostsParams = {
   userId: number
@@ -51,5 +77,3 @@ export type PublicProfile = {
   avatars: Avatar[]
   userMetadata: UserMetadata
 }
-
-

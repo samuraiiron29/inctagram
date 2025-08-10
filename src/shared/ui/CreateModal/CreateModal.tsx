@@ -1,21 +1,13 @@
 'use client'
-import { useState, useCallback } from 'react'
-import Cropper from 'react-easy-crop'
-import { Button, TextArea } from '@radix-ui/themes'
-import { Slider } from 'radix-ui'
 import ImageUploader from '../Image/ImageUploader'
 
 type Props = {
   open: boolean
-  onClose: () => void
 }
 export const CreateModal = (props: Props) => {
-  const imageSrc = (src: string) => {
-    // console.log(src)
-  }
   return (
     <>
-      <ImageUploader /> <TextArea />
+      <ImageUploader open />
     </>
   )
 }

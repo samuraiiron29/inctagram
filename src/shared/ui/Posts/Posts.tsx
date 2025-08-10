@@ -18,10 +18,6 @@ export const Posts = (props: Props) => {
   return (
     <Flex gap={'4'} m={'5'} ml={'18'}>
       {posts}
-      <div className="w-32 h-32 bg-accent-700"></div>
-      <div className="w-32 h-32 bg-accent-700"></div>
-      <div className="w-32 h-32 bg-accent-700"></div>
-      <div className="w-32 h-32 bg-accent-700"></div>
     </Flex>
   )
 }
