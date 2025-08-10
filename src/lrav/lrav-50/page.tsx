@@ -1,5 +1,8 @@
 'use client'
+
+import { CreateModal } from '@/shared/ui/CreateModal/CreateModal'
+
 function Page() {
-  return <div> HUIV</div>
+  return <CreateModal open={true} />
 }
 export default Page

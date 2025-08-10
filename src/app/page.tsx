@@ -1,4 +1,3 @@
-'use client'
 import { HomePage } from '@/shared/ui/HomePage/HomePage'
 
 export default async function Home() {

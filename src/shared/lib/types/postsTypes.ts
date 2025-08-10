@@ -53,3 +53,16 @@ export type PublicProfile = {
   avatars: Avatar[]
   userMetadata: UserMetadata
 }
+
+export type CreatePostArgs = {
+  description: string
+  uploadIds: string[]
+}
+
+export type UploadPostImagesArgs = {
+  files: File[]
+}
+
+export type UploadPostImagesResponse = {
+  images: PostImage[]
+}

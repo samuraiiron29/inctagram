@@ -20,7 +20,7 @@ export default function Sidebar() {
       alt: t('sidebar.feed'),
     },
     {
-      href: PATH.POSTS,
+      href: 'create',
       iconDefault: '/sidebarIcons/default/plus-square.svg',
       iconHover: '/sidebarIcons/hover/plus-square.svg',
       iconActive: '/sidebarIcons/active/plus-square.svg',
