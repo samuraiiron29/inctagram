@@ -23,33 +23,7 @@ export const Scroll = ({
   const scrollbarGutter = alwaysShowScrollbar ? "scrollbar-gutter-stable" : "";
 
   return (
-    <div
-      className={`${overflowClasses} ${scrollbarGutter} ${className}`}
-    >
-      <style jsx>{`
-      div::-webkit-scrollbar {
-        width: 4px;
-        height: 45px;
-      }
-      div::-webkit-scrollbar-track {
-        background: transparent;
-      }
-      div::-webkit-scrollbar-thumb {
-        background-color: #555;
-        border-radius: 9999px;
-        transition: background-color 0.3s ease;
-      }
-      div:hover::-webkit-scrollbar-thumb {
-        background-color: #999;
-      }
-      div::-webkit-scrollbar-button {
-        display: none;
-        background-color: #fff;
-        width: 0;
-        height: 0;
-        background: transparent;
-      }
-      `}</style>
+    <div className={`${overflowClasses} ${scrollbarGutter} ${className} scrollbar`}>
       {children}
     </div>
   );
