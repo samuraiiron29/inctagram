@@ -33,7 +33,7 @@ const Page = () => {
   }
   const handleGoogleLogin = () => {
     const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID
-    // const GOOGLE_REDIRECT_URL = 'http://localhost:3000/auth/google  '
+    // const GOOGLE_REDIRECT_URL = 'http://localhost:3000/auth/google   '
     const redirect_url = process.env.NODE_ENV === 'development' ? PATH.AUTH.GOOGLE_REDIRECT_URL_DEV : PATH.AUTH.GOOGLE_REDIRECT_URL_PROD
     const url = `https://accounts.google.com/o/oauth2/v2/auth?scope=email profile&response_type=code&redirect_uri=${redirect_url}&client_id=${CLIENT_ID}`
     window.location.assign(url)
