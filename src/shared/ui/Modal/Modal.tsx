@@ -1,6 +1,7 @@
+'use client'
 import Image from 'next/image'
 import { clsx } from 'clsx'
-import { ComponentPropsWithoutRef } from 'react' // Или импортируй свою утилиту `cn`
+import { ComponentPropsWithoutRef } from 'react'
 import { Dialog } from 'radix-ui'
 
 export type Props = {

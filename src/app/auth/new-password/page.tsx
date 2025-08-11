@@ -1,3 +1,4 @@
+'use client'
 const Page = () => {
   return <div>Create New Password</div>
 }
