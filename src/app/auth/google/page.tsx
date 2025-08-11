@@ -4,9 +4,9 @@ import { useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAppDispatch } from '@/shared/lib/hooks/appHooks'
 import { setIsLoggedIn } from '@/store/slices/appSlice'
-import { setCookie } from '@/shared/lib/utils/cookieUtils'
 import { useGoogleAuthMutation } from '@/shared/api/authApi'
 import { PATH } from '@/shared/lib/path'
+import { setCookie } from '@/shared/lib/utils/cookie.client'
 
 export default function Page() {
   const router = useRouter()

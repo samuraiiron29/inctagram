@@ -1,4 +1,4 @@
-// src/features/Auth/lib/text.ts
+'use client'
 
 import { PATH } from '@/shared/lib/path'
 import type { TFunction } from 'i18next'

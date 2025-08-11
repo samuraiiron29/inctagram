@@ -1,7 +1,7 @@
 'use client'
 
 import { useMeQuery } from '@/shared/api/authApi'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { PATH } from '@/shared/lib/path/path'
 import { useEffect } from 'react'
 
@@ -9,14 +9,15 @@ type Props = {}
 
 const Profile = (props: Props) => {
   const { data } = useMeQuery()
+  const router = useRouter()
 
   useEffect(() => {
     if (data?.userId) {
-      redirect(PATH.USERS.PROFILE_USERID(data.userId))
+      router.push(PATH.USERS.PROFILE_USERID(data.userId))
     } else {
-      redirect(PATH.HOME)
+      router.push(PATH.HOME)
     }
-  }, [data])
+  }, [data, router])
 
   return <>Profile</>
 }

@@ -1,7 +1,7 @@
 import { baseApi } from '@/store/services/baseApi'
 import { setAppEmail, setIsLoggedIn, setUserId } from '@/store/slices/appSlice'
-import { deleteCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
 import type { SignInResponse } from '../lib/types'
+import { deleteCookie, setCookie } from '@/shared/lib/utils/cookie.client'
 
 type GoogleAuthResponse = {
   accessToken: string
