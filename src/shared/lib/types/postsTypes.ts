@@ -66,3 +66,14 @@ export type UploadPostImagesArgs = {
 export type UploadPostImagesResponse = {
   images: PostImage[]
 }
+export type GetProfilePublicPostsParams = {
+  userId: number
+  endCursorPostId?: number
+  pageSize?: number
+  sortBy?: string
+  sortDirection?: 'asc' | 'desc'
+}
+
+
+
+

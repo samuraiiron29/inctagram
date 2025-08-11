@@ -1,17 +1,7 @@
 import { baseApi } from '@/store/services/baseApi'
 import { setAppEmail, setIsLoggedIn, setUserId } from '@/store/slices/appSlice'
-import type { SignInResponse } from '../lib/types'
-import { deleteCookie, setCookie } from '@/shared/lib/utils/cookie.client'
-
-type GoogleAuthResponse = {
-  accessToken: string
-  email: string
-}
-
-type GoogleAuthRequest = {
-  code: string
-  redirectUrl: string
-}
+import { deleteCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
+import type { GoogleAuthRequest, GoogleAuthResponse, SignInResponse } from '../lib/types'
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 

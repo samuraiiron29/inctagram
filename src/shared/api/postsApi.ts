@@ -1,6 +1,14 @@
 import { baseApi } from '@/store/services/baseApi'
-import { CreatePostArgs, GetPublicPostsResponse, Post, UploadPostImagesArgs, UploadPostImagesResponse } from '../lib/types'
-import { BaseQueryArg } from '@reduxjs/toolkit/query'
+import type {
+  CreatePostArgs,
+  GetProfilePublicPostsParams,
+  GetPublicPostsResponse,
+  Post,
+  UploadPostImagesArgs,
+  UploadPostImagesResponse,
+} from '../lib/types'
+
+
 
 export const postsApi = baseApi.injectEndpoints({
   endpoints: build => ({
@@ -48,32 +56,3 @@ export const postsApi = baseApi.injectEndpoints({
 
 export const { useGetPublicPostsQuery, useGetPostsByUserIdQuery, useUploadImagesForPostMutation, useCreatePostMutation } = postsApi
 
-export type GetProfilePublicPostsParams = {
-  userId: number
-  endCursorPostId?: number
-  pageSize?: number
-  sortBy?: string
-  sortDirection?: 'asc' | 'desc'
-}
-
-type Avatar = {
-  url: string
-  width: number
-  height: number
-  fileSize: number
-  createdAt: string
-}
-
-type UserMetadata = {
-  following: number
-  followers: number
-  publications: number
-}
-
-export type PublicProfile = {
-  id: number
-  userName: string
-  aboutMe: string
-  avatars: Avatar[]
-  userMetadata: UserMetadata
-}
