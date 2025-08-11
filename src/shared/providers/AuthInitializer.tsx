@@ -5,7 +5,8 @@ import LinearProgress from '@/shared/ui/base/Liner/LinearProgress'
 import { useAppDispatch } from '../lib/hooks'
 import { useMeQuery } from '../api'
 import { skipToken } from '@reduxjs/toolkit/query'
-import { getCookie } from '@/shared/lib/utils/cookie.client'
+import { getCookie } from '../lib/utils/cookieUtils'
+
 
 export function AuthInitializer({ children }: { children: React.ReactNode }) {
   const token = getCookie('accessToken')
