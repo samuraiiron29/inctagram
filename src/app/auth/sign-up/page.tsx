@@ -29,7 +29,8 @@ const Page = () => {
   const handleGitHubLogin = () => {
     // const GITHUB_REDIRECT_URL = 'http://localhost:3000/auth/github'
     const redirect_url = process.env.NODE_ENV === 'development' ? PATH.AUTH.GITHUB_REDIRECT_URL_DEV : PATH.AUTH.GITHUB_REDIRECT_URL_PROD
-    window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}auth/github/login?redirect_url=${redirect_url}`
+    // window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}auth/github/login?redirect_url=${redirect_url}`
+    window.location.href = `https://inctagram.work/api/v1/auth/github/login?redirect_url=${redirect_url}`
   }
   const handleGoogleLogin = () => {
     const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID
