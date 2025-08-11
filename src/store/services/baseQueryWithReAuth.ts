@@ -3,7 +3,7 @@ import type { BaseQueryFn } from '@reduxjs/toolkit/query'
 import { deleteCookie, getCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
 
 
-export const baseQueryWithReauth: BaseQueryFn = async (args, api, extraOptions) => {
+export const baseQueryWithReAuth: BaseQueryFn = async (args, api, extraOptions) => {
   const baseQuery = fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
     credentials: 'include',

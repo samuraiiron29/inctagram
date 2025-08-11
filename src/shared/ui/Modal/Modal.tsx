@@ -29,7 +29,7 @@ export const Modal = ({ modalTitle, width, height, onClose, children, open, ...r
         <div className={clsx('flex items-center justify-between px-6 py-3', 'border-b border-dark-100')}>
           <Dialog.Title className="text-[20px] font-bold text-amber-50">{modalTitle}</Dialog.Title>
 
-          <Dialog.Close>
+          <Dialog.Close asChild >
             <button
               className={clsx(
                 'cursor-pointer flex items-center justify-center w-8 h-8',

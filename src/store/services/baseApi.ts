@@ -1,10 +1,10 @@
 'use client'
 import { createApi } from '@reduxjs/toolkit/query/react'
-import { baseQueryWithReauth } from '@/store/services/baseQueryWithReauth'
+import { baseQueryWithReAuth } from '@/store/services/baseQueryWithReAuth'
 
 export const baseApi = createApi({
   reducerPath: 'baseApi',
   tagTypes: [],
-  baseQuery: baseQueryWithReauth,
+  baseQuery: baseQueryWithReAuth,
   endpoints: () => ({}),
 })
