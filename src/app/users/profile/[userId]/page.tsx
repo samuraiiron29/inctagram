@@ -1,5 +1,5 @@
 import type { PublicProfile } from '@/shared/lib/types'
-import UserProfile from '@/shared/ui/UserProfile/userProfile'
+import UserProfile from '@/shared/ui/UserProfile/UserProfile'
 import { notFound } from 'next/navigation'
 
 type Params = { userId: string }
@@ -16,3 +16,4 @@ const UserPage = async ({ params }: { params: Promise<Params> }) => {
     console.log(error)
   }
 }
+export default UserPage
