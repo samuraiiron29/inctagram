@@ -95,8 +95,22 @@ export const authApi = baseApi.injectEndpoints({
         }
       },
     }),
+    //
+      forgotPassword: build.mutation<void, { email: string  }>({
+      query: ({ email }) => ({
+        url: 'auth/password-recovery',
+        method: 'POST',
+        body: { email },
+      }),
+    }),
+     createNewPassword: build.mutation<void, { newPassword: string, recoveryCode: string }>({
+      query: ({ newPassword, recoveryCode }) => ({
+        url: 'auth/new-password',
+        method: 'POST',
+        body: { newPassword, recoveryCode },
+      }),
+    }),
   }),
 })
 
-export const { useMeQuery, useConfirmMutation, useSignUpMutation, useDeleteUserProfileMutation, useLogoutMutation, useGoogleAuthMutation } =
-  authApi
+export const { useMeQuery, useLogoutMutation, useConfirmMutation, useSignUpMutation, useDeleteUserProfileMutation, useForgotPasswordMutation, useCreateNewPasswordMutation } = authApi
