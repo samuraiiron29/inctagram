@@ -1,3 +1,4 @@
+'use client'
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { baseQueryWithReauth } from '@/store/services/baseQueryWithReauth'
 

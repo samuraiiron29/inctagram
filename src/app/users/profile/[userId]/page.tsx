@@ -16,5 +16,3 @@ const UserPage = async ({ params }: { params: Promise<Params> }) => {
     console.log(error)
   }
 }
-
-export default UserPage
