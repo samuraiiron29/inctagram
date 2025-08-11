@@ -1,5 +1,5 @@
-import type { PublicProfile } from '@/shared/api'
-import UserProfile from '@/shared/ui/UserProfile/UserProfile'
+import type { PublicProfile } from '@/shared/lib/types'
+import UserProfile from '@/shared/ui/UserProfile/userProfile'
 import { notFound } from 'next/navigation'
 
 type Params = { userId: string }
