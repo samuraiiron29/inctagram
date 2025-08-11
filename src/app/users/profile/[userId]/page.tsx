@@ -1,7 +1,7 @@
-// app/users/profile/[userId]/page.tsx
 import { cookies } from 'next/headers'
 import { notFound, redirect } from 'next/navigation'
 import type { Post, PublicProfile } from '@/shared/lib/types'
+import UserProfile from '@/shared/ui/UserProfile/userProfile'
 
 type PageProps = {
   params: Promise<{ userId: string }>
@@ -33,5 +33,9 @@ export default async function UserPage({ params, searchParams }: PageProps) {
 
   if (!profile?.userMetadata) notFound()
 
-  return <>ffdsfsd</>
+  return (
+    <>
+      <UserProfile profile={profile} />
+    </>
+  )
 }
