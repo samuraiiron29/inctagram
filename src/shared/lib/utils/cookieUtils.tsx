@@ -1,16 +1,16 @@
 'use client'
-export const setCookie = (name: string, value: string, days: number): void => {
+
+export const setCookie = (name: string, value: string, days: number) => {
   const expires = new Date(Date.now() + days * 864e5).toUTCString()
   document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/`
 }
 
 export const getCookie = (name: string): string => {
-  return document.cookie.split('; ').reduce((acc, cookie) => {
-    const [key, value] = cookie.split('=')
-    return key === name ? decodeURIComponent(value) : acc
+  if (typeof document === 'undefined') return '' // защита от случайного server-импорта
+  return document.cookie.split('; ').reduce((acc, c) => {
+    const [k, v] = c.split('=')
+    return k === name ? decodeURIComponent(v) : acc
   }, '')
 }
 
-export const deleteCookie = (name: string): void => {
-  setCookie(name, '', -1)
-}
+export const deleteCookie = (name: string) => setCookie(name, '', -1)
