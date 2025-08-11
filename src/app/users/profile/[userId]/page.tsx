@@ -1,6 +1,6 @@
 import type { PublicProfile } from '@/shared/lib/types'
-import UserProfile from '@/shared/ui/UserProfile/UserProfile'
 import { notFound } from 'next/navigation'
+import UserProfile from '@/shared/ui/userProfile/userProfile'
 
 type Params = { userId: string }
 
