@@ -25,7 +25,7 @@
   }
 
     /* Scroll */
-  html::-webkit-scrollbar {
+  /* html::-webkit-scrollbar {
     width: 4px;
     background-color: var(--color-dark-700);
   }
@@ -38,7 +38,7 @@
   html::-webkit-scrollbar-thumb:hover {
     background-color: #8D9094;
     border-radius: 3px;
-  }
+  } */
   /* End-scroll */
 }
 
