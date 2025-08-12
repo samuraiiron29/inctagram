@@ -1,7 +1,6 @@
 import { baseApi } from '@/store/services/baseApi'
 import { setAppEmail, setIsLoggedIn, setUserId } from '@/store/slices/appSlice'
 import { deleteCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
-<<<<<<< HEAD
 import type { LoginResponse, SignInResponse } from '../lib/types'
 
 type GoogleAuthResponse = {
@@ -13,9 +12,6 @@ type GoogleAuthRequest = {
   code: string
   redirectUrl: string
 }
-=======
-import type { GoogleAuthRequest, GoogleAuthResponse, SignInResponse } from '../lib/types'
->>>>>>> 202b5f44cd380c8f61f6358bf2410bbc132446cb
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
@@ -127,17 +123,6 @@ export const authApi = baseApi.injectEndpoints({
   }),
 })
 
-<<<<<<< HEAD
+
 export const { useMeQuery, useConfirmMutation, useSignUpMutation, useDeleteUserProfileMutation, useLogoutMutation, useGoogleAuthMutation, useLoginMutation } =
   authApi
-=======
-export const {
-  useMeQuery,
-  useConfirmMutation,
-  useSignUpMutation,
-  useDeleteUserProfileMutation,
-  useLogoutMutation,
-  useGoogleAuthMutation,
-  useSignInMutation,
-} = authApi
->>>>>>> 202b5f44cd380c8f61f6358bf2410bbc132446cb
