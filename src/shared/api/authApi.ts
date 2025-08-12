@@ -1,7 +1,7 @@
 import { baseApi } from '@/store/services/baseApi'
 import { setAppEmail, setIsLoggedIn, setUserId } from '@/store/slices/appSlice'
 import { deleteCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
-import type { SignInResponse } from '../lib/types'
+import type { LoginResponse, SignInResponse } from '../lib/types'
 
 type GoogleAuthResponse = {
   accessToken: string
@@ -59,11 +59,26 @@ export const authApi = baseApi.injectEndpoints({
         body: { code, redirectUrl },
       }),
     }),
+    login: build.mutation<{accessToken: string}, LoginResponse>({
+      query: args => ({
+        url: 'auth/login',
+        method: 'POST',
+        body: { ...args, baseUrl },
+      }),
+      async onQueryStarted(args, {dispatch, queryFulfilled}){
+        try{
+          const res = await queryFulfilled
+          setCookie('accessToken', res.data.accessToken.trim(), 7)
+        } catch (error) {
+          error
+        }
+      }
+    }),
     signUp: build.mutation<void, SignInResponse>({
       query: args => ({
         url: 'auth/registration',
         method: 'POST',
-        body: { ...args, baseUrl: 'http://localhost:3000/auth/registration-confirmation' },
+        body: { ...args, baseUrl },
       }),
     }),
     confirm: build.mutation<void, { confirmationCode: string }>({
@@ -91,5 +106,5 @@ export const authApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { useMeQuery, useConfirmMutation, useSignUpMutation, useDeleteUserProfileMutation, useLogoutMutation, useGoogleAuthMutation } =
+export const { useMeQuery, useConfirmMutation, useSignUpMutation, useDeleteUserProfileMutation, useLogoutMutation, useGoogleAuthMutation, useLoginMutation } =
   authApi
