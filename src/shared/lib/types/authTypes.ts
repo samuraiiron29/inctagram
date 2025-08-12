@@ -3,6 +3,10 @@ export type SignInResponse = {
   email: string
   password: string
 }
+export type LoginResponse = {
+  email: string
+  password: string
+}
 
 export type Error<T = ErrorMessage[]> = {
   data: {
