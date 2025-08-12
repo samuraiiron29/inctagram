@@ -1,3 +1,4 @@
+'use client'
 import { baseApi } from '@/store/services/baseApi'
 import { setAppEmail, setIsLoggedIn, setUserId } from '@/store/slices/appSlice'
 import { deleteCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
@@ -72,7 +73,6 @@ export const authApi = baseApi.injectEndpoints({
         }
       },
     }),
-
     confirm: build.mutation<void, { confirmationCode: string }>({
       query: args => ({
         url: 'auth/registration-confirmation',
@@ -95,7 +95,6 @@ export const authApi = baseApi.injectEndpoints({
         }
       },
     }),
-    //
     forgotPassword: build.mutation<void, { email: string }>({
       query: ({ email }) => ({
         url: 'auth/password-recovery',
@@ -112,7 +111,6 @@ export const authApi = baseApi.injectEndpoints({
     }),
   }),
 })
-
 export const {
   useMeQuery,
   useLogoutMutation,
@@ -121,5 +119,5 @@ export const {
   useDeleteUserProfileMutation,
   useForgotPasswordMutation,
   useCreateNewPasswordMutation,
-  useGoogleAuthMutation,
+  useSignInMutation,
 } = authApi

@@ -1,11 +1,9 @@
 'use client'
-
 import { selectAppStatus, selectIsLoggedIn } from '@/store/slices/appSlice'
-
 import { Header } from '@/shared/ui/base/Header/Header'
-import Sidebar from '@/shared/ui/base/Sidebar/Sidebar'
 import LinearProgress from '@/shared/ui/base/Liner/LinearProgress'
 import { useAppSelector } from '@/shared/lib/hooks'
+import Sidebar from '@/features/Sidebar/Sidebar'
 
 type Props = {
   children: React.ReactNode

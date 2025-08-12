@@ -1,6 +1,6 @@
-@import '../../../node_modules/.pnpm/tailwindcss@4.1.11/node_modules/tailwindcss/dist/lib.d.mts';
-@import 'color.css';
-@import 'typography.css';
+@import 'tailwindcss';
+@import './color.css';
+@import './typography.css';
 
 @layer base {
   .radix-themes[data-has-background='true'] {
