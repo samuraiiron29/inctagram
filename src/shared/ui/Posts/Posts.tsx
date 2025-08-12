@@ -16,7 +16,7 @@ const Posts = (props: Props) => {
   })
   const posts = data?.items.map(post => <PostItem post={post} key={post.id} />)
   return (
-    <Flex gap={'4'} m={'5'} ml={'18'}>
+    <Flex gap={'4'} m={'5'} ml={'18'} wrap={'wrap'}>
       {posts}
     </Flex>
   )

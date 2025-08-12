@@ -10,6 +10,7 @@ type AppState = {
   isLoggedIn: boolean
   userId: Nullable<number>
   dev: Nullable<boolean>
+  openCreate: boolean
 }
 
 const initialState: AppState = {
@@ -19,6 +20,7 @@ const initialState: AppState = {
   isLoggedIn: false,
   userId: null,
   dev: false,
+  openCreate: false,
 }
 
 const appSlice = createSlice({
@@ -43,6 +45,9 @@ const appSlice = createSlice({
     setUserId: build.reducer<number>((state, action) => {
       state.userId = action.payload
     }),
+    setOpenCreate: build.reducer<boolean>((state, action) => {
+      state.openCreate = action.payload
+    }),
   }),
   selectors: {
     selectAppStatus: state => state.status,
@@ -51,6 +56,7 @@ const appSlice = createSlice({
     selectIsLoggedIn: state => state.isLoggedIn,
     selectAppDev: state => state.dev,
     selectUserId: state => state.userId,
+    selectOpenCreate: state => state.openCreate,
   },
   extraReducers: builder => {
     builder
@@ -66,7 +72,8 @@ const appSlice = createSlice({
   },
 })
 
-export const { setAppStatus, setAppError, setAppEmail, setIsLoggedIn, setAppDev, setUserId } = appSlice.actions
-export const { selectAppEmail, selectAppStatus, selectAppError, selectIsLoggedIn, selectAppDev, selectUserId } = appSlice.selectors
+export const { setAppStatus, setAppError, setAppEmail, setIsLoggedIn, setAppDev, setUserId, setOpenCreate } = appSlice.actions
+export const { selectAppEmail, selectAppStatus, selectAppError, selectIsLoggedIn, selectAppDev, selectUserId, selectOpenCreate } =
+  appSlice.selectors
 
 export default appSlice.reducer

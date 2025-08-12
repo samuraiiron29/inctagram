@@ -1,5 +1,4 @@
 'use client'
-import { useLoginMutation } from '@/shared/api'
 import { useAppDispatch } from '@/shared/lib/hooks'
 import { loginSchema } from '@/shared/lib/schemas'
 import { loginType } from '@/shared/lib/types/zodLoginTypes'
@@ -12,30 +11,30 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { PATH } from '@/shared/lib/path'
 import React from 'react'
 import { Button } from '@/shared/ui/base/Button/Button'
-
+import { useSignInMutation } from '@/shared/api'
 
 function Page() {
-  const [login] = useLoginMutation()
+  const [login] = useSignInMutation()
 
   const dispatch = useAppDispatch()
 
   const handleGitHubLogin = () => {
-      // const GITHUB_REDIRECT_URL = 'http://localhost:3000/auth/github'
-      const redirect_url = process.env.NODE_ENV === 'development' ? PATH.AUTH.GITHUB_REDIRECT_URL_DEV : PATH.AUTH.GITHUB_REDIRECT_URL_PROD
-      window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}auth/github/login?redirect_url=${redirect_url}`
-    }
-    const handleGoogleLogin = () => {
-      const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID
-      // const GOOGLE_REDIRECT_URL = 'http://localhost:3000/auth/google'
-      const redirect_url = process.env.NODE_ENV === 'development' ? PATH.AUTH.GOOGLE_REDIRECT_URL_DEV : PATH.AUTH.GOOGLE_REDIRECT_URL_PROD
-      const url = `https://accounts.google.com/o/oauth2/v2/auth?scope=email profile&response_type=code&redirect_uri=${redirect_url}&client_id=${CLIENT_ID}`
-      window.location.assign(url)
-    }
+    // const GITHUB_REDIRECT_URL = 'http://localhost:3000/auth/github'
+    const redirect_url = process.env.NODE_ENV === 'development' ? PATH.AUTH.GITHUB_REDIRECT_URL_DEV : PATH.AUTH.GITHUB_REDIRECT_URL_PROD
+    window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}auth/github/login?redirect_url=${redirect_url}`
+  }
+  const handleGoogleLogin = () => {
+    const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID
+    // const GOOGLE_REDIRECT_URL = 'http://localhost:3000/auth/google'
+    const redirect_url = process.env.NODE_ENV === 'development' ? PATH.AUTH.GOOGLE_REDIRECT_URL_DEV : PATH.AUTH.GOOGLE_REDIRECT_URL_PROD
+    const url = `https://accounts.google.com/o/oauth2/v2/auth?scope=email profile&response_type=code&redirect_uri=${redirect_url}&client_id=${CLIENT_ID}`
+    window.location.assign(url)
+  }
 
   const methods = useForm<loginType>({
-      resolver: zodResolver(loginSchema),
-      defaultValues: { email: "", password: "" },
-    })
+    resolver: zodResolver(loginSchema),
+    defaultValues: { email: '', password: '' },
+  })
 
   // const onSubmitHandler = async (data: loginType) => {
   //     try {
@@ -60,8 +59,8 @@ function Page() {
   //     }
   //   }
 
-    const onSubmitHandler = (data: loginType) => {
-    login(data).then((res) => {
+  const onSubmitHandler = (data: loginType) => {
+    login(data).then(res => {
       if (res.data) {
         dispatch(setIsLoggedIn(true))
         methods.reset()
@@ -80,10 +79,10 @@ function Page() {
           </div>
         </div>
         <span>Email</span>
-        <Input name='email' label='email' type="email" />
+        <Input name="email" label="email" type="email" />
         <span>Password</span>
-        <Input name='password' label='password' type="password" />
-        <Button type="submit" width='100%' >
+        <Input name="password" label="password" type="password" />
+        <Button type="submit" width="100%">
           Sign In
         </Button>
       </Cards>
