@@ -20,6 +20,16 @@ export type ErrorMessage = {
   message: string
   field: string
 }
+export type GoogleAuthResponse = {
+  accessToken: string
+  email: string
+}
+
+export type GoogleAuthRequest = {
+  code: string
+  redirectUrl: string
+}
+
 export enum StatusCode {
   'error' = 0,
 }

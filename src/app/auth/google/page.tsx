@@ -4,9 +4,9 @@ import { useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAppDispatch } from '@/shared/lib/hooks/appHooks'
 import { setIsLoggedIn } from '@/store/slices/appSlice'
-import { setCookie } from '@/shared/lib/utils/cookieUtils'
 import { useGoogleAuthMutation } from '@/shared/api/authApi'
 import { PATH } from '@/shared/lib/path'
+import { setCookie } from '@/shared/lib/utils/cookie.client'
 
 export default function Page() {
   const router = useRouter()
@@ -19,7 +19,6 @@ export default function Page() {
   useEffect(() => {
     const redirect_url = process.env.NODE_ENV === 'development' ? PATH.AUTH.GOOGLE_REDIRECT_URL_DEV : PATH.AUTH.GOOGLE_REDIRECT_URL_PROD
 
-    // googleAuth({ code, redirectUrl: 'http://localhost:3000/auth/google' })
     googleAuth({ code, redirectUrl: redirect_url })
       .unwrap()
       .then(response => {

@@ -41,7 +41,7 @@ const Page = () => {
 
   const onSubmit = async (data: ZodInputs) => {
     try {
-      debugger
+
       await singUp({ userName: data.firstName, email: data.email, password: data.password }).unwrap()
       methods.reset({
         firstName: '',

@@ -2,10 +2,9 @@
 import { useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { setIsLoggedIn } from '@/store/slices/appSlice'
-import { setCookie } from '@/shared/lib/utils/cookieUtils'
 import { PATH } from '@/shared/lib/path/path'
 import { useAppDispatch } from '@/shared/lib/hooks'
-
+import { setCookie } from '@/shared/lib/utils/cookie.client'
 
 export default function Page() {
   const router = useRouter()
