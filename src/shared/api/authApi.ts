@@ -3,7 +3,7 @@ import { setAppEmail, setIsLoggedIn, setUserId } from '@/store/slices/appSlice'
 import { deleteCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
 import type { GoogleAuthRequest, GoogleAuthResponse, SignInResponse } from '../lib/types'
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_BASE_API_URL
+
 
 
 
