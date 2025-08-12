@@ -1,5 +1,6 @@
+'use client'
 import { createSlice, isFulfilled, isPending, isRejected } from '@reduxjs/toolkit'
-import { Nullable } from '@/shared/types'
+import { Nullable } from '@/shared/lib/types/types'
 
 export type RequestStatus = 'idle' | 'loading' | 'succeeded' | 'failed'
 

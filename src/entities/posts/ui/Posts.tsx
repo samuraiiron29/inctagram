@@ -1,7 +1,7 @@
 'use client'
 import { useGetPostsByUserIdQuery } from '@/shared/api'
 import { Flex } from '@radix-ui/themes'
-import PostItem from '@/shared/ui/Posts/PostItem/PostItem'
+import PostItem from '@/entities/posts/ui/PostItem/PostItem'
 
 type Props = {
   userId: number

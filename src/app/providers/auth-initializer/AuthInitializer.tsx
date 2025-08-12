@@ -1,12 +1,12 @@
 'use client'
-import { useEffect, useState } from 'react'
-import { setIsLoggedIn } from '@/store/slices/appSlice'
-import LinearProgress from '@/shared/ui/base/Liner/LinearProgress'
-import { useAppDispatch } from '../lib/hooks'
-import { useMeQuery } from '../api'
-import { skipToken } from '@reduxjs/toolkit/query'
-import { getCookie } from '../lib/utils/cookieUtils'
 
+import { useMeQuery } from '@/shared/api'
+import { useAppDispatch } from '@/shared/lib/hooks'
+import { getCookie } from '@/shared/lib/utils'
+import LinearProgress from '@/shared/ui/base/Liner/LinearProgress'
+import { setIsLoggedIn } from '@/store/slices/appSlice'
+import { skipToken } from '@reduxjs/toolkit/query'
+import { useState, useEffect } from 'react'
 
 export function AuthInitializer({ children }: { children: React.ReactNode }) {
   const token = getCookie('accessToken')
@@ -16,13 +16,8 @@ export function AuthInitializer({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (isLoading) return
-
-    if (isSuccess && data?.email) {
-      dispatch(setIsLoggedIn(true))
-    } else if (isError) {
-      dispatch(setIsLoggedIn(false))
-    }
-
+    if (isSuccess && data?.email) dispatch(setIsLoggedIn(true))
+    else if (isError) dispatch(setIsLoggedIn(false))
     setIsInitialized(true)
   }, [isLoading, isSuccess, isError, data])
 

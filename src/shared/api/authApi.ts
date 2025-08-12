@@ -72,7 +72,6 @@ export const authApi = baseApi.injectEndpoints({
         }
       },
     }),
-
     confirm: build.mutation<void, { confirmationCode: string }>({
       query: args => ({
         url: 'auth/registration-confirmation',
@@ -95,7 +94,6 @@ export const authApi = baseApi.injectEndpoints({
         }
       },
     }),
-    //
     forgotPassword: build.mutation<void, { email: string }>({
       query: ({ email }) => ({
         url: 'auth/password-recovery',
@@ -112,7 +110,6 @@ export const authApi = baseApi.injectEndpoints({
     }),
   }),
 })
-
 export const {
   useMeQuery,
   useLogoutMutation,
@@ -121,6 +118,7 @@ export const {
   useDeleteUserProfileMutation,
   useForgotPasswordMutation,
   useCreateNewPasswordMutation,
+  useSignInMutation,
   useGoogleAuthMutation,
   useSignInMutation,
 } = authApi

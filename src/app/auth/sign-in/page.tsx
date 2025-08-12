@@ -1,7 +1,8 @@
 'use client'
+import { useSignInMutation } from '@/shared/api'
 import { useAppDispatch } from '@/shared/lib/hooks'
 import { loginSchema } from '@/shared/lib/schemas'
-import { loginType } from '@/shared/lib/types/zodLoginTypes'
+import { ZodLogin } from '@/shared/lib/types/zodLoginTypes'
 import { Cards } from '@/shared/ui/base/Cards/Cards'
 import { Input } from '@/shared/ui/base/Input/Input'
 import { setIsLoggedIn } from '@/store/slices/appSlice'
@@ -11,13 +12,10 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { PATH } from '@/shared/lib/path'
 import React from 'react'
 import { Button } from '@/shared/ui/base/Button/Button'
-import { useSignInMutation } from '@/shared/api'
 
 function Page() {
   const [login] = useSignInMutation()
-
   const dispatch = useAppDispatch()
-
   const handleGitHubLogin = () => {
     // const GITHUB_REDIRECT_URL = 'http://localhost:3000/auth/github'
     const redirect_url = process.env.NODE_ENV === 'development' ? PATH.AUTH.GITHUB_REDIRECT_URL_DEV : PATH.AUTH.GITHUB_REDIRECT_URL_PROD
@@ -31,7 +29,7 @@ function Page() {
     window.location.assign(url)
   }
 
-  const methods = useForm<loginType>({
+  const methods = useForm<ZodLogin>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: '', password: '' },
   })
@@ -59,7 +57,7 @@ function Page() {
   //     }
   //   }
 
-  const onSubmitHandler = (data: loginType) => {
+  const onSubmitHandler = (data: ZodLogin) => {
     login(data).then(res => {
       if (res.data) {
         dispatch(setIsLoggedIn(true))

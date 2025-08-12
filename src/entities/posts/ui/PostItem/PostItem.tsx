@@ -8,7 +8,7 @@ type Props = {
 }
 
 const PostItem = (props: Props) => {
-  const images = props.post.images.map(i => <Image src={i.url} alt="" width={250} height={250} />)
+  const images = props.post.images.map(i => <Image src={i.url} alt="" width={250} height={250} key={i.url} />)
   return <>{images}</>
 }
 

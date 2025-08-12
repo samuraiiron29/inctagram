@@ -1,4 +1,4 @@
-import { HomePage } from '@/shared/ui/HomePage/HomePage'
+import { HomePage } from '@/features/HomePage'
 
 export default async function Home() {
   try {

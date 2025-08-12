@@ -6,12 +6,13 @@ import Link from 'next/link'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import { UserHeader } from '@/shared/ui/UserHeader/UserHeader'
+import { UserHeader } from '@/entities/users/ui/UserHeader/UserHeader'
 import { formatTimeAgo } from '@/shared/lib/utils/formatTimeAgo'
 import Image from 'next/image'
-import { RegistrationUsers } from '@/shared/ui/HomePage/registrationUsers'
+
 import { Button } from '@radix-ui/themes'
 import { useDeleteUserProfileMutation, useGetPublicPostsQuery } from '@/shared/api'
+import { RegistrationUsers } from './registrationUsers'
 
 type Props = {
   count: string
@@ -23,7 +24,7 @@ export const HomePage = ({ count }: Props) => {
 
   const deleteUsers = async () => {
     try {
-      await deleteUser({ id: 3053 }).unwrap()
+      await deleteUser({ id: 3060 }).unwrap()
     } catch (error) {
       console.log('Delete error', error)
     }
