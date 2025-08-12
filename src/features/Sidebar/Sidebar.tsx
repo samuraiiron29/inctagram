@@ -82,11 +82,11 @@ export default function Sidebar() {
     >
       <ul className="flex flex-col gap-[20px] justify-start">
         {sidebarItemsPrimary.map(item => (
-          <SidebarItem key={item.href} item={item} />
+          <SidebarItem key={`${item.href},${item.iconDefault}`} item={item} />
         ))}
         <div className={'flex flex-col gap-[20px] mt-[38px]'}>
           {sidebarItemsSecondary.map(item => (
-            <SidebarItem key={item.href} item={item} />
+            <SidebarItem key={`${item.href},${item.iconDefault}`} item={item} />
           ))}
         </div>
       </ul>

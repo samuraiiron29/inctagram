@@ -118,7 +118,6 @@ export const {
   useDeleteUserProfileMutation,
   useForgotPasswordMutation,
   useCreateNewPasswordMutation,
-  useSignInMutation,
   useGoogleAuthMutation,
   useSignInMutation,
 } = authApi

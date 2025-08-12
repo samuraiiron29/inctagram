@@ -1,6 +1,7 @@
 'use client'
 
-import Posts from '@/shared/ui/Posts/Posts'
+
+import Posts from '@/entities/posts/ui/Posts'
 import type { PublicProfile } from '@/shared/lib/types'
 
 type Props = {
