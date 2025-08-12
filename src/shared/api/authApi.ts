@@ -122,4 +122,5 @@ export const {
   useForgotPasswordMutation,
   useCreateNewPasswordMutation,
   useGoogleAuthMutation,
+  useSignInMutation,
 } = authApi

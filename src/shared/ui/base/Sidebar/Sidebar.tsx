@@ -20,7 +20,7 @@ export default function Sidebar() {
       alt: t('sidebar.feed'),
     },
     {
-      href: 'create',
+      action: 'create',
       iconDefault: '/sidebarIcons/default/plus-square.svg',
       iconHover: '/sidebarIcons/hover/plus-square.svg',
       iconActive: '/sidebarIcons/active/plus-square.svg',
@@ -79,11 +79,11 @@ export default function Sidebar() {
     >
       <ul className="flex flex-col gap-[20px] justify-start">
         {sidebarItemsPrimary.map(item => (
-          <SidebarItem key={item.href} {...item} />
+          <SidebarItem key={item.href} item={item} />
         ))}
         <div className={'flex flex-col gap-[20px] mt-[38px]'}>
           {sidebarItemsSecondary.map(item => (
-            <SidebarItem key={item.href} {...item} />
+            <SidebarItem key={item.href} item={item} />
           ))}
         </div>
       </ul>
