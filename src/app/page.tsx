@@ -1,4 +1,4 @@
-import { HomePage } from '@/shared/ui/HomePage/HomePage'
+import { HomePage } from '@/features/HomePage'
 
 export default async function Home() {
   try {
@@ -11,4 +11,4 @@ export default async function Home() {
   }
 }
 
-// new day new test up docker 2 3 4
+// new day new test up docker 2 3 4 5

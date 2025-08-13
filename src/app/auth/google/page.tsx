@@ -8,7 +8,6 @@ import { useGoogleAuthMutation } from '@/shared/api/authApi'
 import { PATH } from '@/shared/lib/path'
 import { setCookie } from '@/shared/lib/utils/cookieUtils'
 
-
 export default function Page() {
   const router = useRouter()
   const dispatch = useAppDispatch()

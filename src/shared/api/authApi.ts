@@ -3,7 +3,10 @@ import { setAppEmail, setIsLoggedIn, setUserId } from '@/store/slices/appSlice'
 import { deleteCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
 import type { GoogleAuthRequest, GoogleAuthResponse, SignInResponse } from '../lib/types'
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+
+
+
+
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: build => ({
@@ -56,7 +59,22 @@ export const authApi = baseApi.injectEndpoints({
         body: { ...args, baseUrl: 'http://localhost:3000/auth/registration-confirmation' },
       }),
     }),
-
+    signIn: build.mutation<{ accessToken: string }, { email: string; password: string }>({
+      query: args => ({
+        url: 'auth/login',
+        method: 'POST',
+        body: { ...args },
+      }),
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+          const response = await queryFulfilled
+          setCookie('accessToken', response.data.accessToken.trim(), 7)
+          await dispatch(authApi.endpoints.me.initiate())
+        } catch (error) {
+          throw error
+        }
+      },
+    }),
     confirm: build.mutation<void, { confirmationCode: string }>({
       query: args => ({
         url: 'auth/registration-confirmation',
@@ -79,8 +97,30 @@ export const authApi = baseApi.injectEndpoints({
         }
       },
     }),
+    forgotPassword: build.mutation<void, { email: string }>({
+      query: ({ email }) => ({
+        url: 'auth/password-recovery',
+        method: 'POST',
+        body: { email },
+      }),
+    }),
+    createNewPassword: build.mutation<void, { newPassword: string; recoveryCode: string }>({
+      query: ({ newPassword, recoveryCode }) => ({
+        url: 'auth/new-password',
+        method: 'POST',
+        body: { newPassword, recoveryCode },
+      }),
+    }),
   }),
 })
-
-export const { useMeQuery, useConfirmMutation, useSignUpMutation, useDeleteUserProfileMutation, useLogoutMutation, useGoogleAuthMutation } =
-  authApi
+export const {
+  useMeQuery,
+  useLogoutMutation,
+  useConfirmMutation,
+  useSignUpMutation,
+  useDeleteUserProfileMutation,
+  useForgotPasswordMutation,
+  useCreateNewPasswordMutation,
+  useGoogleAuthMutation,
+  useSignInMutation,
+} = authApi

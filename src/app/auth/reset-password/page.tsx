@@ -1,10 +1,6 @@
-'use client'
-const Page = () => {
-  return (
-    <div>
-      <button>Resend link</button>
-    </div>
-  )
+type Props = {}
+const Page = (props: Props) => {
+  return <div></div>
 }
 
 export default Page
