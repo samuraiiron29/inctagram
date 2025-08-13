@@ -7,7 +7,7 @@ import type {
   UploadPostImagesArgs,
   UploadPostImagesResponse,
 } from '../lib/types'
-
+// ads
 
 
 export const postsApi = baseApi.injectEndpoints({
