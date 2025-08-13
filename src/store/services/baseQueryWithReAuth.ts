@@ -2,7 +2,7 @@ import { fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import type { BaseQueryFn } from '@reduxjs/toolkit/query'
 import { deleteCookie, getCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_API_URL2
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 export const baseQueryWithReAuth: BaseQueryFn = async (args, api, extraOptions) => {
   const baseQuery = fetchBaseQuery({
     baseUrl,
