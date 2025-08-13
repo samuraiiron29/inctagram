@@ -20,6 +20,38 @@ export default Page
 // import { useSignUpText } from '@/shared/lib/hooks/useSignUpText'
 // import { PATH } from '@/shared/lib/path'
 
+ 
+  const handleGitHubLogin = () => {
+    // const GITHUB_REDIRECT_URL = 'http://localhost:3000/auth/github'
+    const redirect_url = process.env.NODE_ENV === 'development' ? PATH.AUTH.GITHUB_REDIRECT_URL_DEV : PATH.AUTH.GITHUB_REDIRECT_URL_PROD
+    // window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}auth/github/login?redirect_url=${redirect_url}`
+    window.location.href = `https://inctagram.work/api/v1/auth/github/login?redirect_url=${redirect_url}`
+  }
+  const handleGoogleLogin = () => {
+    const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID
+    // const GOOGLE_REDIRECT_URL = 'http://localhost:3000/auth/google   '
+    const redirect_url = process.env.NODE_ENV === 'development' ? PATH.AUTH.GOOGLE_REDIRECT_URL_DEV : PATH.AUTH.GOOGLE_REDIRECT_URL_PROD
+    const url = `https://accounts.google.com/o/oauth2/v2/auth?scope=email profile&response_type=code&redirect_uri=${redirect_url}&client_id=${CLIENT_ID}`
+    window.location.assign(url)
+  }
+
+  const onSubmit = async (data: ZodInputs) => {
+    try {
+      await singUp({ userName: data.firstName, email: data.email, password: data.password }).unwrap()
+      methods.reset({
+        firstName: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        rememberMe: false,
+      })
+      setEmail(data.email)
+      setIsModal(true)
+    } catch (error) {
+      const er = error as Error
+      if (er.status === 400 && er.data.messages.length > 0) {
+        const message = er.data.messages[0].message
+ 
 // const Page = () => {
 //   const [isModal, setIsModal] = useState(false)
 //   const [email, setEmail] = useState('')
@@ -60,6 +92,7 @@ export default Page
 //       const er = error as Error
 //       if (er.status === 400 && er.data.messages.length > 0) {
 //         const message = er.data.messages[0].message
+ 
 
 //         if (message.includes('email')) {
 //           methods.setError('email', { type: 'server', message: er.data.messages[0].message })
