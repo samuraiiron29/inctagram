@@ -1,5 +1,5 @@
 'use client'
-import Sidebar from '@/shared/ui/base/Sidebar/Sidebar'
+import Sidebar from '@/features/Sidebar/Sidebar'
 
 export default function Page() {
   return <Sidebar />

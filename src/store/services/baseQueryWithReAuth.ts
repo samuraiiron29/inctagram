@@ -2,10 +2,10 @@ import { fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import type { BaseQueryFn } from '@reduxjs/toolkit/query'
 import { deleteCookie, getCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
 
-
+const baseUrl = process.env.NEXT_PUBLIC_BASE_API_URL2
 export const baseQueryWithReAuth: BaseQueryFn = async (args, api, extraOptions) => {
   const baseQuery = fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+    baseUrl,
     credentials: 'include',
     prepareHeaders: headers => {
       const token = getCookie('accessToken')
