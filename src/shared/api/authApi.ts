@@ -65,6 +65,7 @@ export const authApi = baseApi.injectEndpoints({
           const response = await queryFulfilled
           setCookie('accessToken', response.data.accessToken.trim(), 7)
           await dispatch(authApi.endpoints.me.initiate())
+          dispatch(setIsLoggedIn(true))
         } catch (error) {
           throw error
         }

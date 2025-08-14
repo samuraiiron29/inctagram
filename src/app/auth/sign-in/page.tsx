@@ -34,33 +34,10 @@ function Page() {
     defaultValues: { email: '', password: '' },
   })
 
-  // const onSubmitHandler = async (data: loginType) => {
-  //     try {
-  //       await login({userName: '', email: data.email, password: data.password }).unwrap()
-  //       methods.reset({
-  //         email: '',
-  //         password: '',
-  //       })
-  //     } catch (error) {
-  //       const er = error as Error
-  //       if (er.status === 400 && er.data.messages.length > 0) {
-  //         const message = er.data.messages[0].message
-
-  //         if (message.includes('email')) {
-  //           methods.setError('email', { type: 'server', message: er.data.messages[0].message })
-  //         }
-  //         else {
-  //           methods.setError('root', { message: 'unknown error' })
-  //         }
-  //       } else {
-  //       }
-  //     }
-  //   }
-
   const onSubmitHandler = (data: ZodLogin) => {
     login(data).then(res => {
       if (res.data) {
-        dispatch(setIsLoggedIn(true))
+        window.location.replace(PATH.HOME)
         methods.reset()
       }
     })
