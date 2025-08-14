@@ -6,7 +6,7 @@ import { Input } from "@/shared/ui/base/Input/Input";
 import { Cards } from "@/shared/ui/base/Cards/Cards";
 import { Recaptcha } from "@/shared/ui/base/Recaptcha/Recaptcha";
 import { PATH } from "@/shared/lib/path/path";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { registrationSchema } from "@/shared/lib/schemas";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -36,11 +36,7 @@ const ForgotPasswordPage = () => {
     reValidateMode: "onChange",
   });
 
-useEffect(() => {
-  setModalTitle("Test modal");
-  setModalMessage("This is a test");
-  setModalOpen(true);
-}, []);
+
     const {
     handleSubmit,
     formState: { isValid, errors },
