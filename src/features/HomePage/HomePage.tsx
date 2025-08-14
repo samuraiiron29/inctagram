@@ -11,7 +11,7 @@ import { formatTimeAgo } from '@/shared/lib/utils/formatTimeAgo'
 import Image from 'next/image'
 
 import { Button } from '@radix-ui/themes'
-import { useDeleteUserProfileMutation, useGetPublicPostsQuery } from '@/shared/api'
+import { useDeleteUserProfileMutation, useGetPublicPostsQuery } from '@/shared/api/'
 import { RegistrationUsers } from './registrationUsers'
 
 type Props = {

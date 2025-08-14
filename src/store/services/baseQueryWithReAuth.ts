@@ -1,11 +1,21 @@
-import { fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { FetchArgs, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import type { BaseQueryFn } from '@reduxjs/toolkit/query'
 import { deleteCookie, getCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 export const baseQueryWithReAuth: BaseQueryFn = async (args, api, extraOptions) => {
+  function isRequest(args: string | FetchArgs, endpoint: string): boolean {
+    if (typeof args === 'string') return args.endsWith(endpoint)
+    if (typeof args === 'object') return args.url?.endsWith(endpoint) ?? false
+    return false
+  }
+
+  const isMeRequest = isRequest(args, 'auth/me')
+  const isUpdateToken = isRequest(args, 'auth/update-tokens')
+
+  const dynamicBaseUrl = 'https://pictory.space/api/v1/'
+
   const baseQuery = fetchBaseQuery({
-    baseUrl,
+    baseUrl: dynamicBaseUrl,
     credentials: 'include',
     prepareHeaders: headers => {
       const token = getCookie('accessToken')
@@ -21,8 +31,7 @@ export const baseQueryWithReAuth: BaseQueryFn = async (args, api, extraOptions) 
 
   // refresh
   if (result.error && result.error.status === 401) {
-    const refreshResult = await baseQuery({ url: 'auth/github/update-tokens', method: 'POST' }, api, extraOptions)
-
+    const refreshResult = await baseQuery({ url: 'auth/update-tokens', method: 'POST' }, api, extraOptions)
     if (refreshResult.data) {
       const accessToken = (refreshResult.data as { accessToken: string })?.accessToken
       if (accessToken) {
