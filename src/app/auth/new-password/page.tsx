@@ -96,35 +96,26 @@ const onSubmit = async(data: NewPasswordForm) => {
               label="Enter new password"
 
             />
-            {errors.password && (
-              <p className="text-[var(--color-danger-500)] text-sm">
-                {errors.password.message}
-              </p>
-            )}
+          
 
             <Input
               type="password"
               name="confirmPassword"
               label="Confirm password"
             />
-            {errors.confirmPassword && (
-              <p className="text-[var(--color-danger-500)] text-sm">
-                {errors.confirmPassword.message}
-              </p>
-            )}
-
-                        <p className="text-xs text-[var(--color-light-900)]">
+  <p className="text-xs text-[var(--color-light-900)]">
               Your password must be between 6 and 20 characters
             </p>
-
+ <div className="mt-5 mb-5">
                 <Button
               type="submit"
               variant="primary"
               disabled={!isValid}
-              className="w-full mt-2"
+              width={"100%"}
             >
               Create new password
             </Button>
+            </div>
           </Cards>
         </FormProvider>
       </div>

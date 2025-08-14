@@ -33,7 +33,7 @@ const ResendLinkPage = () => {
   return (
       <div className="flex items-center justify-center min-h-screen bg-[var(--color-dark-800)] px-4">
       <div className="bg-[var(--color-dark-800)] rounded-[8px] flex flex-col items-center w-[378px] p-6">
-      <p className="text-h1 text-center text-[var(--color-light-100)] font-bold mb-2">
+      <p className="text-h1 text-center text-[var(--color-light-100)] font-bold mb-5">
       Email verification link expired</p>
       <Modal
         open={modalOpen}
@@ -42,20 +42,22 @@ const ResendLinkPage = () => {
       >
         {modalMessage}
       </Modal>
-        <p className="text-regular_text14 text-center text-[var(--color-light-900)] mb-2">
+        <p className="text-regular_text14 text-center text-[var(--color-light-900)] mb-6">
           Looks like the verification link has expired. <br />
           Not to worry, we can send the link again.
         </p>
+        <div className="mb-6">
         <Button
           type={"submit"}
           variant={"primary"}
           onClick={handleResend}
           disabled={!email}
-          width={"100%"}
+           width={"300px"}
         >
           Resend Link
         </Button>
-        <Image src="/rafiki.png" alt="rafiki" width={120} height={80} style={{ marginTop: "8px", objectFit: "contain" }}/>
+        </div>
+        <Image src="/rafiki.png" alt="rafiki" width={473} height={352} style={{ marginTop: "8px", objectFit: "contain" }}/>
    </div>
       </div>
   );
