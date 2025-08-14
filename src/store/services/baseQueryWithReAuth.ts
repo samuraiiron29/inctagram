@@ -15,7 +15,7 @@ export const baseQueryWithReAuth: BaseQueryFn = async (args, api, extraOptions) 
       return headers
     },
   })
-
+  //
   // первый запрос
   let result = await baseQuery(args, api, extraOptions)
 
