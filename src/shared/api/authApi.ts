@@ -42,7 +42,7 @@ export const authApi = baseApi.injectEndpoints({
 
     googleAuth: build.mutation<GoogleAuthResponse, GoogleAuthRequest>({
       query: ({ code, redirectUrl }) => ({
-        url: '/auth/google/login',
+        url: 'auth/google/login',
         method: 'POST',
         body: { code, redirectUrl },
       }),

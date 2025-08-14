@@ -1,7 +1,7 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import type { BaseQueryFn } from '@reduxjs/toolkit/query'
 import { deleteCookie, getCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
-import { baseUrl } from '@/shared/const'
+import { BASEURL } from '@/shared/const'
 
 export const baseQueryWithReAuth: BaseQueryFn = async (args, api, extraOptions) => {
   // function isRequest(args: string | FetchArgs, endpoint: string): boolean {
@@ -15,7 +15,7 @@ export const baseQueryWithReAuth: BaseQueryFn = async (args, api, extraOptions) 
 
   const baseQuery = fetchBaseQuery({
     // baseUrl: dynamicBaseUrl,
-    baseUrl: baseUrl,
+    baseUrl: BASEURL,
     credentials: 'include',
     prepareHeaders: headers => {
       const token = getCookie('accessToken')
