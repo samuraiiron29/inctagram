@@ -12,7 +12,7 @@ export const baseQueryWithReAuth: BaseQueryFn = async (args, api, extraOptions) 
   const isMeRequest = isRequest(args, 'auth/me')
   const isUpdateToken = isRequest(args, 'auth/update-tokens')
 
-  const dynamicBaseUrl = isMeRequest || isUpdateToken ? 'https://inctagram.work/api/v1/' : 'https://pictory.space/api/v1/'
+  const dynamicBaseUrl = 'https://pictory.space/api/v1/'
 
   const baseQuery = fetchBaseQuery({
     baseUrl: dynamicBaseUrl,
