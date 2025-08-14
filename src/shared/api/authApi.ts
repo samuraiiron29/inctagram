@@ -3,11 +3,6 @@ import { setAppEmail, setIsLoggedIn, setUserId } from '@/store/slices/appSlice'
 import { deleteCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
 import type { GoogleAuthRequest, GoogleAuthResponse, SignInResponse } from '../lib/types'
 
-
-
-
-
-
 export const authApi = baseApi.injectEndpoints({
   endpoints: build => ({
     me: build.query<{ userId: number; userName: string; email: string; isBlocked: boolean }, void>({
