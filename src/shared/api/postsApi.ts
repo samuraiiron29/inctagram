@@ -29,9 +29,7 @@ export const postsApi = baseApi.injectEndpoints({
     uploadImagesForPost: build.mutation<UploadPostImagesResponse, UploadPostImagesArgs>({
       query: ({ files }) => {
         const form = new FormData()
-
         files.forEach(f => form.append('file', f))
-
         return {
           url: 'posts/image',
           method: 'POST',
