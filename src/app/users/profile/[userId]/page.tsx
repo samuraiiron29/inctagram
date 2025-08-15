@@ -1,6 +1,8 @@
-import UserProfile from '@/entities/users/ui/UserProfile/UserProfile'
 import type { PublicProfile } from '@/shared/lib/types'
 import { notFound } from 'next/navigation'
+import { Suspense } from 'react'
+import UserProfile from '@/entities/users/ui/UserProfile/UserProfile'
+import LinearProgress from '@/shared/ui/base/Liner/LinearProgress'
 
 type Params = { userId: string }
 
@@ -11,7 +13,12 @@ const UserPage = async ({ params }: { params: Promise<Params> }) => {
     const profile: PublicProfile = await res.json()
 
     if (!res.ok || !profile || !profile.userMetadata) notFound()
-    return <UserProfile profile={profile} />
+
+    return (
+      <Suspense fallback={<LinearProgress />}>
+        <UserProfile profile={profile} />
+      </Suspense>
+    )
   } catch (error) {
     console.log(error)
   }
