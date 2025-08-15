@@ -7,7 +7,7 @@ import type {
   UploadPostImagesArgs,
   UploadPostImagesResponse,
 } from '../lib/types'
-
+// ads
 
 
 export const postsApi = baseApi.injectEndpoints({
@@ -29,9 +29,7 @@ export const postsApi = baseApi.injectEndpoints({
     uploadImagesForPost: build.mutation<UploadPostImagesResponse, UploadPostImagesArgs>({
       query: ({ files }) => {
         const form = new FormData()
-
         files.forEach(f => form.append('file', f))
-
         return {
           url: 'posts/image',
           method: 'POST',

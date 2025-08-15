@@ -1,7 +1,6 @@
 'use client'
 
 export const setCookie = (name: string, value: string, days: number) => {
-
   const expires = new Date(Date.now() + days * 864e5).toUTCString()
   document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/`
 }
@@ -16,6 +15,5 @@ export const getCookie = (name: string): string => {
 }
 
 export const deleteCookie = (name: string) => {
-  console.log('privet', name)
   setCookie(name, '', -1)
 }

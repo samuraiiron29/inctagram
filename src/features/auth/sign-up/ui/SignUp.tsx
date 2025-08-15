@@ -12,6 +12,7 @@ export const SignUp = () => {
   const {
     methods,
     onSubmit,
+    handlerLogin,
     handleGitHubLogin,
     handleGoogleLogin,
     closeModal,
@@ -26,7 +27,7 @@ export const SignUp = () => {
             <span className="text-h1">{signUpText.signUp}</span>
 
             <div className="flex items-center gap-16 mt-[13px] mb-[24px]">
-              <Image onClick={handleGitHubLogin} src="/git_logo.svg" alt="GitHub auth" width={36} height={36} className="cursor-pointer" />
+              <Image src="/git_logo.svg" alt="GitHub auth" width={36} height={36} className="cursor-pointer" onClick={handleGitHubLogin} />
               <Image src="/google.svg" alt="Google auth" width={36} height={36} className="cursor-pointer" onClick={handleGoogleLogin} />
             </div>
 
@@ -46,13 +47,12 @@ export const SignUp = () => {
                 </div>
               )}
             />
-
-            <Button type="submit" variant="primary" width="100%" disabled={!methods.formState.isValid}>
-              {signUpText.signUp}
-            </Button>
+            <Button type="submit" variant="primary" width="100%" disabled={!methods.formState.isValid} children={signUpText.signUp} />
 
             <p className="mt-2.5">{signUpText.doYouHaveAnAccount}</p>
-            <span className="text-h3 text-accent-500">{signUpText.signIn}</span>
+            <span className="text-h3 text-accent-500 cursor-pointer" onClick={handlerLogin}>
+              {signUpText.signIn}
+            </span>
           </div>
         </Cards>
       </FormProvider>
@@ -61,7 +61,7 @@ export const SignUp = () => {
         <div className="flex flex-col">
           <p className="pb-4">{`${signUpText.weHaveSent} ${email}`}</p>
           <div className="flex justify-end">
-            <Button onClick={closeModal}>OK</Button>
+            <Button onClick={closeModal} children={'OK'} />
           </div>
         </div>
       </Modal>

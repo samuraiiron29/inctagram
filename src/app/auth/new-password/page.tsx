@@ -1,92 +1,83 @@
-"use client";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Button } from "@/shared/ui/base/Button/Button";
-import { Input } from "@/shared/ui/base/Input/Input";
-import { PATH } from "@/shared/lib/path/path";
-import { FormProvider, useForm } from "react-hook-form";
-import { registrationSchema } from "@/shared/lib/schemas";
-import z from "zod";
-import { Cards } from "@/shared/ui/base/Cards/Cards";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useCreateNewPasswordMutation } from "@/shared/api";
-import { useState } from "react";
-import { Modal } from "@/shared/ui/Modal/Modal";
+'use client'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { Button } from '@/shared/ui/base/Button/Button'
+import { Input } from '@/shared/ui/base/Input/Input'
+import { PATH } from '@/shared/lib/path/path'
+import { FormProvider, useForm } from 'react-hook-form'
+import { registrationSchema } from '@/shared/lib/schemas'
+import z from 'zod'
+import { Cards } from '@/shared/ui/base/Cards/Cards'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useCreateNewPasswordMutation } from '@/shared/api'
+import { useState } from 'react'
+import { Modal } from '@/shared/ui/Modal/Modal'
 
 const newPasswordSchema = registrationSchema.pick({
   password: true,
   confirmPassword: true,
-});
+})
 
-type NewPasswordForm = z.infer<typeof newPasswordSchema>;
+type NewPasswordForm = z.infer<typeof newPasswordSchema>
 
-const CreateNewPasswordPage = () => {
+export default function CreateNewPasswordPage() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const recoveryCode = searchParams.get('code') // код приходит в ссылке из письма
+  const email = searchParams.get('email') || ''
+  const [createNewPassword] = useCreateNewPasswordMutation()
 
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const recoveryCode = searchParams.get("code"); // код приходит в ссылке из письма
-  const email = searchParams.get("email") || "";
-  const [createNewPassword] = useCreateNewPasswordMutation();
-
-
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
-  const [modalTitle, setModalTitle] = useState("");
+  const [modalOpen, setModalOpen] = useState(false)
+  const [modalMessage, setModalMessage] = useState('')
+  const [modalTitle, setModalTitle] = useState('')
 
   const methods = useForm<NewPasswordForm>({
-      resolver: zodResolver(newPasswordSchema),
+    resolver: zodResolver(newPasswordSchema),
     defaultValues: {
-      password: "",
-      confirmPassword: "",
+      password: '',
+      confirmPassword: '',
     },
-     mode: "onChange",
-  });
+    mode: 'onChange',
+  })
   const {
     handleSubmit,
     formState: { isValid },
-  } = methods;
-const errors = methods.formState.errors;
+  } = methods
+  const errors = methods.formState.errors
 
   const showModal = (title: string, message: string) => {
-    setModalTitle(title);
-    setModalMessage(message);
-    setModalOpen(true);
-  };
+    setModalTitle(title)
+    setModalMessage(message)
+    setModalOpen(true)
+  }
 
-const onSubmit = async(data: NewPasswordForm) => {
-
-   try {
-    await createNewPassword({
-      newPassword: data.password,
-      recoveryCode: recoveryCode || "",
-    }).unwrap()
-     showModal("Password successfully changed", "success");
-     router.push(PATH.AUTH.LOGIN);
+  const onSubmit = async (data: NewPasswordForm) => {
+    try {
+      await createNewPassword({
+        newPassword: data.password,
+        recoveryCode: recoveryCode || '',
+      }).unwrap()
+      showModal('Password successfully changed', 'success')
+      router.push(PATH.AUTH.LOGIN)
     } catch (error: any) {
-    if (error.status === 400 && error.data?.error === "Invalid or expired link"){
-     router.push(`${PATH.AUTH.RECOVERY_RESENDING}?email=${email}`);
+      if (error.status === 400 && error.data?.error === 'Invalid or expired link') {
+        router.push(`${PATH.AUTH.RECOVERY_RESENDING}?email=${email}`)
       } else if (error.status === 400) {
-        showModal("Incorrect data. Please try again.", "error");
+        showModal('Incorrect data. Please try again.', 'error')
       } else if (error.status === 429) {
-        showModal("Too many attempts. Please wait and try again.", "error");
+        showModal('Too many attempts. Please wait and try again.', 'error')
       } else {
-        showModal("Server error", "error");
+        showModal('Server error', 'error')
       }
     }
-  };
+  }
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-[var(--color-dark-200)]">
-      <Modal
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        modalTitle={modalTitle}
-      >
+      <Modal open={modalOpen} onClose={() => setModalOpen(false)} modalTitle={modalTitle}>
         {modalMessage}
       </Modal>
       <div className="bg-[var(--color-dark-500)] p-8 shadow-lg w-[378px] h-[432px]">
-        <h2 className="text-xl font-semibold text-center mb-4 text-[var(--color-light-100)]">
-          Create New Password
-        </h2>
+        <h2 className="text-xl font-semibold text-center mb-4 text-[var(--color-light-100)]">Create New Password</h2>
 
         <FormProvider {...methods}>
           <Cards onSubmit={handleSubmit(onSubmit)}>
@@ -120,7 +111,7 @@ const onSubmit = async(data: NewPasswordForm) => {
         </FormProvider>
       </div>
     </div>
-  );
+  )
 }
 
-export default CreateNewPasswordPage;
+////
