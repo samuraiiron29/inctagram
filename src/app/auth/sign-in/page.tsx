@@ -12,10 +12,12 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { PATH } from '@/shared/lib/path'
 import React from 'react'
 import { Button } from '@/shared/ui/base/Button/Button'
+import Link from 'next/link'
 
 function Page() {
   const [login] = useSignInMutation()
   const dispatch = useAppDispatch()
+
   const handleGitHubLogin = () => {
     // const GITHUB_REDIRECT_URL = 'http://localhost:3000/auth/github'
     const redirect_url = process.env.NODE_ENV === 'development' ? PATH.AUTH.GITHUB_REDIRECT_URL_DEV : PATH.AUTH.GITHUB_REDIRECT_URL_PROD
@@ -34,33 +36,10 @@ function Page() {
     defaultValues: { email: '', password: '' },
   })
 
-  // const onSubmitHandler = async (data: loginType) => {
-  //     try {
-  //       await login({userName: '', email: data.email, password: data.password }).unwrap()
-  //       methods.reset({
-  //         email: '',
-  //         password: '',
-  //       })
-  //     } catch (error) {
-  //       const er = error as Error
-  //       if (er.status === 400 && er.data.messages.length > 0) {
-  //         const message = er.data.messages[0].message
-
-  //         if (message.includes('email')) {
-  //           methods.setError('email', { type: 'server', message: er.data.messages[0].message })
-  //         }
-  //         else {
-  //           methods.setError('root', { message: 'unknown error' })
-  //         }
-  //       } else {
-  //       }
-  //     }
-  //   }
-
   const onSubmitHandler = (data: ZodLogin) => {
     login(data).then(res => {
       if (res.data) {
-        dispatch(setIsLoggedIn(true))
+        window.location.replace(PATH.HOME)
         methods.reset()
       }
     })
@@ -69,20 +48,33 @@ function Page() {
   return (
     <FormProvider {...methods}>
       <Cards onSubmit={methods.handleSubmit(onSubmitHandler)}>
-        <div>Sign In</div>
+        <div className={'text-center text-h1'}>Sign In</div>
         <div className={'flex flex-row justify-around'}>
           <div className={'flex items-center gap-16 mt-[13px] mb-[24px]'}>
             <Image onClick={handleGitHubLogin} src="/git_logo.svg" alt="GitHub auth" width={36} height={36} className="cursor-pointer" />
             <Image src="/google.svg" alt="Google auth" width={36} height={36} className="cursor-pointer" onClick={handleGoogleLogin} />
           </div>
         </div>
-        <span>Email</span>
-        <Input name="email" label="email" type="email" />
-        <span>Password</span>
-        <Input name="password" label="password" type="password" />
-        <Button type="submit" width="100%">
-          Sign In
-        </Button>
+        <div className='mb-[24px]'>
+          <Input name="email" label="Email" type="email" />
+        </div>
+        <div className='mb-[34px]'>
+          <Input name="password" label="Password" type="password" />
+        </div>
+        <Link href='/auth/forgot-password' className='text-right text-regular_text14 text-[#8D9094] mb-[24px] block'>
+          Forgot Password
+        </Link>
+        <div className='mb-[24px]'>
+          <Button variant='primary' type="submit" width="100%" >
+            Sign In
+          </Button>
+        </div>
+        <div className='text-regular_text16 mb-[6px] text-center'>
+          Don’t have an account?
+        </div>
+        <Link href={'/auth/sign-up'} className="text-h3 text-center block text-[#397DF6] weight-600">
+          Sign Up
+        </Link>
       </Cards>
     </FormProvider>
   )
