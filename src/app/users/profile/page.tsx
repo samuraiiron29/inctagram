@@ -1,25 +1,13 @@
-'use client'
+import { Suspense } from 'react'
+import LinearProgress from '@/shared/ui/base/Liner/LinearProgress'
+import RedirectServer from '@/app/users/profile/redirect-server'
 
-import { useMeQuery } from '@/shared/api/authApi'
-import { useRouter } from 'next/navigation'
-import { PATH } from '@/shared/lib/path/path'
-import { useEffect } from 'react'
+export const dynamic = 'force-dynamic' // чтобы Next не SSG-шил
 
-type Props = {}
-
-const Profile = (props: Props) => {
-  const { data } = useMeQuery()
-  const router = useRouter()
-
-  useEffect(() => {
-    if (data?.userId) {
-      router.push(PATH.USERS.PROFILE_USERID(data.userId))
-    } else {
-      router.push(PATH.HOME)
-    }
-  }, [data, router])
-
-  return <>Profile</>
+export default function ProfileIndex() {
+  return (
+    <Suspense fallback={<LinearProgress />}>
+      <RedirectServer />
+    </Suspense>
+  )
 }
-
-export default Profile
