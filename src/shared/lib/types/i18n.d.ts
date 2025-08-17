@@ -45,6 +45,14 @@ export interface I18nResources {
         termsAccept: string
       }
     }
+    post: {
+      editPost: string
+      deletePost: string
+      addPublicationDescriptions: string
+    }
+    button: {
+      saveChanges: string
+    }
   }
 }
 

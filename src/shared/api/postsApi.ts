@@ -8,8 +8,6 @@ import type {
   UploadPostImagesResponse,
 } from '../lib/types'
 
-
-
 export const postsApi = baseApi.injectEndpoints({
   endpoints: build => ({
     getPublicPosts: build.query<GetPublicPostsResponse, number>({
@@ -25,6 +23,7 @@ export const postsApi = baseApi.injectEndpoints({
         url: `posts/user/${userId}/${endCursorPostId}`,
         params: { pageSize, sortBy, sortDirection },
       }),
+      providesTags: ['PostsByUserId'],
     }),
     uploadImagesForPost: build.mutation<UploadPostImagesResponse, UploadPostImagesArgs>({
       query: ({ files }) => {
@@ -51,8 +50,21 @@ export const postsApi = baseApi.injectEndpoints({
         },
       }),
     }),
+    updatePostDescription: build.mutation<void, { postId: number; text: string }>({
+      query: ({ postId, text }) => ({
+        url: `posts/${postId}`,
+        method: 'PUT',
+        body: { description: text },
+      }),
+      invalidatesTags: ['PostsByUserId'],
+    }),
   }),
 })
 
-export const { useGetPublicPostsQuery, useGetPostsByUserIdQuery, useUploadImagesForPostMutation, useCreatePostMutation } = postsApi
-
+export const {
+  useGetPublicPostsQuery,
+  useGetPostsByUserIdQuery,
+  useUploadImagesForPostMutation,
+  useCreatePostMutation,
+  useUpdatePostDescriptionMutation,
+} = postsApi

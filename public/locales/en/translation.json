@@ -45,5 +45,13 @@
      "Password must contain at least one digit, lowercase, uppercase letter. Special characters allowed: ! \" # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _ { | } ~)",
         "termsAccept":"You must accept the terms and the Policy!"
       }
+  },
+  "post": {
+    "editPost": "Edit Post",
+    "deletePost": "Delete Post",
+    "addPublicationDescriptions": "add publication descriptions"
+  },
+  "button": {
+    "saveChanges": "Save Changes"
   }
 }
