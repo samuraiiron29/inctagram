@@ -15,5 +15,5 @@ export const usePostActions = () => {
 
   const getIcon = () => (postActions || isHovered ? '/kebab-chosen-hover.svg' : '/kebab.svg')
 
-  return { postActions, editPost, isHovered, setIsHovered, togglePostActions, startEdit, stopEdit, stopPostActions, getIcon }
+  return { postActions, editPost, setIsHovered, togglePostActions, startEdit, stopEdit, stopPostActions, getIcon }
 }

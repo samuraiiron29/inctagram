@@ -1,16 +1,16 @@
 'use client'
 import { clsx } from 'clsx'
-import { ComponentPropsWithoutRef, useEffect, useRef, useState } from 'react'
+import { ComponentPropsWithoutRef, useEffect, useRef } from 'react'
 import { Dialog } from 'radix-ui'
 import Image from 'next/image'
 import { Post } from '@/shared/lib/types'
 import { TextArea } from '@/shared/ui/base/TextArea'
 import { Button } from '@/shared/ui/base/Button'
-import { useUpdatePostDescriptionMutation } from '@/shared/api'
 import { useTranslation } from 'react-i18next'
 import { Skeleton } from '@radix-ui/themes'
 import { useClickOutside } from '@/shared/ui/CurrentPost/hooks/useClickOutside'
 import { usePostActions } from '@/shared/ui/CurrentPost/hooks/usePostActions'
+import { useEditPostDescription } from '@/shared/ui/CurrentPost/hooks/useEditPostDescription'
 
 export type Props = {
   width?: string
@@ -24,58 +24,16 @@ export type Props = {
 } & ComponentPropsWithoutRef<'div'>
 
 export const CurrentPostModal = ({ modalTitle, width, height, onClose, children, open, editPostHeader, post, images, ...res }: Props) => {
-  const { postActions, editPost, isHovered, setIsHovered, togglePostActions, startEdit, stopEdit, stopPostActions, getIcon } =
-    usePostActions()
-
   const actionsRef = useRef<HTMLDivElement>(null)
-  // const [postActions, setPostActions] = useState(false)
-  // const [editPost, setEditPost] = useState(false)
-  // const [isHovered, setIsHovered] = useState(false)
-  const [text, setText] = useState(post.description)
   const contentRef = useRef<HTMLDivElement>(null)
-  const [postDescriptionMutation, { isLoading }] = useUpdatePostDescriptionMutation()
-  const { t } = useTranslation()
 
-  // const editPostHandler = () => {
-  //   setEditPost(true)
-  //   setPostActions(false)
-  // }
-
-  // const showPostActionsHandler = () => {
-  //   setPostActions(prev => !prev)
-  // }
-
-  const editPostDescriptionHandler = () => {
-    postDescriptionMutation({ postId: post.id, text })
-    stopEdit()
-    // setEditPost(false)
-  }
-
-  // const getIcon = () => {
-  //   if (postActions || isHovered) {
-  //     return '/kebab-chosen-hover.svg'
-  //   }
-  //   return '/kebab.svg'
-  // }
-
+  const { postActions, editPost, setIsHovered, togglePostActions, startEdit, stopEdit, stopPostActions, getIcon } = usePostActions()
+  const { text, handleChange, saveDescription, isLoading } = useEditPostDescription(post.description, post.id, stopEdit)
   useClickOutside(contentRef, onClose)
-
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     if (contentRef.current && !contentRef.current.contains(event.target as Node)) {
-  //       onClose()
-  //     }
-  //   }
-  //   document.addEventListener('mousedown', handleClickOutside)
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleClickOutside)
-  //   }
-  // }, [])
+  const { t } = useTranslation()
 
   useEffect(() => {
     if (!open) {
-      // setEditPost(false)
-      // setPostActions(false)
       stopEdit()
       stopPostActions()
     }
@@ -113,7 +71,6 @@ export const CurrentPostModal = ({ modalTitle, width, height, onClose, children,
               <span className={'text-light-100 text-h1'}>{t('post.editPost')}</span>
               <Image
                 className={'hover:cursor-pointer'}
-                // onClick={() => setEditPost(false)}
                 onClick={stopEdit}
                 src={'/closeButton.svg'}
                 alt={'closeButton'}
@@ -136,7 +93,6 @@ export const CurrentPostModal = ({ modalTitle, width, height, onClose, children,
                   <Image
                     src={getIcon()}
                     alt={'kebab-icon'}
-                    // onClick={showPostActionsHandler}
                     onClick={togglePostActions}
                     className={'cursor-pointer'}
                     width={'24'}
@@ -157,7 +113,6 @@ export const CurrentPostModal = ({ modalTitle, width, height, onClose, children,
                     'flex flex-col p-[12px] gap-[12px]'
                   )}
                 >
-                  {/*<div className={'flex gap-[12px] cursor-pointer'} onClick={editPostHandler}>*/}
                   <div className={'flex gap-[12px] cursor-pointer'} onClick={startEdit}>
                     <Image src={'/edit-2-outline.svg'} alt={'edit'} width={'24'} height={'24'} />
                     <button className="text-regular_text14 text-light-100 cursor-pointer">{t('post.editPost')}</button>
@@ -186,18 +141,13 @@ export const CurrentPostModal = ({ modalTitle, width, height, onClose, children,
                       placeholder={''}
                       size={'small'}
                       label={''}
-                      onChange={e => {
-                        const newText = e.target.value
-                        if (newText.length <= 500) {
-                          setText(newText)
-                        }
-                      }}
+                      onChange={e => handleChange(e.target.value)}
                       className={'w-[433px] bg-dark-500 text-light-100 text-regular_text16'}
                     />
                     <p className={'text-light-900 text-right w-[433px]'}>{text.length}/500</p>
                   </div>
                   <div className={'text-right'}>
-                    <Button onClick={editPostDescriptionHandler}>{t('button.saveChanges')}</Button>
+                    <Button onClick={saveDescription}>{t('button.saveChanges')}</Button>
                   </div>
                 </div>
               ) : isLoading ? (
