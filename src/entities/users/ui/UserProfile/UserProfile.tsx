@@ -1,6 +1,5 @@
 'use client'
 import Posts from '@/entities/posts/ui/Posts'
-import { useGetPostsByUserIdQuery } from '@/shared/api'
 import type { PublicProfile } from '@/shared/lib/types'
 import { Button } from '@/shared/ui/base/Button'
 import { Scroll } from '@/shared/ui/base/Scroll'
@@ -14,19 +13,19 @@ type Props = {
 
 const UserProfile = ({ profile, isLoggedIn = false }: Props) => {
 
-  const [page, setPage] = useState<number>(4)
+  const [page, setPage] = useState<number>(8)
   const [hasMore, setHasMore] = useState<boolean>(true)
-  const [loading, setLoading] = useState<boolean>(false)
 
   const loaderRef = useRef<HTMLDivElement | null>(null)
 
     useEffect(()=>{
       if (!loaderRef.current || !hasMore) return
-
+      
+      
       const observer = new IntersectionObserver (
         entries => {
           const [entry] = entries
-          if (entry.isIntersecting && !loading) {
+          if (entry.isIntersecting && hasMore) {
             setPage((prev)=> prev + 4)
           }
         },
@@ -37,10 +36,10 @@ const UserProfile = ({ profile, isLoggedIn = false }: Props) => {
       return () => {
         if (loaderRef.current) observer.unobserve(loaderRef.current)
       }
-    },[loaderRef.current, hasMore, loading])
+    },[loaderRef.current, hasMore])
 
   return (
-    <Scroll className="flex flex-col p-10 h-screen">
+    <Scroll className="flex flex-col p-10 pb-20 h-screen">
       <div className="flex flex-row relative mb-[50px]">
         <Image
           src={'/avatar.svg'}
@@ -80,7 +79,7 @@ const UserProfile = ({ profile, isLoggedIn = false }: Props) => {
           </div>
         )}
       </div>
-      <Posts userId={profile.id} page={page}/>
+      <Posts userId={profile.id} page={page} setHasMore={setHasMore}/>
       <div ref={loaderRef} /><div />
     </Scroll>
   )
