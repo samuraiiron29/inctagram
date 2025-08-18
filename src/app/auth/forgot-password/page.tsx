@@ -1,92 +1,46 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
+import { FormProvider} from "react-hook-form";
 import { Button } from "@/shared/ui/base/Button/Button";
 import { Input } from "@/shared/ui/base/Input/Input";
 import { Cards } from "@/shared/ui/base/Cards/Cards";
 import { Recaptcha } from "@/shared/ui/base/Recaptcha/Recaptcha";
-import { PATH } from "@/shared/lib/path/path";
-import { useState } from "react";
-import { registrationSchema } from "@/shared/lib/schemas";
-import z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForgotPasswordMutation } from "@/shared/api";
 import { Modal } from "@/shared/ui/Modal/Modal";
-
-const forgotPasswordSchema = registrationSchema.pick({
-  email: true,
-});
-
-type ForgotPasswordForm = z.infer<typeof forgotPasswordSchema>;
+import Link from "next/link";
+import { useForgotPassword } from "@/features/auth/forgot-passwors/model/useForgotPAssword";
 
 const ForgotPasswordPage = () => {
-  const [captchaVerified, setCaptchaVerified] = useState(false);
-  const [forgotPassword] = useForgotPasswordMutation();
-
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
-  const [modalTitle, setModalTitle] = useState("");
-
-  const router = useRouter();
- 
-  const methods = useForm<ForgotPasswordForm>({
-    defaultValues: { email: "" },
-    resolver: zodResolver(forgotPasswordSchema),
-    mode: "onChange",
-    reValidateMode: "onChange",
-  });
-
-
     const {
-    handleSubmit,
-    formState: { isValid, errors },
-    setError,
-  } = methods;
+    methods,
+    onSubmit,
+    modal,
+    closeModal,
+    captchaVerified,
+    setCaptchaVerified,
+    isValid,
+  } = useForgotPassword();
 
-  const showModal = (title: string, message: string) => {
-    setModalTitle(title);
-    setModalMessage(message);
-    setModalOpen(true);
-  };
-
-  const onSubmit: SubmitHandler<ForgotPasswordForm> = async (data) => {
-    try {
-       await forgotPassword({ email: data.email }).unwrap()
-      showModal(
-        "Email sent",
-        `We have sent a link to confirm your email to ${data.email}`);
-      router.push(PATH.AUTH.LOGIN);
-  } catch (error: any) {
-    if(error.status === 400) {
-      setError("email", { type: "manual", message: "User with this email doesn't exist" });
-    } else {
-      showModal("Server error. Please try again later.", "error");
-    }
-   }
-  };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[var(--color-dark-200)]">
-       <div className="w-[378px] ">  
-        <h2 className="text-xl font-semibold text-center mb-4 text-[var(--color-light-100)]">
-          Forgot Password
-        </h2>
+    <div className="flex items-center justify-center mt-3">
        <div className="w-[378px]">
         <FormProvider {...methods}>
-          <Cards onSubmit={handleSubmit(onSubmit)}>
-           {modalOpen && (
+          <Cards onSubmit={onSubmit}>
+             <h1 className="text-center text-h1">
+          Forgot Password
+        </h1>
+           {modal.open && (
          <Modal
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        modalTitle={modalTitle}
+        open={modal.open}
+        onClose={closeModal}
+        modalTitle={modal.title}
        >
           <div className="flex flex-col space-y-4">
-          <p>{modalMessage}</p>
+          <p>{modal.message}</p>
            <div className="flex justify-end">
           <Button
             type="button"
             variant="primary"
-            onClick={() => setModalOpen(false)}
+            onClick={closeModal}
           >
             Ok
           </Button>
@@ -96,7 +50,7 @@ const ForgotPasswordPage = () => {
       
     )}
             <Input type="email" name="email" label="Email" />
-            <p className="text-xs text-[var(--color-light-900)] mt-2">
+            <p className="text-xs">
               Enter your email address and we will send you further instructions
             </p>
             <div className="flex flex-col space-y-[24px] mt-5">
@@ -108,14 +62,12 @@ const ForgotPasswordPage = () => {
               >
                 Send Link
               </Button>
-              <Button
-                type="button"
-                variant="outlined"
-                width="100%"
-                onClick={() => router.push(PATH.AUTH.LOGIN)}
+              <Link
+               href={'/auth/login'}
+               className="text-h3 text-center block text-[#397DF6] weight-600"
               >
                 Back to Sign In
-              </Button>
+              </Link>
             </div>
             <div className="mt-5">
               <div className="mt-3 flex justify-center">
@@ -130,9 +82,8 @@ const ForgotPasswordPage = () => {
         </FormProvider>
       </div>
     </div>
-    </div>
+   
   );
 };
-      
 
 export default ForgotPasswordPage;
