@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 type Props = {
-  imageUrl: string
+  imageUrl?: string
   firstName: string
 }
 export const UserHeader = ({ imageUrl, firstName }: Props) => {

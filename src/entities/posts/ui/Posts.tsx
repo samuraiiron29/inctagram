@@ -5,20 +5,22 @@ import PostItem from '@/entities/posts/ui/PostItem/PostItem'
 
 type Props = {
   userId: number
+  page?: number
 }
 const Posts = (props: Props) => {
   const { data } = useGetPostsByUserIdQuery({
     userId: props.userId,
     endCursorPostId: undefined,
-    pageSize: 8,
+    pageSize: props.page, // !!!
     sortBy: 'createdAt',
     sortDirection: 'desc',
   })
+
   const posts = data?.items.map(post => <PostItem post={post} key={post.id} />)
   return (
-    <Flex gap={'4'} m={'5'} ml={'18'} wrap={'wrap'}>
+    <div className='grid grid-cols-4 gap-4'>
       {posts}
-    </Flex>
+    </div>
   )
 }
 
