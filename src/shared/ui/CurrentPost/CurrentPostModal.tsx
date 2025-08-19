@@ -11,6 +11,7 @@ import { Skeleton } from '@radix-ui/themes'
 import { useClickOutside } from '@/shared/ui/CurrentPost/hooks/useClickOutside'
 import { usePostActions } from '@/shared/ui/CurrentPost/hooks/usePostActions'
 import { useEditPostDescription } from '@/shared/ui/CurrentPost/hooks/useEditPostDescription'
+import { PostImage } from '@/shared/ui/CurrentPost/PostImage'
 
 export type Props = {
   width?: string
@@ -81,7 +82,7 @@ export const CurrentPostModal = ({ modalTitle, width, height, onClose, children,
           )}
           <div className={'flex w-full'}>
             <div className={clsx('flex-1 relative', editPost ? 'h-[502px]' : 'h-[572px]')}>
-              <Image src={post.images[0].url} alt="post" fill className="object-cover" />
+              <PostImage src={post.images[0].url} alt="post" className="object-cover" />
             </div>
             <div className={'flex flex-1 flex-col relative'}>
               {!editPost && (
