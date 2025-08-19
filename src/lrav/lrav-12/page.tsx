@@ -1,9 +1,9 @@
 'use client'
 import { Input } from '@/shared/ui/base/Input/Input'
 import { FormProvider, useForm } from 'react-hook-form'
-import { test, ZodInputs } from '@/shared/lib/types'
+import { test } from '@/shared/lib/types'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { registerTest, registrationSchema } from '@/shared/lib/schemas'
+import { registerTest } from '@/shared/lib/schemas'
 import { Cards } from '@/shared/ui/base/Cards/Cards'
 import { Button } from '@/shared/ui/base/Button/Button'
 

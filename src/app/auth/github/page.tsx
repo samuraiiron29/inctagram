@@ -6,7 +6,6 @@ import { PATH } from '@/shared/lib/path/path'
 import { useAppDispatch } from '@/shared/lib/hooks'
 import { setCookie } from '@/shared/lib/utils/cookieUtils'
 
-
 export default function Page() {
   const router = useRouter()
   const searchParams = useSearchParams()

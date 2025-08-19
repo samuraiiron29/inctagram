@@ -17,6 +17,8 @@ import { Button } from '@/shared/ui/base/Button/Button'
 import { useCreatePostMutation, useUploadImagesForPostMutation } from '@/shared/api'
 import { useAppDispatch } from '@/shared/lib/hooks'
 import { setOpenCreate } from '@/store/slices/appSlice'
+import { Modal } from '@/shared/ui/Modal'
+import { images } from 'next/dist/build/webpack/config/blocks/images'
 
 type Mode = 'empty' | 'crop' | 'preview'
 type Props = {
@@ -26,14 +28,12 @@ type Props = {
 const DESC_LIMIT = 500
 
 export default function ImageUploader({ open }: Props) {
-  // refs
   const cropperRef = useRef<ReactCropperElement | null>(null)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const addMoreInputRef = useRef<HTMLInputElement | null>(null)
 
   const dispatch = useAppDispatch()
 
-  // state
   const [mode, setMode] = useState<Mode>('empty')
   const [sources, setSources] = useState<string[]>([])
   const [filters, setFilters] = useState<string[]>([])
@@ -41,18 +41,19 @@ export default function ImageUploader({ open }: Props) {
   const [current, setCurrent] = useState(0)
   const [aspectRatio, setAspectRatio] = useState<number | undefined>(1)
   const [desc, setDesc] = useState('')
+  const [showModal, setShowModal] = useState<boolean>(false)
 
-  useEffect(() => {
-    if (!open) return
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape'
-    window.addEventListener('keydown', onKey)
-    return () => {
-      document.body.style.overflow = prev
-      window.removeEventListener('keydown', onKey)
-    }
-  }, [open])
+  // useEffect(() => {
+  //   if (!open) return
+  //   const prev = document.body.style.overflow
+  //   document.body.style.overflow = 'hidden'
+  //   const onKey = (e: KeyboardEvent) => e.key === 'Escape'
+  //   window.addEventListener('keydown', onKey)
+  //   return () => {
+  //     document.body.style.overflow = prev
+  //     window.removeEventListener('keydown', onKey)
+  //   }
+  // }, [open])
 
   const readFilesAsDataURLs = (files: FileList) =>
     Promise.all(
@@ -77,11 +78,10 @@ export default function ImageUploader({ open }: Props) {
     setFinalImages(Array(dataURLs.length).fill(null) as unknown as File[])
     setCurrent(0)
     setMode('crop')
-    // заменим источник у уже смонтированного кропера
     setTimeout(() => cropperRef.current?.cropper?.replace(dataURLs[0], false), 0)
   }
 
-  // add more (+)
+  // add more
   const onAddMore = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (!files?.length) return
@@ -91,7 +91,7 @@ export default function ImageUploader({ open }: Props) {
     setFinalImages(prev => [...prev, ...(Array(dataURLs.length).fill(null) as unknown as File[])])
   }
 
-  // remove specific frame
+  // remove frame
   const removeAt = (i: number) => {
     const newSources = sources.filter((_, idx) => idx !== i)
     const newFilters = filters.filter((_, idx) => idx !== i)
@@ -113,7 +113,6 @@ export default function ImageUploader({ open }: Props) {
     setTimeout(() => cropperRef.current?.cropper?.replace(newSources[nextIdx], false), 0)
   }
 
-  // switch current by clicking a thumb
   const selectIndex = (i: number) => {
     setCurrent(i)
     setTimeout(() => cropperRef.current?.cropper?.replace(sources[i], false), 0)
@@ -156,20 +155,17 @@ export default function ImageUploader({ open }: Props) {
     }
   }
 
-  // keep aspect ratio on active instance
   useEffect(() => {
     const cr = cropperRef.current?.cropper as CropperJS | undefined
     if (!cr) return
     if (aspectRatio !== undefined) {
       cr.setAspectRatio(aspectRatio)
-      // без reset() — чтобы не «прыгала» рамка; если нужно, раскомментируй:
-      // cr.reset()
+      // без reset() — чтобы не «прыгала» рамка;
     } else {
       cr.setAspectRatio(NaN)
     }
   }, [aspectRatio])
 
-  // API
   const [uploadImage] = useUploadImagesForPostMutation()
   const [createPost] = useCreatePostMutation()
 
@@ -203,7 +199,27 @@ export default function ImageUploader({ open }: Props) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center" aria-modal="true" role="dialog">
-      <div className="absolute inset-0 bg-black/60" />
+      <div className="absolute inset-0 bg-black/60" onClick={() => mode !== 'empty' && setShowModal(true)} />
+      {showModal && mode !== 'empty' && (
+        <Modal open={showModal} onClose={() => setShowModal(false)} modalTitle={'close'} width={'380px'}>
+          <p>Do you really want to close the creation of a publication? If you close everything will be deleted</p>
+          <div className={'flex items-center justify-between mt-[20px]'}>
+            <Button
+              variant={'outlined'}
+              onClick={() => {
+                setMode('empty')
+                setShowModal(false)
+                dispatch(setOpenCreate(false))
+              }}
+            >
+              Discard
+            </Button>
+            <Button variant={'primary'} onClick={() => setShowModal(false)}>
+              Save draft
+            </Button>
+          </div>
+        </Modal>
+      )}
       <div
         className="relative z-10 w-[980px] max-w-[96vw] rounded-xl border border-white/10 bg-dark-100 text-gray-100 shadow-2xl"
         onClick={e => e.stopPropagation()}
@@ -249,9 +265,7 @@ export default function ImageUploader({ open }: Props) {
           )}
         </div>
 
-        {/* Body */}
         <div className="max-h-[80vh] overflow-auto p-4">
-          {/* EMPTY */}
           {mode === 'empty' && (
             <div className="flex flex-col items-center justify-center gap-6 py-10">
               <div className="flex h-[230px] w-[220px] items-center justify-center rounded bg-dark-500">
@@ -273,7 +287,6 @@ export default function ImageUploader({ open }: Props) {
             </div>
           )}
 
-          {/* CROP */}
           {mode === 'crop' && sources.length > 0 && (
             <div className="flex flex-col gap-4">
               {/* controls */}
@@ -322,7 +335,6 @@ export default function ImageUploader({ open }: Props) {
                 </div>
               </div>
 
-              {/* MAIN CROP AREA — без Swiper */}
               <div className="relative h-[460px] w-full overflow-hidden rounded border border-white/10 bg-black">
                 <Cropper
                   // важно: один инстанс всегда видим → корректно измеряет контейнер
@@ -349,7 +361,6 @@ export default function ImageUploader({ open }: Props) {
                 />
               </div>
 
-              {/* THUMBS Swiper + “+” */}
               <div className="relative">
                 <Swiper
                   modules={[FreeMode]}
@@ -359,7 +370,7 @@ export default function ImageUploader({ open }: Props) {
                   spaceBetween={8}
                   className="rounded bg-black/30 p-2"
                 >
-                  {/* + Add */}
+                  {/* Add */}
                   <SwiperSlide style={{ width: 76 }}>
                     <button
                       onClick={() => addMoreInputRef.current?.click()}
@@ -394,13 +405,11 @@ export default function ImageUploader({ open }: Props) {
                   ))}
                 </Swiper>
 
-                {/* hidden + input */}
                 <input ref={addMoreInputRef} type="file" multiple accept="image/*" className="hidden" onChange={onAddMore} />
               </div>
             </div>
           )}
 
-          {/* PREVIEW / PUBLICATION (Swiper со всеми финалами) */}
           {mode === 'preview' && finalImages.length > 0 && (
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-3">

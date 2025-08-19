@@ -11,7 +11,10 @@ export const PATH = {
     TERMS_OF_SERVICE: '/auth/sign-up/terms-of-service',
     PRIVACY_POLICY: '/auth/sign-up/privacy-policy',
     GITHUB_REDIRECT_URL_DEV: 'http://localhost:3000/auth/github',
-    GITHUB_REDIRECT_URL_PROD: `${process.env.NEXT_PUBLIC_BASE_URL}auth/github`,
+
+    // GITHUB_REDIRECT_URL_PROD: `${process.env.NEXT_PUBLIC_BASE_URL}auth/github`,
+    GITHUB_REDIRECT_URL_PROD: `https://pictory.space/auth/github`,
+
     GOOGLE_REDIRECT_URL_DEV: 'http://localhost:3000/auth/google',
     GOOGLE_REDIRECT_URL_PROD: `${process.env.NEXT_PUBLIC_BASE_URL}auth/google`,
   },

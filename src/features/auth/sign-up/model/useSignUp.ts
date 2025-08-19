@@ -9,7 +9,7 @@ import type { Error, ZodInputs } from '@/shared/lib/types'
 import { useSignUpMutation } from '@/shared/api'
 import { PATH } from '@/shared/lib/path'
 import { useTranslation } from 'react-i18next'
-import { useSignUpText } from '@/shared/lib/hooks/useSignUpText'
+import { useSignUpText } from './useSignUpText'
 
 export const useSignUp = () => {
   const { t } = useTranslation()
@@ -49,7 +49,9 @@ export const useSignUp = () => {
     },
     [methods, signUp]
   )
-
+  const handlerLogin = () => {
+    router.replace(PATH.AUTH.LOGIN)
+  }
   const handleGitHubLogin = useCallback(() => {
     // const GITHUB_REDIRECT_URL = 'http://localhost:3000/auth/github'
     const redirectUrl = process.env.NODE_ENV === 'development' ? PATH.AUTH.GITHUB_REDIRECT_URL_DEV : PATH.AUTH.GITHUB_REDIRECT_URL_PROD
@@ -77,6 +79,7 @@ export const useSignUp = () => {
   return {
     methods,
     onSubmit,
+    handlerLogin,
     handleGitHubLogin,
     handleGoogleLogin,
     closeModal,

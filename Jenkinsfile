@@ -4,12 +4,12 @@ pipeline {
     agent any
     environment {
         ENV_TYPE = "production"
-        PORT = 3952
+        PORT = 3981
         NAMESPACE = "pictory-space"
         REGISTRY_HOSTNAME = "samuraiiron"
         REGISTRY = "registry.hub.docker.com"
-        PROJECT = "ictagram"
-        DEPLOYMENT_NAME = "ictagram-deployment"
+        PROJECT = "pictoryspacefrontend"
+        DEPLOYMENT_NAME = "pictoryspacefrontend-deployment"
         IMAGE_NAME = "${env.BUILD_ID}_${env.ENV_TYPE}_${env.GIT_COMMIT}"
         DOCKER_BUILD_NAME = "${env.REGISTRY_HOSTNAME}/${env.PROJECT}:${env.IMAGE_NAME}"
     }
@@ -20,21 +20,20 @@ pipeline {
                 checkout scm
             }
         }
-//   stage('Unit tests') {
-//              steps {
-//                 echo "Preparing started..."
-//                   script {
-//                       sh '''
-
-//                          export NVM_DIR="$HOME/.nvm"
-//                          [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-//                          nvm use --lts
-//                          yarn install
-//                          yarn test
-//                       '''
-//                   }
-//              }
-//         }
+        // stage('Unit tests') {
+        //      steps {
+        //         echo "Preparing started..."
+        //           script {
+        //               sh '''
+        //                  export NVM_DIR="$HOME/.nvm"
+        //                  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+        //                  nvm use --lts
+        //                  pnpm install
+        //                  pnpm test
+        //               '''
+        //           }
+        //      }
+        // }
         stage('Build docker image') {
             steps {
                 echo "Build image started..."
