@@ -55,8 +55,8 @@ export const useSignUp = () => {
   const handleGitHubLogin = useCallback(() => {
     // const GITHUB_REDIRECT_URL = 'http://localhost:3000/auth/github'
     const redirectUrl = process.env.NODE_ENV === 'development' ? PATH.AUTH.GITHUB_REDIRECT_URL_DEV : PATH.AUTH.GITHUB_REDIRECT_URL_PROD
-    // window.location.assign(`${process.env.NEXT_PUBLIC_BASE_URL}auth/github/login?redirect_url=${redirectUrl}`)
-    window.location.assign(`https://inctagram.work/api/v1/auth/github/login?redirect_url=${redirectUrl}`)
+    window.location.assign(`${process.env.NEXT_PUBLIC_BASE_URL}auth/github/login?redirect_url=${redirectUrl}`)
+    // window.location.assign(`https://inctagram.work/api/v1/auth/github/login?redirect_url=${redirectUrl}`)
   }, [])
 
   const handleGoogleLogin = useCallback(() => {
