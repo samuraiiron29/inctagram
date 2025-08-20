@@ -1,17 +1,18 @@
 'use client'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { Button } from '@/shared/ui/base/Button/Button'
 import { Input } from '@/shared/ui/base/Input/Input'
 import { FormProvider } from 'react-hook-form'
 import { Cards } from '@/shared/ui/base/Cards/Cards'
 import { Modal } from '@/shared/ui/Modal/Modal'
 import { useCreateNewPassword } from '@/features/auth/new-password/model/useCreateNewPassword'
+import { PATH } from '@/shared/lib/path'
 
 export default function CreateNewPasswordPage() {
    const searchParams = useSearchParams()
     const recoveryCode = searchParams.get('code')
     const email = searchParams.get('email') || ''
-
+    const router = useRouter()    
  const { methods, onSubmit, modal, showModal, closeModal } = useCreateNewPassword(
         recoveryCode,
         email
@@ -21,9 +22,16 @@ const {
         formState: { isValid },
     } = methods
 
+const handleCloseModal = () => {
+        closeModal();
+        if (modal.title === 'Password successfully changed') {
+            router.push(PATH.AUTH.LOGIN);
+        }
+    };
+
   return (
     <div className="flex items-center justify-center mt-3">
-      <Modal open={modal.open} onClose={closeModal} modalTitle={modal.title}>
+      <Modal open={modal.open} onClose={handleCloseModal} modalTitle={modal.title}>
       </Modal>
         <FormProvider {...methods}>
           <Cards onSubmit={onSubmit}>
@@ -57,53 +65,3 @@ const {
   )
 }
 
-// const newPasswordSchema = registrationSchema.pick({
-//   password: true,
-//   confirmPassword: true,
-// })
-
-// type NewPasswordForm = z.infer<typeof newPasswordSchema>
-
-// export default function CreateNewPasswordPage() {
-  // const router = useRouter()
-  // const searchParams = useSearchParams()
-  // const recoveryCode = searchParams.get('code') 
-  // const email = searchParams.get('email') || ''
-  // const [createNewPassword] = useCreateNewPasswordMutation()
-  // const {modal, showModal, closeModal} = useModal();
- 
-// const { methods, onSubmit } = useCreateNewPassword();
-  // const methods = useForm<NewPasswordForm>({
-  //   resolver: zodResolver(newPasswordSchema),
-  //   defaultValues: {
-  //     password: '',
-  //     confirmPassword: '',
-  //   },
-  //   mode: 'onChange',
-  // })
-  // const {
-  //   handleSubmit,
-  //   formState: { isValid },
-  // } = methods
-  // const errors = methods.formState.errors
-
-  // const onSubmit = async (data: NewPasswordForm) => {
-  //   try {
-  //     await createNewPassword({
-  //       newPassword: data.password,
-  //       recoveryCode: recoveryCode || '',
-  //     }).unwrap()
-  //     showModal('Password successfully changed', 'success')
-  //     router.push(PATH.AUTH.LOGIN)
-  //   } catch (error: any) {
-  //     if (error.status === 400 && error.data?.error === 'Invalid or expired link') {
-  //       router.push(`${PATH.AUTH.RECOVERY_RESENDING}?email=${email}`)
-  //     } else if (error.status === 400) {
-  //       showModal('Incorrect data. Please try again.', 'error')
-  //     } else if (error.status === 429) {
-  //       showModal('Too many attempts. Please wait and try again.', 'error')
-  //     } else {
-  //       showModal('Server error', 'error')
-  //     }
-  //   }
-  // }

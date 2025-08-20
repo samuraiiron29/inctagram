@@ -6,7 +6,9 @@ import { Cards } from "@/shared/ui/base/Cards/Cards";
 import { Recaptcha } from "@/shared/ui/base/Recaptcha/Recaptcha";
 import { Modal } from "@/shared/ui/Modal/Modal";
 import Link from "next/link";
-import { useForgotPassword } from "@/features/auth/forgot-passwors/model/useForgotPAssword";
+import { useRouter } from "next/navigation";
+import { PATH } from "@/shared/lib/path";
+import { useForgotPassword } from "@/features/auth/forgot-passwors/model/useForgotPassword";
 
 const ForgotPasswordPage = () => {
     const {
@@ -18,6 +20,15 @@ const ForgotPasswordPage = () => {
     setCaptchaVerified,
     isValid,
   } = useForgotPassword();
+
+  const router = useRouter();
+
+  const handleCloseModal = () => {
+    closeModal();
+    if (modal.title === 'Email sent') {
+      router.push(PATH.AUTH.LOGIN);
+    }
+  };
 
 
   return (
@@ -31,7 +42,7 @@ const ForgotPasswordPage = () => {
            {modal.open && (
          <Modal
         open={modal.open}
-        onClose={closeModal}
+        onClose={handleCloseModal}
         modalTitle={modal.title}
        >
           <div className="flex flex-col space-y-4">

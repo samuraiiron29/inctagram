@@ -1,7 +1,6 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { useForgotPasswordMutation } from "@/shared/api";
-import { useState } from "react";
 import { Button } from "@/shared/ui/base/Button/Button";
 import { Modal } from "@/shared/ui/Modal/Modal";
 import Image from "next/image";

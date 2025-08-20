@@ -1,4 +1,3 @@
-// import { useCreateNewPasswordMutation } from '@/shared/api'
 import { useForm } from 'react-hook-form'
 import { registrationSchema } from '@/shared/lib/schemas'
 import z from 'zod'
@@ -40,7 +39,7 @@ export const useCreateNewPassword = (recoveryCode: string | null, email: string)
         recoveryCode: recoveryCode || '',
       }).unwrap()
       showModal('Password successfully changed', 'success')
-      router.push(PATH.AUTH.LOGIN)
+      // router.push(PATH.AUTH.LOGIN)
     } catch (error: any) {
       if (error.status === 400 && error.data?.error === 'Invalid or expired link') {
         router.push(`${PATH.AUTH.RECOVERY_RESENDING}?email=${email}`)

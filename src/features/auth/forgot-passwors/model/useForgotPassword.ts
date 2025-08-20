@@ -3,7 +3,7 @@ import z from "zod";
 import { useModal } from "./useModal";
 import { useState } from "react";
 import { useForgotPasswordMutation } from "@/shared/api";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PATH } from "@/shared/lib/path";
@@ -35,11 +35,13 @@ export const useForgotPassword = () => {
 
   const onSubmit = async(data:ForgotPasswordForm) => {
     try {
-       await forgotPassword({ email: data.email }).unwrap()
+       await forgotPassword({ email: data.email,
+         //recaptcha: "some-recaptcha-token"
+        }).unwrap()
       showModal(
         "Email sent",
         `We have sent a link to confirm your email to ${data.email}`);
-      router.push(PATH.AUTH.LOGIN);
+       router.push(PATH.AUTH.LOGIN);
   } catch (error: any) {
     if(error.status === 400) {
       setError("email", { type: "manual", message: "User with this email doesn't exist" });
