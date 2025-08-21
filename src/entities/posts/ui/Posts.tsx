@@ -1,31 +1,30 @@
 'use client'
 import { useGetPostsByUserIdQuery } from '@/shared/api'
-import { Flex } from '@radix-ui/themes'
 import PostItem from '@/entities/posts/ui/PostItem/PostItem'
-import { Dispatch, SetStateAction, useEffect } from 'react'
+import { useEffect } from 'react'
 
 type Props = {
   userId: number
-  page: number
-  setHasMore: Dispatch<SetStateAction<boolean>>
+  offset: number
+  setHasMoreHandler: (el: boolean) => void
 }
 
-const Posts = (props: Props) => {
+const PORTION_OF_ITEMS = 4
+
+const Posts = ({offset, userId, setHasMoreHandler}: Props) => {
   const { data } = useGetPostsByUserIdQuery({
-    userId: props.userId,
+    userId: userId,
     endCursorPostId: undefined,
-    pageSize: props.page, // !!!
+    pageSize: PORTION_OF_ITEMS + offset, // !!!
     sortBy: 'createdAt',
     sortDirection: 'desc',
   })
 
-  useEffect(() => {
-  if (data) {
-    if (data.totalCount / props.page <= 1) {
-      props.setHasMore(false)
-    }
-  }
-}, [data, props.page, props.setHasMore])
+  useEffect(()=>{
+    if (data) {
+      setHasMoreHandler(offset <= data.totalCount)
+    } 
+  },[offset])
 
   const posts = data?.items.map(post => <PostItem post={post} key={post.id} />)
   return (

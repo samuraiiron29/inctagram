@@ -4,39 +4,33 @@ import type { PublicProfile } from '@/shared/lib/types'
 import { Button } from '@/shared/ui/base/Button'
 import { Scroll } from '@/shared/ui/base/Scroll'
 import Image from 'next/image'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
+import { useIntersectionObserver } from "@siberiacancode/reactuse";
 
 type Props = {
   profile: PublicProfile
   isLoggedIn?: boolean
 }
 
+const PORTION_OF_ITEMS = 4
+
 const UserProfile = ({ profile, isLoggedIn = false }: Props) => {
 
-  const [page, setPage] = useState<number>(8)
+  const [offset, setOffset] = useState<number>(0);
   const [hasMore, setHasMore] = useState<boolean>(true)
 
-  const loaderRef = useRef<HTMLDivElement | null>(null)
+  const setHasMoreHandler = (el: boolean) => {
+    setHasMore(el)
+  }
 
-    useEffect(()=>{
-      if (!loaderRef.current || !hasMore) return
-      
-      
-      const observer = new IntersectionObserver (
-        entries => {
-          const [entry] = entries
-          if (entry.isIntersecting && hasMore) {
-            setPage((prev)=> prev + 4)
-          }
-        },
-        { threshold: 1.0 }
-      )
-      observer.observe(loaderRef.current)
-
-      return () => {
-        if (loaderRef.current) observer.unobserve(loaderRef.current)
+  const {ref} = useIntersectionObserver<HTMLDivElement>({
+    threshold: 1,
+    onChange: (entry) =>{
+      if (entry.isIntersecting && hasMore) {
+        setOffset(prev => prev + PORTION_OF_ITEMS)
       }
-    },[loaderRef.current, hasMore])
+    }
+  })
 
   return (
     <Scroll className="flex flex-col p-10 pb-20 h-screen">
@@ -79,8 +73,9 @@ const UserProfile = ({ profile, isLoggedIn = false }: Props) => {
           </div>
         )}
       </div>
-      <Posts userId={profile.id} page={page} setHasMore={setHasMore}/>
-      <div ref={loaderRef} /><div />
+      <Posts userId={profile.id} offset={offset} setHasMoreHandler={setHasMoreHandler}/>
+      <div ref={ref} />
+      {!hasMore && <div className=' text-center text-(length:--text-regular_text14)'> Посты закончились </div>}
     </Scroll>
   )
 }
