@@ -12,6 +12,8 @@ import { useClickOutside } from '@/shared/ui/CurrentPost/hooks/useClickOutside'
 import { usePostActions } from '@/shared/ui/CurrentPost/hooks/usePostActions'
 import { useEditPostDescription } from '@/shared/ui/CurrentPost/hooks/useEditPostDescription'
 import { PostImage } from '@/shared/ui/CurrentPost/PostImage'
+import { selectUserId } from '@/store/slices/appSlice'
+import { useAppSelector } from '@/shared/lib/hooks'
 
 export type Props = {
   width?: string
@@ -27,6 +29,9 @@ export type Props = {
 export const CurrentPostModal = ({ modalTitle, width, height, onClose, children, open, editPostHeader, post, images, ...res }: Props) => {
   const actionsRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
+
+  const userId = useAppSelector(selectUserId)
+  const isPostOwner = userId === post.ownerId
 
   const { postActions, editPost, setIsHovered, togglePostActions, startEdit, stopEdit, stopPostActions, getIcon } = usePostActions()
   const { text, handleChange, saveDescription, isLoading } = useEditPostDescription(post.description, post.id, stopEdit)
@@ -91,17 +96,19 @@ export const CurrentPostModal = ({ modalTitle, width, height, onClose, children,
                     <Image src={`/${post.avatarOwner}`} alt={`${post.owner.firstName}`} width={'24'} height={'24'} />
                     <span>{post.owner.firstName}</span>
                   </div>
-                  <Image
-                    src={getIcon()}
-                    alt={'kebab-icon'}
-                    onClick={togglePostActions}
-                    className={'cursor-pointer'}
-                    width={'24'}
-                    height={'24'}
-                    id="kebab-icon"
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}
-                  />
+                  {isPostOwner && (
+                    <Image
+                      src={getIcon()}
+                      alt={'kebab-icon'}
+                      onClick={togglePostActions}
+                      className={'cursor-pointer'}
+                      width={'24'}
+                      height={'24'}
+                      id="kebab-icon"
+                      onMouseEnter={() => setIsHovered(true)}
+                      onMouseLeave={() => setIsHovered(false)}
+                    />
+                  )}
                 </div>
               )}
 
