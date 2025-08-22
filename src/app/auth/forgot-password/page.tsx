@@ -24,12 +24,10 @@ const ForgotPasswordPage = () => {
   const router = useRouter();
 
   const handleCloseModal = () => {
-    closeModal();
-    if (modal.title === 'Email sent') {
-      router.push(PATH.AUTH.LOGIN);
-    }
-  };
-
+    closeModal()
+    if (modal.title === 'Email sent') router.push(PATH.AUTH.LOGIN)
+  }
+  const sitekey = process.env.NEXT_PUBLIC_RECAPTCHA_KEY
 
   return (
     <div className="flex items-center justify-center mt-3">
@@ -50,14 +48,14 @@ const ForgotPasswordPage = () => {
             <Input type="email" name="email" label="Email" />
             <p className="text-xs">Enter your email address and we will send you further instructions</p>
             <div className="flex flex-col space-y-[24px] mt-5">
-              <Button type="submit" variant="primary" width="100%" disabled={!captchaVerified || !isValid} children={'  Send Link'} />
+              <Button type="submit" variant="primary" width="100%" disabled={!captchaVerified || !isValid} children={'Send Link'} />
               <Link href={'/auth/login'} className="text-h3 text-center block text-accent-500 ">
                 Back to Sign In
               </Link>
             </div>
             <div className="mt-5">
               <div className="mt-3 flex justify-center">
-                <Recaptcha sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY || ''} onChange={token => setCaptchaVerified(!!token)} />
+                <Recaptcha sitekey={sitekey || ''} onChange={token => setCaptchaVerified(!!token)} />
               </div>
             </div>
           </Cards>
