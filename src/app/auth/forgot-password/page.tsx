@@ -33,68 +33,38 @@ const ForgotPasswordPage = () => {
 
   return (
     <div className="flex items-center justify-center mt-3">
-       <div className="w-[378px]">
+      <div className="w-[378px]">
         <FormProvider {...methods}>
           <Cards onSubmit={onSubmit}>
-             <h1 className="text-center text-h1">
-          Forgot Password
-        </h1>
-           {modal.open && (
-         <Modal
-        open={modal.open}
-        onClose={handleCloseModal}
-        modalTitle={modal.title}
-       >
-          <div className="flex flex-col space-y-4">
-          <p>{modal.message}</p>
-           <div className="flex justify-end">
-          <Button
-            type="button"
-            variant="primary"
-            onClick={closeModal}
-          >
-            Ok
-          </Button>
-        </div>
-        </div>
-      </Modal>
-      
-    )}
+            <h1 className="text-center text-h1">Forgot Password</h1>
+            {modal.open && (
+              <Modal open={modal.open} onClose={handleCloseModal} modalTitle={modal.title}>
+                <div className="flex flex-col space-y-4">
+                  <p>{modal.message}</p>
+                  <div className="flex justify-end">
+                    <Button type="button" variant="primary" onClick={closeModal} children={'Ok'} />
+                  </div>
+                </div>
+              </Modal>
+            )}
             <Input type="email" name="email" label="Email" />
-            <p className="text-xs">
-              Enter your email address and we will send you further instructions
-            </p>
+            <p className="text-xs">Enter your email address and we will send you further instructions</p>
             <div className="flex flex-col space-y-[24px] mt-5">
-              <Button
-                type="submit"
-                variant="primary"
-                width="100%"
-                disabled={!captchaVerified || !isValid}
-              >
-                Send Link
-              </Button>
-              <Link
-               href={'/auth/login'}
-               className="text-h3 text-center block text-[#397DF6] weight-600"
-              >
+              <Button type="submit" variant="primary" width="100%" disabled={!captchaVerified || !isValid} children={'  Send Link'} />
+              <Link href={'/auth/login'} className="text-h3 text-center block text-accent-500 ">
                 Back to Sign In
               </Link>
             </div>
             <div className="mt-5">
               <div className="mt-3 flex justify-center">
-              <Recaptcha
-                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY || ""}
-                onChange={(token) => setCaptchaVerified(!!token)}
-              />
+                <Recaptcha sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY || ''} onChange={token => setCaptchaVerified(!!token)} />
               </div>
             </div>
-         
           </Cards>
         </FormProvider>
       </div>
     </div>
-   
-  );
+  )
 };
 
 export default ForgotPasswordPage;
