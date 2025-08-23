@@ -42,7 +42,7 @@ export const SignUp = () => {
               control={methods.control}
               render={({ field }) => (
                 <div className="flex justify-center text-center w-full my-4 gap-3">
-                  <Checkbox checked={field.value} onChange={checked => field.onChange(checked)} />
+                  <Checkbox checked={field.value} onChange={field.onChange} />
                   {signUpText.agree()}
                 </div>
               )}
