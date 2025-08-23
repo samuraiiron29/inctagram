@@ -1,24 +1,36 @@
 'use client'
 import { useGetPostsByUserIdQuery } from '@/shared/api'
-import { Flex } from '@radix-ui/themes'
 import PostItem from '@/entities/posts/ui/PostItem/PostItem'
+import { useEffect } from 'react'
 
 type Props = {
   userId: number
+  offset: number
+  setHasMoreHandler: (el: boolean) => void
 }
-const Posts = (props: Props) => {
+
+const PORTION_OF_ITEMS = 4
+
+const Posts = ({offset, userId, setHasMoreHandler}: Props) => {
   const { data } = useGetPostsByUserIdQuery({
-    userId: props.userId,
+    userId: userId,
     endCursorPostId: undefined,
-    pageSize: 8,
+    pageSize: PORTION_OF_ITEMS + offset, // !!!
     sortBy: 'createdAt',
     sortDirection: 'desc',
   })
+
+  useEffect(()=>{
+    if (data) {
+      setHasMoreHandler(offset <= data.totalCount)
+    } 
+  },[offset])
+
   const posts = data?.items.map(post => <PostItem post={post} key={post.id} />)
   return (
-    <Flex gap={'4'} m={'5'} ml={'18'} wrap={'wrap'}>
+    <div className='grid grid-cols-4 gap-4'>
       {posts}
-    </Flex>
+    </div>
   )
 }
 

@@ -9,6 +9,7 @@ type Props = {
   post: Post
 }
 
+
 const PostItem = ({ post }: Props) => {
   const [on, setOn] = useState(false)
 
@@ -32,5 +33,4 @@ const PostItem = ({ post }: Props) => {
     </>
   )
 }
-
 export default PostItem
