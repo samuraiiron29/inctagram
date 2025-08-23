@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { PATH } from "@/shared/lib/path";
 import { useForgotPassword } from "@/features/auth/forgot-passwors/model/useForgotPassword";
-
+// for build
 const ForgotPasswordPage = () => {
     const {
     methods,
