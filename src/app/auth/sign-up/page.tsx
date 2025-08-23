@@ -1,164 +1,135 @@
-import { SignUp } from '@/features/auth/sign-up'
+'use client'
+
+import { useSignUpMutation } from '@/shared/api'
 import { PATH } from '@/shared/lib/path'
-import { ZodInputs } from '@/shared/lib/types'
+import { registrationSchema } from '@/shared/lib/schemas'
+import { ZodInputs, type Error } from '@/shared/lib/types'
+import { Button } from '@/shared/ui/base/Button'
+import { Cards } from '@/shared/ui/base/Cards'
+import Checkbox from '@/shared/ui/base/CheckBox/CheckBox'
+import { Input } from '@/shared/ui/base/Input'
+import { Modal } from '@/shared/ui/Modal'
+import { zodResolver } from '@hookform/resolvers/zod'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { FormProvider, useForm, Controller } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
 function Page() {
   // Qwerty12345!@#
-  return <SignUp />
+  const { t } = useTranslation()
+  const router = useRouter()
+  const [email, setEmail] = useState('')
+  const [isModal, setIsModal] = useState(false)
+  const [signUp] = useSignUpMutation()
+  const methods = useForm<ZodInputs>({
+    resolver: zodResolver(registrationSchema),
+    mode: 'all',
+    defaultValues: {
+      firstName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      rememberMe: false,
+    },
+  })
+
+  const onSubmit = async (data: ZodInputs) => {
+    try {
+      await signUp({ userName: data.firstName, email: data.email, password: data.password }).unwrap()
+      setEmail(data.email)
+      setIsModal(true)
+      methods.reset()
+    } catch (error) {
+      const er = error as Error
+      if (er?.status === 400 && er?.data?.messages?.length) {
+        const message = er.data.messages[0].message || ''
+        if (message.includes('email')) methods.setError('email', { type: 'server', message })
+        else if (message.includes('firstName')) methods.setError('firstName', { message })
+        else methods.setError('root', { type: 'server', message: 'unknown error' })
+      } else console.log('servers error', error)
+    }
+  }
+  const handlerLogin = () => router.replace(PATH.AUTH.LOGIN)
+
+  const handleGitHubLogin = () => {
+    // const GITHUB_REDIRECT_URL = 'http://localhost:3000/auth/github'
+    const redirectUrl = process.env.NODE_ENV === 'development' ? PATH.AUTH.GITHUB_REDIRECT_URL_DEV : PATH.AUTH.GITHUB_REDIRECT_URL_PROD
+    window.location.assign(`${process.env.NEXT_PUBLIC_BASE_URL}auth/github/login?redirect_url=${redirectUrl}`)
+  }
+
+  const handleGoogleLogin = () => {
+    const clientId = process.env.NEXT_PUBLIC_CLIENT_ID
+    // const GOOGLE_REDIRECT_URL = 'http://localhost:3000/auth/google'
+    const redirectUrl = process.env.NODE_ENV === 'development' ? PATH.AUTH.GOOGLE_REDIRECT_URL_DEV : PATH.AUTH.GOOGLE_REDIRECT_URL_PROD
+    const url =
+      `https://accounts.google.com/o/oauth2/v2/auth?scope=email profile` +
+      `&response_type=code&redirect_uri=${encodeURIComponent(redirectUrl)}` +
+      `&client_id=${clientId}`
+    window.location.assign(url)
+  }
+
+  const closeModal = () => {
+    setIsModal(false)
+    // router.replace(PATH.AUTH.LOGIN)
+  }
+
+  return (
+    <div className="mt-4 w-[378px] h-[678px]">
+      <FormProvider {...methods}>
+        <Cards onSubmit={methods.handleSubmit(onSubmit)}>
+          <div className="flex flex-col items-center my-[20px]">
+            <span className="text-h1">{t('auth.signUp')}</span>
+            <div className="flex items-center gap-16 mt-[13px] mb-[24px]">
+              <Image src="/git_logo.svg" alt="GitHub auth" width={36} height={36} className="cursor-pointer" onClick={handleGitHubLogin} />
+              <Image src="/google.svg" alt="Google auth" width={36} height={36} className="cursor-pointer" onClick={handleGoogleLogin} />
+            </div>
+
+            <Input type="default" name="firstName" width="300px" label={t('auth.username')} />
+            <Input type="email" name="email" width="300px" label={t('auth.email')} />
+            <Input type="password" name="password" width="300px" label={t('auth.password')} />
+            <Input type="password" name="confirmPassword" width="300px" label={t('auth.passwordConfirm')} />
+
+            <Controller
+              {...methods.register('rememberMe')}
+              name="rememberMe"
+              control={methods.control}
+              render={({ field }) => (
+                <div className="flex justify-center text-center w-full my-4 gap-3">
+                  <Checkbox checked={field.value} onChange={checked => field.onChange(checked)} />
+                  <div className="inline-flex justify-center items-center text-center flex-wrap gap-x-1">
+                    <p className="text-small_text">{t('auth.additionalElements.iAgreeToThe')} </p>
+                    <p className="text-small-link cursor-pointer" onClick={() => router.push(PATH.AUTH.TERMS_OF_SERVICE)}>
+                      {t('auth.termsOfService')}
+                    </p>
+                    <p className="text-small_text"> {t('auth.additionalElements.and')} </p>
+                    <p className="text-small-link cursor-pointer" onClick={() => router.push(PATH.AUTH.PRIVACY_POLICY)}>
+                      {t('auth.privacyPolicy')}
+                    </p>
+                  </div>
+                </div>
+              )}
+            />
+            <Button type="submit" variant="primary" width="100%" disabled={!methods.formState.isValid} children={t('auth.signUp')} />
+
+            <p className="mt-2.5">{t('auth.additionalElements.doYouHaveAnAccount')}</p>
+            <span className="text-h3 text-accent-500 cursor-pointer" onClick={handlerLogin}>
+              {t('auth.signIn')}
+            </span>
+          </div>
+        </Cards>
+      </FormProvider>
+
+      <Modal open={isModal} onClose={closeModal} modalTitle={t('auth.emailSent')}>
+        <div className="flex flex-col">
+          <p className="pb-4">{`${t('auth.additionalElements.weHaveSent')} ${email}`}</p>
+          <div className="flex justify-end">
+            <Button onClick={closeModal} children={'OK'} />
+          </div>
+        </div>
+      </Modal>
+    </div>
+  )
 }
 export default Page
-// import Image from 'next/image'
-// import { zodResolver } from '@hookform/resolvers/zod'
-// import { Controller, FormProvider, useForm } from 'react-hook-form'
-// import type { Error, ZodInputs } from '@/shared/lib/types'
-// import Checkbox from '@/shared/ui/base/CheckBox/CheckBox'
-// import { useSignUpMutation } from '@/shared/api'
-// import { registrationSchema } from '@/shared/lib/schemas'
-// import { Cards } from '@/shared/ui/base/Cards/Cards'
-// import { Input } from '@/shared/ui/base/Input/Input'
-// import { Button } from '@/shared/ui/base/Button/Button'
-// import { useState } from 'react'
-// import { Modal } from '@/shared/ui/Modal/Modal'
-// import { useTranslation } from 'react-i18next'
-// import { useSignUpText } from '@/shared/lib/hooks/useSignUpText'
-// import { PATH } from '@/shared/lib/path'
-
-// const handleGitHubLogin = () => {
-//   // const GITHUB_REDIRECT_URL = 'http://localhost:3000/auth/github'
-//   const redirect_url = process.env.NODE_ENV === 'development' ? PATH.AUTH.GITHUB_REDIRECT_URL_DEV : PATH.AUTH.GITHUB_REDIRECT_URL_PROD
-//   // window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}auth/github/login?redirect_url=${redirect_url}`
-//   window.location.href = `https://inctagram.work/api/v1/auth/github/login?redirect_url=${redirect_url}`
-// }
-// const handleGoogleLogin = () => {
-//   const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID
-//   // const GOOGLE_REDIRECT_URL = 'http://localhost:3000/auth/google   '
-//   const redirect_url = process.env.NODE_ENV === 'development' ? PATH.AUTH.GOOGLE_REDIRECT_URL_DEV : PATH.AUTH.GOOGLE_REDIRECT_URL_PROD
-//   const url = `https://accounts.google.com/o/oauth2/v2/auth?scope=email profile&response_type=code&redirect_uri=${redirect_url}&client_id=${CLIENT_ID}`
-//   window.location.assign(url)
-// }
-//
-// const onSubmit = async (data: ZodInputs) => {
-//   try {
-//     await singUp({ userName: data.firstName, email: data.email, password: data.password }).unwrap()
-//     methods.reset({
-//       firstName: '',
-//       email: '',
-//       password: '',
-//       confirmPassword: '',
-//       rememberMe: false,
-//     })
-//     setEmail(data.email)
-//     setIsModal(true)
-//   } catch (error) {
-//     const er = error as Error
-//     if (er.status === 400 && er.data.messages.length > 0) {
-//       const message = er.data.messages[0].message
-
-// const Page = () => {
-//   const [isModal, setIsModal] = useState(false)
-//   const [email, setEmail] = useState('')
-//   const [singUp] = useSignUpMutation()
-//   const { t } = useTranslation()
-//   const signUpText = useSignUpText(t)
-//   const methods = useForm<ZodInputs>({
-//     resolver: zodResolver(registrationSchema),
-//     mode: 'all',
-//   })
-
-//   const handleGitHubLogin = () => {
-//     // const GITHUB_REDIRECT_URL = 'http://localhost:3000/auth/github'
-//     const redirect_url = process.env.NODE_ENV === 'development' ? PATH.AUTH.GITHUB_REDIRECT_URL_DEV : PATH.AUTH.GITHUB_REDIRECT_URL_PROD
-//     window.location.href = `${process.env.NEXT_PUBLIC_BASE_URL}auth/github/login?redirect_url=${redirect_url}`
-//   }
-//   const handleGoogleLogin = () => {
-//     const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID
-//     // const GOOGLE_REDIRECT_URL = 'http://localhost:3000/auth/google'
-//     const redirect_url = process.env.NODE_ENV === 'development' ? PATH.AUTH.GOOGLE_REDIRECT_URL_DEV : PATH.AUTH.GOOGLE_REDIRECT_URL_PROD
-//     const url = `https://accounts.google.com/o/oauth2/v2/auth?scope=email profile&response_type=code&redirect_uri=${redirect_url}&client_id=${CLIENT_ID}`
-//     window.location.assign(url)
-//   }
-
-//   const onSubmit = async (data: ZodInputs) => {
-//     try {
-//       await singUp({ userName: data.firstName, email: data.email, password: data.password }).unwrap()
-//       methods.reset({
-//         firstName: '',
-//         email: '',
-//         password: '',
-//         confirmPassword: '',
-//         rememberMe: false,
-//       })
-//       setEmail(data.email)
-//       setIsModal(true)
-//     } catch (error) {
-//       const er = error as Error
-//       if (er.status === 400 && er.data.messages.length > 0) {
-//         const message = er.data.messages[0].message
-
-//         if (message.includes('email')) {
-//           methods.setError('email', { type: 'server', message: er.data.messages[0].message })
-//         } else if (message.includes('firstName')) {
-//           methods.setError('firstName', { message: er.data.messages[0].message })
-//         } else {
-//           console.log('unknown error')
-//           methods.setError('root', { message: 'unknown error' })
-//         }
-//       } else {
-//         console.log('servers error', error)
-//       }
-//     }
-//   }
-
-//   return (
-//     <div className="mt-4 w-[378px] h-[678px]">
-//       <FormProvider {...methods}>
-//         <Cards onSubmit={methods.handleSubmit(onSubmit)}>
-//           <div className={'flex flex-col items-center my-[20px]'}>
-//             <div className="">
-//               <span className={'text-h1'}>{signUpText.signUp}</span>
-//             </div>
-//             <div className={'flex items-center gap-16 mt-[13px] mb-[24px]'}>
-//               <Image onClick={handleGitHubLogin} src="/git_logo.svg" alt="GitHub auth" width={36} height={36} className="cursor-pointer" />
-//               <Image src="/google.svg" alt="Google auth" width={36} height={36} className="cursor-pointer" onClick={handleGoogleLogin} />
-//             </div>
-//             <Input type={'default'} name="firstName" width={'300px'} label={signUpText.username} />
-//             <Input type="email" name="email" width={'300px'} label={signUpText.email} />
-//             <Input type="password" name="password" width={'300px'} label={signUpText.password} />
-//             <Input type={'password'} name="confirmPassword" width={'300px'} label={signUpText.passwordConfirm} />
-//             <Controller
-//               {...methods.register('rememberMe')}
-//               name="rememberMe"
-//               control={methods.control}
-//               render={({ field }) => {
-//                 return (
-//                   <div className="flex justify-center text-center w-full my-4 gap-3">
-//                     <Checkbox checked={field.value} onChange={checked => field.onChange(checked)} />
-//                     {signUpText.agree()}
-//                   </div>
-//                 )
-//               }}
-//             />
-
-//             <Button type="submit" variant={'primary'} disabled={!methods.formState.isValid} width={'100%'}>
-//               {signUpText.signUp}
-//             </Button>
-//             <p className="mt-2.5">{signUpText.doYouHaveAnAccount}</p>
-//             <span className="text-h3 text-accent-500">{signUpText.signIn}</span>
-//           </div>
-//         </Cards>
-//       </FormProvider>
-//       {isModal && (
-//         <Modal open={isModal} onClose={() => setIsModal(false)} modalTitle={signUpText.emailSent}>
-//           <div className="flex flex-col">
-//             <p className="pb-4">{`${signUpText.weHaveSent} ${email}`}</p>
-//             <div className=" flex justify-end">
-//               <Button children={'OK'} onClick={() => setIsModal(false)} /> {/* todo: или роутер.пуш на страницу авторизации*/}
-//             </div>
-//           </div>
-//         </Modal>
-//       )}
-//     </div>
-//   )
-// }
-
-// Qwerty12345!@#
