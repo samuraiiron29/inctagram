@@ -97,7 +97,9 @@ export const authApi = baseApi.injectEndpoints({
       query: ({ email }) => ({
         url: 'auth/password-recovery',
         method: 'POST',
-        body: { email },
+        body: { email,
+        baseUrl: 'http://localhost:3000/auth/new-password'
+         },
       }),
     }),
     createNewPassword: build.mutation<void, { newPassword: string; recoveryCode: string }>({

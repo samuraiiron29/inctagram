@@ -12,8 +12,9 @@ type TextAreaProps = {
   value: string
   size: TextAreaSize
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
+  className?: string
 }
-export const TextArea = ({ label, placeholder, error, value, size, onChange, disabled = false }: TextAreaProps) => {
+export const TextArea = ({ label, placeholder, error, value, size, onChange, className, disabled = false }: TextAreaProps) => {
   const [isFocused, setIsFocused] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
 
@@ -50,7 +51,7 @@ export const TextArea = ({ label, placeholder, error, value, size, onChange, dis
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         className={clsx(
-          'resize-none rounded-[2px] border bg-transparent p-2 outline-none transition-colors',
+          'resize-none rounded-[2px] border p-2 outline-none transition-colors',
           'placeholder:text-light-100',
           borderColor,
           textColor,
@@ -58,7 +59,8 @@ export const TextArea = ({ label, placeholder, error, value, size, onChange, dis
           sizeClass,
           {
             'cursor-not-allowed': disabled,
-          }
+          },
+          className
         )}
       />
       {error && <span className="text-xs text-danger-500">{error}</span>}

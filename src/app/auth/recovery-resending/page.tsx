@@ -1,25 +1,16 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { useForgotPasswordMutation } from "@/shared/api";
-import { useState } from "react";
 import { Button } from "@/shared/ui/base/Button/Button";
 import { Modal } from "@/shared/ui/Modal/Modal";
 import Image from "next/image";
+import { useModal } from "@/features/auth/forgot-passwors/model/useModal";
 
 const ResendLinkPage = () => {
   const searchParams = useSearchParams();
   const email = searchParams.get("email") || ""; 
   const [forgotPassword] = useForgotPasswordMutation();
-
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalMessage, setModalMessage] = useState("");
-  const [modalTitle, setModalTitle] = useState("");
-
-  const showModal = (title: string, message: string) => {
-    setModalTitle(title);
-    setModalMessage(message);
-    setModalOpen(true);
-  };
+   const {modal, showModal, closeModal} = useModal();
 
   const handleResend = async () => {
     try {
@@ -31,33 +22,32 @@ const ResendLinkPage = () => {
   };
 
   return (
-      <div className="flex items-center justify-center min-h-screen bg-[var(--color-dark-800)] px-4">
-      <div className="bg-[var(--color-dark-800)] rounded-[8px] flex flex-col items-center w-[378px] p-6">
-      <p className="text-h1 text-center text-[var(--color-light-100)] font-bold mb-2">
+    <div className="flex items-center justify-center px-4 rounded-[8px] flex-col w-[378px] p-6">
+      <p className="text-h1 text-center mb-5">
       Email verification link expired</p>
       <Modal
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        modalTitle={modalTitle}
+        open={modal.open}
+        onClose={closeModal}
+        modalTitle={modal.title}
       >
-        {modalMessage}
       </Modal>
-        <p className="text-regular_text14 text-center text-[var(--color-light-900)] mb-2">
+        <p className="text-xs ">
           Looks like the verification link has expired. <br />
           Not to worry, we can send the link again.
         </p>
+        <div className=" mt-6 mb-6">
         <Button
           type={"submit"}
           variant={"primary"}
           onClick={handleResend}
           disabled={!email}
-          width={"100%"}
+           width={"300px"}
         >
           Resend Link
         </Button>
-        <Image src="/rafiki.png" alt="rafiki" width={120} height={80} style={{ marginTop: "8px", objectFit: "contain" }}/>
-   </div>
-      </div>
+        </div>
+        <Image src="/rafiki.png" alt="rafiki" width={473} height={352} style={{ marginTop: "8px", objectFit: "contain" }}/>
+  </div>
   );
 };
 
@@ -65,27 +55,3 @@ export default ResendLinkPage;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const Page = () => {
-//   return (
-//     <div>
-//       <button>Resend link</button>
-//     </div>
-//   )
-// }
-
-// export default Page
