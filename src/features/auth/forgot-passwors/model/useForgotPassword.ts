@@ -36,7 +36,6 @@ export const useForgotPassword = () => {
   const onSubmit = async(data:ForgotPasswordForm) => {
     try {
        await forgotPassword({ email: data.email,
-         //recaptcha: "some-recaptcha-token"
         }).unwrap()
       showModal(
         "Email sent",
