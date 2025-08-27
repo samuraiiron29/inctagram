@@ -14,6 +14,5 @@ export const getCookie = (name: string): string => {
   }, '')
 }
 
-export const deleteCookie = (name: string) => {
-  setCookie(name, '', -1)
-}
+export const deleteCookie = (name: string) => setCookie(name, '', -1)
+

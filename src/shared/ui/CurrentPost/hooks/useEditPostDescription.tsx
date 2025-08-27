@@ -6,9 +6,8 @@ export const useEditPostDescription = (initialText: string, postId: number, onCl
   const [updatePost, { isLoading }] = useUpdatePostDescriptionMutation()
 
   const handleChange = (value: string) => {
-    if (value.length <= 500) {
-      setText(value)
-    }
+    if (value.length <= 500) setText(value)
+
   }
 
   const saveDescription = () => {

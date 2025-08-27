@@ -16,7 +16,7 @@ const Page = () => {
   const code = searchParams.get('code')
   useEffect(() => {
     if (!code) {
-      route.push(PATH.AUTH.LOGIN)
+      route.push(PATH.LOGIN)
     } else {
       confirm({ confirmationCode: code })
         .unwrap()
@@ -24,8 +24,6 @@ const Page = () => {
         .catch(() => {
           // need pouter.push()
         })
-
-
     }
   }, [])
 
@@ -35,7 +33,7 @@ const Page = () => {
     <div className={'flex justify-center flex-col items-center'}>
       <h1>Congratulations!</h1>
       <h3>Your email has been confirmed</h3>
-      <Link href={PATH.AUTH.LOGIN}>
+      <Link href={PATH.LOGIN}>
         <Button children={'Sign In'} />
       </Link>
       <Image src="/bro.png" alt="bro" width={432} height={300} />

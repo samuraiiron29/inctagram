@@ -6,42 +6,39 @@ import { Scroll } from '@/shared/ui/base/Scroll'
 import Image from 'next/image'
 import { useState } from 'react'
 import { useIntersectionObserver } from "@siberiacancode/reactuse";
+import { useDeleteUserProfileMutation } from '@/shared/api'
 
 type Props = {
   profile: PublicProfile
   isLoggedIn?: boolean
+  userId: string
 }
-
 const PORTION_OF_ITEMS = 4
 
-const UserProfile = ({ profile, isLoggedIn = false }: Props) => {
-
-  const [offset, setOffset] = useState<number>(0);
+const UserProfile = ({ profile, isLoggedIn = false, ...props }: Props) => {
+  const [deleteUser] = useDeleteUserProfileMutation()
+  const [offset, setOffset] = useState<number>(0)
   const [hasMore, setHasMore] = useState<boolean>(true)
-
-  const setHasMoreHandler = (el: boolean) => {
-    setHasMore(el)
-  }
-
-  const {ref} = useIntersectionObserver<HTMLDivElement>({
+  const setHasMoreHandler = (el: boolean) => setHasMore(el)
+  const { ref } = useIntersectionObserver<HTMLDivElement>({
     threshold: 1,
-    onChange: (entry) =>{
-      if (entry.isIntersecting && hasMore) {
-        setOffset(prev => prev + PORTION_OF_ITEMS)
-      }
-    }
+    onChange: entry => {
+      if (entry.isIntersecting && hasMore) setOffset(prev => prev + PORTION_OF_ITEMS)
+    },
   })
-
+  const handleDelete = () => deleteUser({ id: Number(props.userId) })
+  // const deleteUsers = async () => {
+  //   deleteUser(userId)
+  // try {
+  //   await deleteUser().unwrap()
+  // } catch (error) {
+  //   console.log('Delete error', error)
+  // }
+  // }
   return (
     <Scroll className="flex flex-col p-10 pb-20 h-screen">
       <div className="flex flex-row relative mb-[50px]">
-        <Image
-          src={'/avatar.svg'}
-          width={204}
-          height={204}
-          alt="Avatar"
-          className="rounded-full mr-10 border-white border min-w-[204px]"
-        />
+        <Image src={'/avatar.svg'} width={204} height={204} alt="Avatar" className="rounded-full mr-10 border-white border min-w-[204px]" />
         <div>
           <div className="mb-[20px]">
             <h1>{profile.userName}</h1>
@@ -61,21 +58,20 @@ const UserProfile = ({ profile, isLoggedIn = false }: Props) => {
             </div>
           </div>
           <div>
-            {profile.aboutMe} Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Quis quo, temporibus doloremque sint incidunt iusto error, deleniti consectetur
-            rerum eligendi unde voluptatibus hic nobis. In iure facilis rerum laudantium
-            odio.
+            {profile.aboutMe} Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis quo, temporibus doloremque sint incidunt iusto
+            error, deleniti consectetur rerum eligendi unde voluptatibus hic nobis. In iure facilis rerum laudantium odio.
           </div>
         </div>
         {!!isLoggedIn && (
           <div className="absolute top-[0] right-[0]">
             <Button variant="secondary">Profile Settings</Button>
+            <Button onClick={handleDelete} children={'Delete Me'} />
           </div>
         )}
       </div>
-      <Posts userId={profile.id} offset={offset} setHasMoreHandler={setHasMoreHandler}/>
+      <Posts userId={profile.id} offset={offset} setHasMoreHandler={setHasMoreHandler} />
       <div ref={ref} />
-      {!hasMore && <div className=' text-center text-(length:--text-regular_text14)'> Посты закончились </div>}
+      {!hasMore && <div className=" text-center text-(length:--text-regular_text14)"> Посты закончились </div>}
     </Scroll>
   )
 }
