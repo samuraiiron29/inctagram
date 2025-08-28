@@ -24,6 +24,7 @@
       "termsOfService":"Terms of Service",
       "privacyPolicy":"Privacy Policy",
       "emailSent": "Email sent",
+      "forgotPassword":"forgot password?",
       "additionalElements": {
         "doYouHaveAnAccount": "Do you have an account?",
         "iAgreeToThe":"I agree to the",

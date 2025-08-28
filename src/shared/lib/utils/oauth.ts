@@ -1,6 +1,6 @@
 import { BASE_URL, OAUTH_URL } from '@/shared/const'
 
-export const oauth = () => window.location.assign(`${BASE_URL}auth/github/login?redirect_url=${OAUTH_URL}/github`)
+export const oauth = () => window.location.assign(`${BASE_URL}auth/github/login?redirect_url=${OAUTH_URL}github`)
 
 // type Provider = 'github' | 'google'
 // const handleGoogleLogin = () => {

@@ -22,7 +22,8 @@
       "logout": "Выйти",
       "termsOfService":"Условиями использования",
       "privacyPolicy":"Политикой приватности",
-         "emailSent": "Письмо отправлено",
+      "emailSent": "Письмо отправлено",
+      "forgotPassword":"Забыли пароль?",
       "additionalElements": {
         "doYouHaveAnAccount": "Уже есть аккаунт?",
         "iAgreeToThe":"Я согласен с",

@@ -7,7 +7,7 @@ export default async function Home() {
     const usersCount = await usersResponse.json()
     return <HomePage count={usersCount.totalCount} />
   } catch (error) {
-    console.error(error)
+    // console.error(error)
   }
 }
 

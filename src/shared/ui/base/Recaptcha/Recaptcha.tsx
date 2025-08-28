@@ -1,9 +1,9 @@
-'use client'
-import ReCAPTCHA from 'react-google-recaptcha'
-import { ComponentProps } from 'react'
+// 'use client'
+// import ReCAPTCHA from 'react-google-recaptcha'
+// import { ComponentProps } from 'react'
 
-type RecaptchaProps = ComponentProps<typeof ReCAPTCHA>
+// type RecaptchaProps = ComponentProps<typeof ReCAPTCHA>
 
-export const Recaptcha = (props: RecaptchaProps) => {
-  return <ReCAPTCHA {...props} />
-}
+// export const Recaptcha = (props: RecaptchaProps) => {
+//   return <ReCAPTCHA {...props} />
+// }

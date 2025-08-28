@@ -26,6 +26,7 @@ export interface I18nResources {
       termsOfService: string
       privacyPolicy: string
       emailSent: string
+      forgotPassword: string
       additionalElements: {
         doYouHaveAnAccount: string
         iAgreeToThe: string

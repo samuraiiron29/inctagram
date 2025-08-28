@@ -1,4 +1,5 @@
 'use client'
+import { Oauth } from '@/features/auth/oauth/Oauth'
 import { useSignUpMutation } from '@/shared/api'
 import { PATH } from '@/shared/lib/path'
 import { registrationSchema } from '@/shared/lib/schemas'
@@ -35,7 +36,6 @@ function Page() {
     },
   })
   const handleLogin = () => router.replace(PATH.LOGIN)
-  const handleOauthGithub = () => oauth()
   const closeModal = () => setIsModal(false)
   const onSubmit = async (data: ZodInputs) => {
     try {
@@ -50,7 +50,9 @@ function Page() {
         if (message.includes('email')) methods.setError('email', { type: 'server', message })
         else if (message.includes('firstName')) methods.setError('firstName', { message })
         else methods.setError('root', { type: 'server', message: 'unknown error' })
-      } else console.log('servers error', error)
+      } else {
+        // console.log('servers error', error)
+      }
     }
   }
   return (
@@ -59,11 +61,7 @@ function Page() {
         <Cards onSubmit={methods.handleSubmit(onSubmit)}>
           <div className="flex flex-col items-center my-[20px]">
             <span className="text-h1">{t('auth.signUp')}</span>
-            <div className="flex items-center gap-16 mt-[13px] mb-[24px]">
-              <Image src="/git_logo.svg" alt="GitHub auth" width={36} height={36} className="cursor-pointer" onClick={handleOauthGithub} />
-              <Image src="/google.svg" alt="Google auth" width={36} height={36} className="cursor-pointer" onClick={handleOauthGithub} />
-            </div>
-
+            <Oauth />
             <Input type="default" name="firstName" width="300px" label={t('auth.username')} />
             <Input type="email" name="email" width="300px" label={t('auth.email')} />
             <Input type="password" name="password" width="300px" label={t('auth.password')} />

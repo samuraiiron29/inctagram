@@ -18,7 +18,7 @@ export const Logout = ({ showModal, setShowModal }: Props) => {
     try {
       await logout().unwrap()
     } catch (e) {
-      console.error('Logout failed:', e)
+      // console.error('Logout failed:', e)
     } finally {
       setShowModal(false)
       window.location.replace(PATH.LOGIN)

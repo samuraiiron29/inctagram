@@ -13,10 +13,10 @@ export const authApi = baseApi.injectEndpoints({
         method: 'GET',
       }),
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-        console.log(await queryFulfilled)
+        // console.log(await queryFulfilled)
         try {
           const { data } = await queryFulfilled
-          console.log(data)
+          // console.log(data)
           // applySessionFromMe(data ?? null, dispatch)
         } catch {
           // Network/500 — не трогаем текущий UI-стейт.
@@ -28,7 +28,7 @@ export const authApi = baseApi.injectEndpoints({
       query: args => ({
         url: 'auth/registration',
         method: 'POST',
-        body: { ...args, baseUrl: `${OAUTH_URL}${PATH.REGISTRATION_CONFIRMATION}` },
+        body: { ...args, baseUrl: `${OAUTH_URL}/${PATH.REGISTRATION_CONFIRMATION}` },
       }),
     }),
     confirm: build.mutation<void, { confirmationCode: string }>({
@@ -74,7 +74,7 @@ export const authApi = baseApi.injectEndpoints({
       query: ({ email }) => ({
         url: 'auth/password-recovery',
         method: 'POST',
-        body: { email, baseUrl: `${OAUTH_URL}${PATH.NEW_PASSWORD}` },
+        body: { email, baseUrl: `${OAUTH_URL}/${PATH.NEW_PASSWORD}` },
       }),
     }),
     createNewPassword: build.mutation<void, { newPassword: string; recoveryCode: string }>({
