@@ -10,7 +10,7 @@ import { Theme } from '@radix-ui/themes'
 import { AuthInitializer } from './providers'
 import ModalHost from '@/widgets/ModalHost/ModalHost'
 import StoreProvider from '@/store/StoreProvider'
-import HeaderSidebarProvider from '@/widgets/qwe/HeaderSidebarProvider'
+import HeaderSidebarProvider from '@/widgets/Header/HeaderSidebarProvider'
 
 export const metadata: Metadata = {
   title: 'Inctagram',
