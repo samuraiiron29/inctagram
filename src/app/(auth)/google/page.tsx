@@ -1,5 +1,9 @@
 'use client'
+const Page = () => {
+  return <div>///</div>
+}
 
+export default Page
 // import { useEffect } from 'react'
 // import { useRouter, useSearchParams } from 'next/navigation'
 // import { useAppDispatch } from '@/shared/lib/hooks/appHooks'
