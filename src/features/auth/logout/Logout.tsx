@@ -5,6 +5,7 @@ import { useLogoutMutation } from '@/shared/api'
 import { PATH } from '@/shared/lib/path'
 import { useSelector } from 'react-redux'
 import { selectEmail } from '@/store/services/session.selectors'
+import { deleteCookie } from '@/shared/lib/utils'
 
 type Props = {
   showModal: boolean
@@ -14,17 +15,26 @@ export const Logout = ({ showModal, setShowModal }: Props) => {
   const email = useSelector(selectEmail)
   const [logout] = useLogoutMutation()
 
-  const onConfirm = async () => {
-    try {
-      await logout().unwrap()
-    } catch (e) {
-      // console.error('Logout failed:', e)
-    } finally {
-      setShowModal(false)
-      window.location.replace(PATH.LOGIN)
-    }
+  // const onConfirm = () => {
+  //   try {
+  //     logout().unwrap()
+  //   } catch (e) {
+  //     // console.error('Logout failed:', e)
+  //   } finally {
+  //     setShowModal(false)
+  //     window.location.replace(PATH.LOGIN)
+  //   }
+  // }
+  const onConfirm = () => {
+    setShowModal(false)
+    logout()
+      .unwrap()
+      .catch(() => {}) // не важно, всё равно чистим локально
+      .finally(() => {
+        deleteCookie('isGitHub')
+        window.location.replace(PATH.LOGIN)
+      })
   }
-
   const onCancel = () => setShowModal(false)
   return (
     <Modal open={showModal} onClose={onCancel} modalTitle={'Logout'}>
