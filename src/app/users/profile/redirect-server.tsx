@@ -9,6 +9,7 @@ export default async function RedirectServer() {
   // console.log(me?.userId)
   if (!me) redirect(PATH.LOGIN)
   redirect(`/users/profile/${me.userId}`)
+  return null
 }
 
 //  const token = (await cookies()).get('accessToken')?.value
