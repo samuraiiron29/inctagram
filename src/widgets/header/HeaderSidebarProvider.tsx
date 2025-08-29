@@ -6,8 +6,6 @@ import { useAppSelector } from '@/shared/lib/hooks'
 import Sidebar from '@/features/Sidebar/Sidebar'
 import { useSelector } from 'react-redux'
 import { selectIsLoggedIn } from '@/store/services/session.selectors'
-
-import { useEffect } from 'react'
 type Props = {
   children: React.ReactNode
 }
