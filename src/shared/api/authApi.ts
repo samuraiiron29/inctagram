@@ -1,9 +1,8 @@
 import { baseApi } from '@/store/services/baseApi'
-import { setCookie } from '@/shared/lib/utils/cookieUtils'
+import { deleteCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
 import type { Me, SignInResponse } from '../lib/types'
 import { OAUTH_URL } from '../const'
 import { PATH } from '../lib/path'
-import { cleanupAuth } from '@/store/services/session.helper'
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: build => ({
@@ -54,8 +53,10 @@ export const authApi = baseApi.injectEndpoints({
       query: () => ({ url: 'auth/logout', method: 'POST', credentials: 'include' }),
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
         await queryFulfilled
-        cleanupAuth()
-        // cleanupAuth(dispatch)
+        deleteCookie('isGitHub')
+        deleteCookie('accessToken')
+        deleteCookie('refreshToken')
+
         dispatch(authApi.util.resetApiState())
       },
       invalidatesTags: ['Me'],
@@ -64,7 +65,9 @@ export const authApi = baseApi.injectEndpoints({
       query: ({ id }) => ({ url: `users/profile/${id}`, method: 'DELETE' }),
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
         await queryFulfilled
-        cleanupAuth()
+        // deleteCookie('isGitHub')
+        // deleteCookie('accessToken')
+        // deleteCookie('refreshToken')
         // cleanupAuth(dispatch)
         dispatch(authApi.util.resetApiState())
       },

@@ -4,14 +4,10 @@ import { useSignUpMutation } from '@/shared/api'
 import { PATH } from '@/shared/lib/path'
 import { registrationSchema } from '@/shared/lib/schemas'
 import { ZodInputs, type Error } from '@/shared/lib/types'
-import { oauth } from '@/shared/lib/utils/oauth'
-import { Button } from '@/shared/ui/base/Button'
-import { Cards } from '@/shared/ui/base/Cards'
+import { Button, Cards, Input } from '@/shared/ui/base'
 import Checkbox from '@/shared/ui/base/CheckBox/CheckBox'
-import { Input } from '@/shared/ui/base/Input'
 import { Modal } from '@/shared/ui/Modal'
 import { zodResolver } from '@hookform/resolvers/zod'
-import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { FormProvider, useForm, Controller } from 'react-hook-form'
@@ -36,6 +32,8 @@ function Page() {
     },
   })
   const handleLogin = () => router.replace(PATH.LOGIN)
+  const handleTerms = () => router.push(PATH.TERMS_OF_SERVICE)
+  const handlePolicy = () => router.push(PATH.PRIVACY_POLICY)
   const closeModal = () => setIsModal(false)
   const onSubmit = async (data: ZodInputs) => {
     try {
@@ -60,7 +58,7 @@ function Page() {
       <FormProvider {...methods}>
         <Cards onSubmit={methods.handleSubmit(onSubmit)}>
           <div className="flex flex-col items-center my-[20px]">
-            <span className="text-h1">{t('auth.signUp')}</span>
+            <span className="text-h1" children={t('auth.signUp')} />
             <Oauth />
             <Input type="default" name="firstName" width="300px" label={t('auth.username')} />
             <Input type="email" name="email" width="300px" label={t('auth.email')} />
@@ -75,24 +73,17 @@ function Page() {
                 <div className="flex justify-center text-center w-full my-4 gap-3">
                   <Checkbox checked={field.value} onChange={checked => field.onChange(checked)} />
                   <div className="inline-flex justify-center items-center text-center flex-wrap gap-x-1">
-                    <p className="text-small_text">{t('auth.additionalElements.iAgreeToThe')} </p>
-                    <p className="text-small-link cursor-pointer" onClick={() => router.push(PATH.TERMS_OF_SERVICE)}>
-                      {t('auth.termsOfService')}
-                    </p>
-                    <p className="text-small_text"> {t('auth.additionalElements.and')} </p>
-                    <p className="text-small-link cursor-pointer" onClick={() => router.push(PATH.PRIVACY_POLICY)}>
-                      {t('auth.privacyPolicy')}
-                    </p>
+                    <p className="text-small_text" children={t('auth.additionalElements.iAgreeToThe')} />
+                    <p className="text-small-link cursor-pointer" onClick={handleTerms} children={t('auth.termsOfService')} />
+                    <p className="text-small_text" children={t('auth.additionalElements.and')} />
+                    <p className="text-small-link cursor-pointer" onClick={handlePolicy} children={t('auth.privacyPolicy')} />
                   </div>
                 </div>
               )}
             />
             <Button type="submit" variant="primary" width="100%" disabled={!methods.formState.isValid} children={t('auth.signUp')} />
-
-            <p className="mt-2.5">{t('auth.additionalElements.doYouHaveAnAccount')}</p>
-            <span className="text-h3 text-accent-500 cursor-pointer" onClick={handleLogin}>
-              {t('auth.signIn')}
-            </span>
+            <p className="mt-2.5" children={t('auth.additionalElements.doYouHaveAnAccount')} />
+            <span className="text-h3 text-accent-500 cursor-pointer" onClick={handleLogin} children={t('auth.signIn')} />
           </div>
         </Cards>
       </FormProvider>

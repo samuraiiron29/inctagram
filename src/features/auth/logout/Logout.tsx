@@ -24,6 +24,7 @@ export const Logout = ({ showModal, setShowModal }: Props) => {
       window.location.replace(PATH.LOGIN)
     }
   }
+
   const onCancel = () => setShowModal(false)
   return (
     <Modal open={showModal} onClose={onCancel} modalTitle={'Logout'}>

@@ -27,6 +27,7 @@
       "forgotPassword":"forgot password?",
       "additionalElements": {
         "doYouHaveAnAccount": "Do you have an account?",
+        "doNotHaveAnAccount": "Don't have an account?",
         "iAgreeToThe":"I agree to the",
         "and":"and",
         "weHaveSent":"We have sent a link to confirm your email to"

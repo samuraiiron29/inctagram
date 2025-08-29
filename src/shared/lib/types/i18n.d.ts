@@ -29,6 +29,7 @@ export interface I18nResources {
       forgotPassword: string
       additionalElements: {
         doYouHaveAnAccount: string
+        doNotHaveAnAccount: string
         iAgreeToThe: string
         and: string
         weHaveSent: string
