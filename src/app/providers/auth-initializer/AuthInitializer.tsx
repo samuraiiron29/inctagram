@@ -13,7 +13,7 @@ export function AuthInitializer({ children }: { children: React.ReactNode }) {
     if (isLoading) return
     if (isSuccess) {
       setIsInitialized(true)
-      dispatch(setIsLoggedIn(true))
+      // dispatch(setIsLoggedIn(true))
     } else setIsInitialized(true)
   }, [isLoading, isSuccess, data])
   if (!isInitialized && !isSSRUserProfilePage) return <LinearProgress />
