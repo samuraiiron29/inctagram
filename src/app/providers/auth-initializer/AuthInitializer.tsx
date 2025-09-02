@@ -12,22 +12,15 @@ export function AuthInitializer({ children }: { children: React.ReactNode }) {
   const dispatch = useAppDispatch()
   const [isInitialized, setIsInitialized] = useState(false)
   const pathname = usePathname()
-
   const isSSRUserProfilePage = /^\/users\/profile(?:\/.*)+$/.test(pathname)
-
   useEffect(() => {
     if (isLoading) return
     if (isSuccess) {
       setIsInitialized(true)
       dispatch(setIsLoggedIn(true))
-    } else {
-      setIsInitialized(true)
-    }
+    } else setIsInitialized(true)
   }, [isLoading, isSuccess, data])
-
-  if (!isInitialized && !isSSRUserProfilePage) {
-    return <LinearProgress />
-  }
+  if (!isInitialized && !isSSRUserProfilePage) return <LinearProgress />
 
   return <>{children}</>
 }
