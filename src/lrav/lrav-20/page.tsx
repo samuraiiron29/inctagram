@@ -2,8 +2,7 @@
 import { useState } from 'react'
 import Pagination from '@/shared/ui/base/Pagination/Pagination'
 import { Select } from '@/shared/ui/base/Select/Select'
-import { Button } from '@radix-ui/themes'
-import { useRouter } from 'next/navigation'
+
 export default function Page() {
   const [pageSize, setPageSize] = useState(10)
   const [currentPage, setCurrentPage] = useState(1)

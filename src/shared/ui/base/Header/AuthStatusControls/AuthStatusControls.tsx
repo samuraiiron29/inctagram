@@ -28,10 +28,10 @@ export const AuthStatusControls = ({ isLoggedIn }: Props) => {
           <Select isLanguage value={i18n.language} onChange={handleLanguageChange} />
           <div className="flex gap-[24px]">
             <Button asChild variant={'textButton'}>
-              <Link href="/auth/sign-in">{t('auth.signIn')}</Link>
+              <Link href="/sign-in">{t('auth.signIn')}</Link>
             </Button>
             <Button asChild>
-              <Link href="/auth/sign-up">{t('auth.signUp')}</Link>
+              <Link href="/sign-up">{t('auth.signUp')}</Link>
             </Button>
           </div>
         </div>

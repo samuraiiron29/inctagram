@@ -12,8 +12,10 @@ import { useClickOutside } from '@/shared/ui/CurrentPost/hooks/useClickOutside'
 import { usePostActions } from '@/shared/ui/CurrentPost/hooks/usePostActions'
 import { useEditPostDescription } from '@/shared/ui/CurrentPost/hooks/useEditPostDescription'
 import { PostImage } from '@/shared/ui/CurrentPost/PostImage'
-import { selectUserId } from '@/store/slices/appSlice'
-import { useAppSelector } from '@/shared/lib/hooks'
+
+
+import { selectUserId } from '@/store/services/session.selectors'
+import { useSelector } from 'react-redux'
 
 export type Props = {
   width?: string
@@ -30,7 +32,7 @@ export const CurrentPostModal = ({ modalTitle, width, height, onClose, children,
   const actionsRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
 
-  const userId = useAppSelector(selectUserId)
+  const userId = useSelector(selectUserId)
   const isPostOwner = userId === post.ownerId
 
   const { postActions, editPost, setIsHovered, togglePostActions, startEdit, stopEdit, stopPostActions, getIcon } = usePostActions()

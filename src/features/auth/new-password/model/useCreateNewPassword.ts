@@ -25,7 +25,7 @@ export const useCreateNewPassword = (recoveryCode: string | null, email: string)
     },
     mode: 'onChange',
   })
-   
+
   const {
     handleSubmit,
     formState: { isValid },
@@ -39,10 +39,10 @@ export const useCreateNewPassword = (recoveryCode: string | null, email: string)
         recoveryCode: recoveryCode || '',
       }).unwrap()
       showModal('Password successfully changed', 'success')
-      // router.push(PATH.AUTH.LOGIN)
+      // router.push(PATH.LOGIN)
     } catch (error: any) {
       if (error.status === 400 && error.data?.error === 'Invalid or expired link') {
-        router.push(`${PATH.AUTH.RECOVERY_RESENDING}?email=${email}`)
+        router.push(`${PATH.RECOVERY_RESENDING}?email=${email}`)
       } else if (error.status === 400) {
         showModal('Incorrect data. Please try again.', 'error')
       } else if (error.status === 429) {
@@ -53,11 +53,11 @@ export const useCreateNewPassword = (recoveryCode: string | null, email: string)
     }
   }
 
-return {
-     methods, 
-     onSubmit:handleSubmit(onSubmit),
-     modal,
-     showModal,
-     closeModal
-       }
+  return {
+    methods,
+    onSubmit: handleSubmit(onSubmit),
+    modal,
+    showModal,
+    closeModal,
+  }
 }

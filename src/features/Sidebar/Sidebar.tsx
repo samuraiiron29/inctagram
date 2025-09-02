@@ -3,7 +3,6 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
 import { PATH } from '@/shared/lib/path'
-
 import { SidebarItem } from './SidebarItem'
 import { Logout } from '@/features/auth/logout'
 import { Button } from '@/shared/ui/base/Button'
@@ -91,7 +90,7 @@ export default function Sidebar() {
         </div>
       </ul>
       <Button onClick={() => setShowModal(true)} className={'flex items-center justify-center gap-[15px] mt-[180px] cursor-pointer'}>
-        <Image src={'/sidebarIcons/default/log-out.svg'} alt={''} width={'18'} height={'20'} />
+        <Image src={'/sidebarIcons/default/log-out.svg'} alt={''} width={'18'} height={'20'} className="w-auto" />
         <span className={'text-medium_text14'}>{t('auth.logout')}</span>
       </Button>
       {showModal && <Logout showModal={showModal} setShowModal={setShowModal} />}

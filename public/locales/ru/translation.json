@@ -22,9 +22,11 @@
       "logout": "Выйти",
       "termsOfService":"Условиями использования",
       "privacyPolicy":"Политикой приватности",
-         "emailSent": "Письмо отправлено",
+      "emailSent": "Письмо отправлено",
+      "forgotPassword":"Забыли пароль?",
       "additionalElements": {
         "doYouHaveAnAccount": "Уже есть аккаунт?",
+                "doNotHaveAnAccount": "Не зарегистрированы?",
         "iAgreeToThe":"Я согласен с",
         "and":"и",
          "weHaveSent":"Мы отправили ссылку на вашу электронную почту"

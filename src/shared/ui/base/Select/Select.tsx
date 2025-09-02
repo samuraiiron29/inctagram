@@ -86,14 +86,14 @@ export const Select = ({
                         focus:outline-none
                         flex justify-between items-center gap-1
                         border-dark-100
-                       
+
                       `}
         >
           <div className="flex items-center gap-2">
             {isLanguage && <Image src={language === 'Russian' ? '/flagRussia.svg' : '/flag.svg'} alt="flag" width={20} height={20} />}
             <span className={`${!internalValue && placeholder ? 'text-dark-100' : ''}`}>{internalValue || placeholder || 'select'}</span>
           </div>
-          <Image src={isOpen ? '/arrow1.svg' : '/arrow2.svg'} alt="arrow" width={14} height={8} />
+          <Image src={isOpen ? '/arrow1.svg' : '/arrow2.svg'} alt="arrow" width={14} height={14} className="w-auto" />
         </button>
 
         {isOpen && (
