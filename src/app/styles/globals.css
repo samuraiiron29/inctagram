@@ -28,22 +28,22 @@
 }
 
 @layer utilities {
-  .scrollbar::-webkit-scrollbar {
+  .scrollbar-hidden::-webkit-scrollbar {
     width: 4px;
-    height: 45px;
+  }
+  .scrollbar-hidden::-webkit-scrollbar-thumb {
+    background-color: transparent;
   }
 
-  .scrollbar::-webkit-scrollbar-track {
-    background: transparent;
+  .scrollbar-visible::-webkit-scrollbar {
+    width: 4px;
   }
-
-  .scrollbar::-webkit-scrollbar-thumb {
+  .scrollbar-visible::-webkit-scrollbar-thumb {
     background-color: #555;
     border-radius: 9999px;
-    transition: background-color 0.3s ease;
+    transition: all .3s ease;
   }
-
-  .scrollbar::-webkit-scrollbar-thumb:hover {
+  .scrollbar-visible::-webkit-scrollbar-thumb:hover{
     background-color: #999;
   }
 }

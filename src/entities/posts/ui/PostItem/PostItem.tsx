@@ -9,12 +9,13 @@ type Props = {
   post: Post
 }
 
+
 const PostItem = ({ post }: Props) => {
   const [on, setOn] = useState(false)
 
   const images = post.images.map(i => (
-    <div onClick={() => setOn(true)}>
-      <Image src={i.url} alt="" width={250} height={250} key={i.url} className={'cursor-pointer'} />
+    <div onClick={() => setOn(true)} key={i.url}>
+      <Image src={i.url} alt="" width={250} height={250} className={'cursor-pointer'} />
     </div>
   ))
   return (
@@ -32,5 +33,4 @@ const PostItem = ({ post }: Props) => {
     </>
   )
 }
-
 export default PostItem

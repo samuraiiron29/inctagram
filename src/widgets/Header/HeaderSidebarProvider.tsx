@@ -1,17 +1,22 @@
 'use client'
-import { selectAppStatus, selectIsLoggedIn } from '@/store/slices/appSlice'
+import { selectAppStatus   } from '@/store/slices/appSlice'
 import { Header } from '@/shared/ui/base/Header/Header'
 import LinearProgress from '@/shared/ui/base/Liner/LinearProgress'
 import { useAppSelector } from '@/shared/lib/hooks'
 import Sidebar from '@/features/Sidebar/Sidebar'
-
+import { useSelector } from 'react-redux'
+import { selectIsLoggedIn } from '@/store/services/session.selectors'
 type Props = {
   children: React.ReactNode
 }
 
 const HeaderSidebarProvider = ({ children }: Props) => {
+  //  const pending = useIsFetching()
   const status = useAppSelector(selectAppStatus)
-  const isLoggedIn = useAppSelector(selectIsLoggedIn)
+  const isLoggedIn = useSelector(selectIsLoggedIn)
+//   useEffect(() => {
+//   if (pending > 0  || status === 'loading')
+// },[])
 
   return (
     <>
@@ -22,5 +27,4 @@ const HeaderSidebarProvider = ({ children }: Props) => {
     </>
   )
 }
-
 export default HeaderSidebarProvider

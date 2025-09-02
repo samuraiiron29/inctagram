@@ -28,7 +28,7 @@ export const Button = ({ asChild = false, variant = 'primary', width, children, 
     })
   }
 
-  return <button className={className} style={{ width: width }} {...props} children={children} />
+  return <button className={className} style={{ width }} {...props} children={children} />
 }
 
 // export type Props<T extends ElementType = 'button'> = {

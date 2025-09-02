@@ -14,7 +14,7 @@ export default function Page() {
   })
 
   const onSubmit = (data: test) => {
-    console.log('Submitted data:', data)
+    // console.log('Submitted data:', data)
   }
 
   return (

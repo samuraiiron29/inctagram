@@ -8,7 +8,7 @@ const Page = () => {
     if (typeof window !== 'undefined' && window.history.length > 1) {
       router.back()
     } else {
-      router.push('/auth/sign-up', { scroll: false })
+      router.push('/sign-up', { scroll: false })
     }
   }
   return (

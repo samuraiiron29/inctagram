@@ -1,6 +1,5 @@
 'use client'
-
-import { CreateModal } from '@/shared/ui/CreateModal/CreateModal'
+import { CreateModal } from '@/features/CreateModal'
 
 function Page() {
   return <CreateModal open={true} />

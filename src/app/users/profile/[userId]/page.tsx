@@ -3,20 +3,21 @@ import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
 import UserProfile from '@/entities/users/ui/UserProfile/UserProfile'
 import LinearProgress from '@/shared/ui/base/Liner/LinearProgress'
+import { BASE_URL } from '@/shared/const'
 
 type Params = { userId: string }
 
 const UserPage = async ({ params }: { params: Promise<Params> }) => {
   try {
     const { userId } = await params
-    const res = await fetch(`https://inctagram.work/api/v1/public-user/profile/${userId}`)
+    const res = await fetch(`${BASE_URL}public-user/profile/${userId}`)
     const profile: PublicProfile = await res.json()
 
     if (!res.ok || !profile || !profile.userMetadata) notFound()
 
     return (
       <Suspense fallback={<LinearProgress />}>
-        <UserProfile profile={profile} />
+        <UserProfile profile={profile} isLoggedIn userId={userId} />
       </Suspense>
     )
   } catch (error) {
