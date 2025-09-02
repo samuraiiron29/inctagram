@@ -55,6 +55,13 @@ export const postsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['PostsByUserId'],
     }),
+    deletePost:build.mutation<void, string>({
+      query:(id) => ({
+        url:`posts/image/${id}`,
+        method: 'DELETE',
+      }),
+     invalidatesTags: ['PostsByUserId'],
+    })
   }),
 })
 
@@ -64,4 +71,5 @@ export const {
   useUploadImagesForPostMutation,
   useCreatePostMutation,
   useUpdatePostDescriptionMutation,
+  useDeletePostMutation
 } = postsApi

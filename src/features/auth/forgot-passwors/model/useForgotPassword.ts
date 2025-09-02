@@ -33,6 +33,35 @@ export const useForgotPassword = () => {
        setError,
      } = methods
 
+<<<<<<< HEAD
+  const onSubmit = async(data:ForgotPasswordForm) => {
+    try {
+       await forgotPassword({ email: data.email,
+        }).unwrap()
+      showModal(
+        "Email sent",
+        `We have sent a link to confirm your email to ${data.email}`);
+       router.push(PATH.AUTH.LOGIN);
+  } catch (error: any) {
+    if(error.status === 400) {
+      setError("email", { type: "manual", message: "User with this email doesn't exist" });
+    } else {
+      showModal("Server error. Please try again later.", "error");
+    }
+   }
+}
+ 
+  return {
+    methods, 
+     onSubmit:handleSubmit(onSubmit),
+     modal,
+     showModal,
+     closeModal,
+     captchaVerified,
+    setCaptchaVerified,
+    isValid,
+}
+=======
      const onSubmit = async (data: ForgotPasswordForm) => {
        try {
          await forgotPassword({
@@ -60,4 +89,5 @@ export const useForgotPassword = () => {
        setCaptchaVerified,
        isValid,
      }
+>>>>>>> develop
 }

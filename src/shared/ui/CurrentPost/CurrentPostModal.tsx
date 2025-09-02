@@ -1,6 +1,6 @@
 'use client'
 import { clsx } from 'clsx'
-import { ComponentPropsWithoutRef, useEffect, useRef } from 'react'
+import { ComponentPropsWithoutRef, useEffect, useRef, useState } from 'react'
 import { Dialog } from 'radix-ui'
 import Image from 'next/image'
 import { Post } from '@/shared/lib/types'
@@ -12,10 +12,17 @@ import { useClickOutside } from '@/shared/ui/CurrentPost/hooks/useClickOutside'
 import { usePostActions } from '@/shared/ui/CurrentPost/hooks/usePostActions'
 import { useEditPostDescription } from '@/shared/ui/CurrentPost/hooks/useEditPostDescription'
 import { PostImage } from '@/shared/ui/CurrentPost/PostImage'
+<<<<<<< HEAD
+import { selectUserId } from '@/store/slices/appSlice'
+import { useAppSelector } from '@/shared/lib/hooks'
+import { useDeletePost } from './hooks/useDeletePost'
+import { Modal } from '../Modal'
+=======
 
 
 import { selectUserId } from '@/store/services/session.selectors'
 import { useSelector } from 'react-redux'
+>>>>>>> develop
 
 export type Props = {
   width?: string
@@ -29,7 +36,7 @@ export type Props = {
 } & ComponentPropsWithoutRef<'div'>
 
 export const CurrentPostModal = ({ modalTitle, width, height, onClose, children, open, editPostHeader, post, images, ...res }: Props) => {
-  const actionsRef = useRef<HTMLDivElement>(null)
+  const actionsRef = useRef<HTMLDivElement>(null)  //Создание ссылок на DOM-элементы для отслеживания кликов вне модального окна и действий.
   const contentRef = useRef<HTMLDivElement>(null)
 
   const userId = useSelector(selectUserId)
@@ -38,6 +45,10 @@ export const CurrentPostModal = ({ modalTitle, width, height, onClose, children,
   const { postActions, editPost, setIsHovered, togglePostActions, startEdit, stopEdit, stopPostActions, getIcon } = usePostActions()
   const { text, handleChange, saveDescription, isLoading } = useEditPostDescription(post.description, post.id, stopEdit)
   useClickOutside(contentRef, onClose)
+  const [showConfirm, setShowConfirm] = useState(false);
+  const { handleDelete, isLoading: isDeleting } = useDeletePost(post.id.toString(), onClose,  () => setShowConfirm(false));
+  
+  
   const { t } = useTranslation()
 
   useEffect(() => {
@@ -131,7 +142,8 @@ export const CurrentPostModal = ({ modalTitle, width, height, onClose, children,
                     <Image src={'/trash-outline.svg'} alt={'trash'} width={'24'} height={'24'} />
                     <button
                       className="text-regular_text14 text-light-100 cursor-pointer"
-                      onClick={() => console.log('Delete post', post.id)}
+                      // onClick={() => console.log('Delete post', post.id)}
+                      onClick={()=>setShowConfirm(true)}
                     >
                       {t('post.deletePost')}
                     </button>
@@ -169,6 +181,23 @@ export const CurrentPostModal = ({ modalTitle, width, height, onClose, children,
           </div>
         </Dialog.Content>
       </Dialog.Portal>
+       {showConfirm && (
+      <Modal
+        open={showConfirm}
+        onClose={() => setShowConfirm(false)}
+        modalTitle={t('post.addPublicationDescriptions')}
+      >
+        <p>{t('post.addPublicationDescriptions')}</p>
+        <div className="mt-4 flex justify-end gap-2">
+          <Button variant="secondary" onClick={() => setShowConfirm(false)}>
+            {t('post.addPublicationDescriptions')}
+          </Button>
+          <Button variant="primary" onClick={handleDelete} disabled={isDeleting}>
+            {isDeleting ? 'Deleting...' : t('post.addPublicationDescriptions')}
+          </Button>
+        </div>
+      </Modal>
+    )}
     </Dialog.Root>
   )
 }
