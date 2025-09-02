@@ -3,9 +3,10 @@ import { registrationSchema } from '@/shared/lib/schemas'
 import z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { PATH } from '@/shared/lib/path/path'
-import { useModal } from '@/features/auth/forgot-passwors/model/useModal'
-import { useRouter} from 'next/navigation'
+
+import { useRouter } from 'next/navigation'
 import { useCreateNewPasswordMutation } from '@/shared/api'
+import { useState } from 'react'
 
 const newPasswordSchema = registrationSchema.pick({
   password: true,
@@ -14,10 +15,22 @@ const newPasswordSchema = registrationSchema.pick({
 type NewPasswordForm = z.infer<typeof newPasswordSchema>
 
 export const useCreateNewPassword = (recoveryCode: string | null, email: string) => {
-     const [createNewPassword] = useCreateNewPasswordMutation();
-     const {modal, showModal, closeModal} = useModal();
-      const router = useRouter()
-     const methods = useForm<NewPasswordForm>({
+  const [modal, setModal] = useState({
+    open: false,
+    title: '',
+    message: '',
+  })
+  const showModal = (title: string, message: string) => {
+    setModal({ open: true, title, message })
+  }
+
+  const closeModal = () => {
+    setModal(prev => ({ ...prev, open: false }))
+  }
+  const [createNewPassword] = useCreateNewPasswordMutation()
+
+  const router = useRouter()
+  const methods = useForm<NewPasswordForm>({
     resolver: zodResolver(newPasswordSchema),
     defaultValues: {
       password: '',

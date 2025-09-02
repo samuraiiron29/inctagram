@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { clsx } from 'clsx'
-import { log } from 'node:util'
+
 import { useAppDispatch } from '@/shared/lib/hooks'
 import { setOpenCreate } from '@/store/slices/appSlice'
 
