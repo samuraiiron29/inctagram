@@ -18,7 +18,6 @@ import { useCreatePostMutation, useUploadImagesForPostMutation } from '@/shared/
 import { useAppDispatch } from '@/shared/lib/hooks'
 import { setOpenCreate } from '@/store/slices/appSlice'
 import { Modal } from '@/shared/ui/Modal'
-import { images } from 'next/dist/build/webpack/config/blocks/images'
 
 type Mode = 'empty' | 'crop' | 'preview'
 type Props = {
@@ -31,9 +30,7 @@ export default function ImageUploader({ open }: Props) {
   const cropperRef = useRef<ReactCropperElement | null>(null)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const addMoreInputRef = useRef<HTMLInputElement | null>(null)
-
   const dispatch = useAppDispatch()
-
   const [mode, setMode] = useState<Mode>('empty')
   const [sources, setSources] = useState<string[]>([])
   const [filters, setFilters] = useState<string[]>([])
@@ -281,9 +278,7 @@ export default function ImageUploader({ open }: Props) {
                 aria-hidden="true"
                 tabIndex={-1}
               />
-              <Button variant="primary" onClick={() => fileInputRef.current?.click()}>
-                Select from Computer
-              </Button>
+              <Button variant="primary" onClick={() => fileInputRef.current?.click()} children={'Select from Computer'} />
             </div>
           )}
 
@@ -311,7 +306,7 @@ export default function ImageUploader({ open }: Props) {
                 <label>
                   Filter:
                   <select
-                    className="ml-2 rounded border border-white/10 bg-dark-200 p-1"
+                    className="ml-2 rounded border  bg-dark-200 p-1"
                     value={filters[current] ?? 'none'}
                     onChange={e =>
                       setFilters(p => {

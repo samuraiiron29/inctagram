@@ -1,1 +1,1 @@
-export * from './ui/Logout'
+export * from './Logout'
