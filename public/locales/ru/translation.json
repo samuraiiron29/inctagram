@@ -23,22 +23,24 @@
       "termsOfService":"Условиями использования",
       "privacyPolicy":"Политикой приватности",
       "emailSent": "Письмо отправлено",
-      "forgotPassword":"Забыли пароль?",
+      "sendLink":"Ссылка отправлена",
+      "backToSignIn":"Back to Sign In",
+      "forgotPassword":"Вспомнить пароль",
       "additionalElements": {
         "doYouHaveAnAccount": "Уже есть аккаунт?",
-                "doNotHaveAnAccount": "Не зарегистрированы?",
+        "doNotHaveAnAccount": "Не зарегистрированы?",
         "iAgreeToThe":"Я согласен с",
         "and":"и",
-         "weHaveSent":"Мы отправили ссылку на вашу электронную почту"
+        "weHaveSent":"Мы отправили ссылку на вашу электронную почту ",
+        "enterYourEmail":"Введите Вашу электронную почту для получения инструкций"
       },
       "errors": {
-        "emailAlreadyRegistered":
-        "Пользователь с такой электронной почтой уже зарегистрирован",
+        "emailDoesNotExist": "Пользователь с такой электронной почтой не найден",
+        "emailAlreadyRegistered":"Пользователь с такой электронной почтой уже зарегистрирован",
         "emailIncorrect":"Неверный адрес электронной почты",
         "usernameMaxCharacters":"Максимум 30 символов",
         "usernameMinCharacters":"Минимум 6 символов",
-        "usernameCharacters":
-        "Разрешены латинские буквы, цифры, _ и - символы",
+        "usernameCharacters":"Разрешены латинские буквы, цифры, _ и - символы",
         "passwordMaxCharacters":"Максимум 20 символов",
         "passwordMinCharacters":"Минимум 6 символов",
         "passwordsMatch":"Пароли не совпадают",

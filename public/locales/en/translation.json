@@ -21,18 +21,23 @@
       "signIn": "Login",
       "signUp": "Sign Up",
       "logout": "Logout",
+            "sendLink":"Send Link",
+                "backToSignIn":"Back to Sign In",
       "termsOfService":"Terms of Service",
       "privacyPolicy":"Privacy Policy",
       "emailSent": "Email sent",
-      "forgotPassword":"forgot password?",
+      "forgotPassword":"Forgot password",
+
       "additionalElements": {
         "doYouHaveAnAccount": "Do you have an account?",
         "doNotHaveAnAccount": "Don't have an account?",
         "iAgreeToThe":"I agree to the",
         "and":"and",
-        "weHaveSent":"We have sent a link to confirm your email to"
+        "weHaveSent":"We have sent a link to confirm your email to ",
+        "enterYourEmail":"Enter your email address and we will send you further instructions"
       },
       "errors": {
+        "emailDoesNotExist": "User with this email doesn't exist",
         "emailAlreadyRegistered":
         "User with this username is already registered",
         "emailIncorrect":"Incorrect email address",

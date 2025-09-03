@@ -26,6 +26,8 @@ export interface I18nResources {
       termsOfService: string
       privacyPolicy: string
       emailSent: string
+      sendLink: string
+      backToSignIn: string
       forgotPassword: string
       additionalElements: {
         doYouHaveAnAccount: string
@@ -33,8 +35,10 @@ export interface I18nResources {
         iAgreeToThe: string
         and: string
         weHaveSent: string
+        enterYourEmail: string
       }
       errors: {
+        emailDoesNotExist: string
         emailAlreadyRegistered: string
         emailIncorrect: string
         usernameMaxCharacters: string
