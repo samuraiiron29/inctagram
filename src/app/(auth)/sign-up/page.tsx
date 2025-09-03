@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next'
 
 function Page() {
   // Qwerty12345!@#
+  // PR build test
   const { t } = useTranslation()
   const router = useRouter()
   const [email, setEmail] = useState('')
