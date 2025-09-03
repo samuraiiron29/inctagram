@@ -16,4 +16,4 @@ export * from './Select'
 export * from './Tabs'
 
 export * from './TextArea'
-export * from './Typography'
+

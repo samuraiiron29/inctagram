@@ -4,7 +4,7 @@ import { Button } from '@/shared/ui/base/Button/Button'
 import { Input } from '@/shared/ui/base/Input/Input'
 import { FormProvider } from 'react-hook-form'
 import { Cards } from '@/shared/ui/base/Cards/Cards'
-import { Modal } from '@/shared/ui/Modal/Modal'
+import { Modal } from '@/features/Modal/Modal'
 import { useCreateNewPassword } from '@/features/auth/new-password/model/useCreateNewPassword'
 import { PATH } from '@/shared/lib/path'
 

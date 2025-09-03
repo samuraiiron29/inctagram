@@ -1,6 +1,6 @@
 'use client'
 import { Button } from '@/shared/ui/base/Button/Button'
-import { Modal } from '@/shared/ui/Modal/Modal'
+import { Modal } from '@/features/Modal/Modal'
 import { useLogoutMutation } from '@/shared/api'
 import { PATH } from '@/shared/lib/path'
 import { useSelector } from 'react-redux'

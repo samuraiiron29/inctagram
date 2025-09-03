@@ -3,7 +3,7 @@
 import type { Post } from '@/shared/lib/types'
 import Image from 'next/image'
 import { useState } from 'react'
-import { CurrentPostModal } from '@/shared/ui/CurrentPost'
+import { CurrentPostModal } from '@/entities/CurrentPost'
 
 type Props = {
   post: Post

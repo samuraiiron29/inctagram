@@ -1,5 +1,5 @@
 'use client'
-import ImageUploader from '@/shared/ui/Image/ImageUploader'
+import ImageUploader from '@/features/Image/ImageUploader'
 import { useAppSelector } from '@/shared/lib/hooks'
 import { selectOpenCreate } from '@/store/slices/appSlice'
 

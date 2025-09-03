@@ -17,7 +17,7 @@ import { Button } from '@/shared/ui/base/Button/Button'
 import { useCreatePostMutation, useUploadImagesForPostMutation } from '@/shared/api'
 import { useAppDispatch } from '@/shared/lib/hooks'
 import { setOpenCreate } from '@/store/slices/appSlice'
-import { Modal } from '@/shared/ui/Modal'
+import { Modal } from '@/features/Modal'
 
 type Mode = 'empty' | 'crop' | 'preview'
 type Props = {

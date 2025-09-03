@@ -1,5 +1,5 @@
 'use client'
-import ImageUploader from '@/shared/ui/Image/ImageUploader'
+import ImageUploader from '@/features/Image/ImageUploader'
 type Props = {
   open: boolean
 }
