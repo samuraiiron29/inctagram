@@ -46,7 +46,7 @@ function Page() {
       if (er?.status === 400 && er?.data?.messages?.length) {
         const message = er.data.messages[0].message || ''
         if (message.includes('email')) methods.setError('email', { type: 'server', message })
-        else if (message.includes('firstName')) methods.setError('firstName', { message })
+        else if (message.includes('userName')) methods.setError('firstName', { message: 'User with this username is already registered' })
         else methods.setError('root', { type: 'server', message: 'unknown error' })
       } else {
         // console.log('servers error', error)
