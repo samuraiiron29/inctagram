@@ -29,6 +29,7 @@ export interface I18nResources {
       sendLink: string
       backToSignIn: string
       forgotPassword: string
+      sentAgain: string
       additionalElements: {
         doYouHaveAnAccount: string
         doNotHaveAnAccount: string
@@ -36,6 +37,8 @@ export interface I18nResources {
         and: string
         weHaveSent: string
         enterYourEmail: string
+        linkExpired: string 
+        sentAgain: string        
       }
       errors: {
         emailDoesNotExist: string
