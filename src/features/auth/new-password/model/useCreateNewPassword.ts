@@ -3,7 +3,6 @@ import { registrationSchema } from '@/shared/lib/schemas'
 import z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { PATH } from '@/shared/lib/path/path'
-
 import { useRouter } from 'next/navigation'
 import { useCreateNewPasswordMutation } from '@/shared/api'
 import { useState } from 'react'
@@ -52,18 +51,22 @@ export const useCreateNewPassword = (recoveryCode: string | null, email: string)
         recoveryCode: recoveryCode || '',
       }).unwrap()
       showModal('Password successfully changed', 'success')
-      // router.push(PATH.LOGIN)
+      
     } catch (error: any) {
-      if (error.status === 400 && error.data?.error === 'Invalid or expired link') {
-        router.push(`${PATH.RECOVERY_RESENDING}?email=${email}`)
-      } else if (error.status === 400) {
-        showModal('Incorrect data. Please try again.', 'error')
-      } else if (error.status === 429) {
-        showModal('Too many attempts. Please wait and try again.', 'error')
-      } else {
-        showModal('Server error', 'error')
-      }
-    }
+       console.log('Ошибка сброса пароля:', error)
+
+       const status = error?.status
+       const message = error?.data?.error || error?.data?.message || ''
+             if ((status === 400 || status === 410) && /expired/i.test(message)) {
+         router.push(`${PATH.REGISTRATION_EMAIL_RESENDING}?email=${email}`)
+          } else if (status === 400) {
+    showModal('Incorrect data. Please try again.', 'error')
+  } else if (status === 429) {
+    showModal('Too many attempts. Please wait and try again.', 'error')
+  } else {
+    showModal('Server error', 'error')
+  }
+}
   }
 
   return {

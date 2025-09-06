@@ -4,13 +4,26 @@ import { useForgotPasswordMutation } from "@/shared/api";
 import { Button } from "@/shared/ui/base/Button/Button";
 import { Modal } from '@/features/Modal/Modal'
 import Image from 'next/image'
-import { useModal } from '@/features/auth/forgot-passwors/model/useModal'
+import { useState } from "react";
 
 const ResendLinkPage = () => {
   const searchParams = useSearchParams()
   const email = searchParams.get('email') || ''
   const [forgotPassword] = useForgotPasswordMutation()
-  const { modal, showModal, closeModal } = useModal()
+
+  
+  const [modal, setModal] = useState({
+    open: false,
+    title: '',
+    message: '',
+  });
+  const showModal = (title: string, message: string) => {
+    setModal({ open: true, title, message });
+  };
+
+  const closeModal = () => {
+    setModal(prev => ({ ...prev, open: false }));
+  };
 
   const handleResend = async () => {
     try {
