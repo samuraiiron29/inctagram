@@ -8,7 +8,7 @@ import { TextArea } from '@/shared/ui/base/TextArea'
 import { Button } from '@/shared/ui/base/Button'
 import { useTranslation } from 'react-i18next'
 import { Skeleton } from '@radix-ui/themes'
-import { useClickOutside } from '@/entities/CurrentPost/hooks/useClickOutside'
+import { useClickOutside } from '@/shared/lib/hooks/useClickOutside'
 import { usePostActions } from '@/entities/CurrentPost/hooks/usePostActions'
 import { useEditPostDescription } from '@/entities/CurrentPost/hooks/useEditPostDescription'
 import { PostImage } from '@/entities/CurrentPost/PostImage'
@@ -29,7 +29,6 @@ export type Props = {
   post: Post
   images: any
 } & ComponentPropsWithoutRef<'div'>
-
 export const CurrentPostModal = ({ modalTitle, width, height, onClose, children, open, editPostHeader, post, images, ...res }: Props) => {
   const actionsRef = useRef<HTMLDivElement>(null) //Создание ссылок на DOM-элементы для отслеживания кликов вне модального окна и действий.
   const contentRef = useRef<HTMLDivElement>(null)

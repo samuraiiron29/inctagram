@@ -17,7 +17,6 @@ export default function Sidebar() {
       iconDefault: '/sidebarIcons/default/home.svg',
       iconHover: '/sidebarIcons/hover/home.svg',
       iconActive: '/sidebarIcons/active/home.svg',
-      // label: 'Feed',
       label: t('sidebar.feed'),
       alt: t('sidebar.feed'),
     },
