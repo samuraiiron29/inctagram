@@ -61,7 +61,7 @@ function Page() {
         <div className='mb-[34px]'>
           <Input name="password" label="Password" type="password" />
         </div>
-        <Link href='/auth/forgot-password' className='text-right text-regular_text14 text-[#8D9094] mb-[24px] block'>
+        <Link href={PATH.AUTH.FORGOT_PASSWORD} className='text-right text-regular_text14 text-[#8D9094] mb-[24px] block'>
           Forgot Password
         </Link>
         <div className='mb-[24px]'>
@@ -72,7 +72,7 @@ function Page() {
         <div className='text-regular_text16 mb-[6px] text-center'>
           Don’t have an account?
         </div>
-        <Link href={'/auth/sign-up'} className="text-h3 text-center block text-[#397DF6] weight-600">
+        <Link href={PATH.AUTH.SIGNUP} className="text-h3 text-center block text-[#397DF6] weight-600">
           Sign Up
         </Link>
       </Cards>
