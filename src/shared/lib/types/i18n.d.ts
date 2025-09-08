@@ -26,13 +26,22 @@ export interface I18nResources {
       termsOfService: string
       privacyPolicy: string
       emailSent: string
+      sendLink: string
+      backToSignIn: string
+      forgotPassword: string
+      sentAgain: string
       additionalElements: {
         doYouHaveAnAccount: string
+        doNotHaveAnAccount: string
         iAgreeToThe: string
         and: string
         weHaveSent: string
+        enterYourEmail: string
+        linkExpired: string 
+        sentAgain: string        
       }
       errors: {
+        emailDoesNotExist: string
         emailAlreadyRegistered: string
         emailIncorrect: string
         usernameMaxCharacters: string
@@ -44,6 +53,14 @@ export interface I18nResources {
         passwordCharacters: string
         termsAccept: string
       }
+    }
+    post: {
+      editPost: string
+      deletePost: string
+      addPublicationDescriptions: string
+    }
+    button: {
+      saveChanges: string
     }
   }
 }

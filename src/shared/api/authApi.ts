@@ -1,75 +1,34 @@
 import { baseApi } from '@/store/services/baseApi'
-import { setAppEmail, setIsLoggedIn, setUserId } from '@/store/slices/appSlice'
 import { deleteCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
-import type { GoogleAuthRequest, GoogleAuthResponse, SignInResponse } from '../lib/types'
+import type { Me, SignInResponse } from '../lib/types'
+import { OAUTH_URL } from '../const'
+import { PATH } from '../lib/path'
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: build => ({
-    me: build.query<{ userId: number; userName: string; email: string; isBlocked: boolean }, void>({
+    me: build.query<Me | null, void>({
       query: () => ({
         url: 'auth/me',
         method: 'GET',
-        credentials: 'include',
       }),
-      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        // console.log(await queryFulfilled)
         try {
-          const response = await queryFulfilled
-          if (response.data?.email) {
-            dispatch(setAppEmail(response.data.email))
-            dispatch(setIsLoggedIn(true))
-            dispatch(setUserId(response.data.userId))
-          }
-        } catch (error) {
-          throw error
+          const { data } = await queryFulfilled
+          // console.log(data)
+          // applySessionFromMe(data ?? null, dispatch)
+        } catch {
+          // Network/500 — не трогаем текущий UI-стейт.
         }
       },
-    }),
-    logout: build.mutation<void, void>({
-      query: () => ({
-        url: 'auth/logout',
-        method: 'POST',
-        credentials: 'include',
-      }),
-      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-        await queryFulfilled
-        deleteCookie('accessToken')
-        deleteCookie('isGitHub')
-        dispatch(setIsLoggedIn(false))
-        dispatch(setAppEmail(null))
-        dispatch(authApi.util.resetApiState())
-      },
-    }),
-
-    googleAuth: build.mutation<GoogleAuthResponse, GoogleAuthRequest>({
-      query: ({ code, redirectUrl }) => ({
-        url: 'auth/google/login',
-        method: 'POST',
-        body: { code, redirectUrl },
-      }),
+      providesTags: ['Me'],
     }),
     signUp: build.mutation<void, SignInResponse>({
       query: args => ({
         url: 'auth/registration',
         method: 'POST',
-        body: { ...args, baseUrl: 'http://localhost:3000/auth/registration-confirmation' },
+        body: { ...args, baseUrl: `${OAUTH_URL}/${PATH.REGISTRATION_CONFIRMATION}` },
       }),
-    }),
-    signIn: build.mutation<{ accessToken: string }, { email: string; password: string }>({
-      query: args => ({
-        url: 'auth/login',
-        method: 'POST',
-        body: { ...args },
-      }),
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
-        try {
-          const response = await queryFulfilled
-          setCookie('accessToken', response.data.accessToken.trim(), 7)
-          await dispatch(authApi.endpoints.me.initiate())
-          dispatch(setIsLoggedIn(true))
-        } catch (error) {
-          throw error
-        }
-      },
     }),
     confirm: build.mutation<void, { confirmationCode: string }>({
       query: args => ({
@@ -78,26 +37,47 @@ export const authApi = baseApi.injectEndpoints({
         body: { ...args },
       }),
     }),
-    deleteUserProfile: build.mutation<void, { id: number }>({
-      query: ({ id }) => ({
-        url: `users/profile/${id}`,
-        method: 'DELETE',
-      }),
-      async onQueryStarted(args, { dispatch, queryFulfilled }) {
-        try {
-          await queryFulfilled
-          deleteCookie('accessToken')
-          deleteCookie('refreshToken')
-        } catch (error) {
-          throw error
-        }
+    signIn: build.mutation<{ accessToken: string }, { email: string; password: string }>({
+      query: args => ({ url: 'auth/login', method: 'POST', body: args }),
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        const { data } = await queryFulfilled
+        setCookie('accessToken', data.accessToken.trim(), 7)
+        // Вариант А: форс-рефетч
+        // await dispatch(authApi.endpoints.me.initiate(undefined, { forceRefetch: true }))
+        // Вариант Б: инвалидация тега (и доверяем жизненному циклу RTKQ)
+        dispatch(authApi.util.invalidateTags(['Me']))
       },
+      invalidatesTags: ['Me'],
+    }),
+    logout: build.mutation<void, void>({
+      query: () => ({ url: 'auth/logout', method: 'POST', credentials: 'include' }),
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        await queryFulfilled
+        deleteCookie('isGitHub')
+        deleteCookie('accessToken')
+        deleteCookie('refreshToken')
+
+        dispatch(authApi.util.resetApiState())
+      },
+      invalidatesTags: ['Me'],
+    }),
+    deleteUserProfile: build.mutation<void, { id: number }>({
+      query: ({ id }) => ({ url: `users/profile/${id}`, method: 'DELETE' }),
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        await queryFulfilled
+        // deleteCookie('isGitHub')
+        // deleteCookie('accessToken')
+        // deleteCookie('refreshToken')
+        // cleanupAuth(dispatch)
+        dispatch(authApi.util.resetApiState())
+      },
+      invalidatesTags: ['Me'],
     }),
     forgotPassword: build.mutation<void, { email: string }>({
       query: ({ email }) => ({
         url: 'auth/password-recovery',
         method: 'POST',
-        body: { email },
+        body: { email, baseUrl: `${OAUTH_URL}/${PATH.NEW_PASSWORD}` },
       }),
     }),
     createNewPassword: build.mutation<void, { newPassword: string; recoveryCode: string }>({
@@ -108,7 +88,31 @@ export const authApi = baseApi.injectEndpoints({
       }),
     }),
   }),
+  overrideExisting: true,
 })
+// googleAuth: build.mutation<GoogleAuthResponse, GoogleAuthRequest>({
+//   query: ({ code, redirectUrl }) => ({
+//     url: 'auth/google/login',
+//     method: 'POST',
+//     body: { code, redirectUrl },
+//   }),
+// }),
+// deleteProfile: build.mutation<void, void>({
+//   query: () => ({
+//     url: `users/profile`,
+//     method: 'DELETE',
+//   }),
+//   async onQueryStarted(args, { dispatch, queryFulfilled }) {
+//     try {
+//       await queryFulfilled
+//       deleteCookie('accessToken')
+//       deleteCookie('refreshToken')
+//     } catch (error) {
+//       throw error
+//     }
+//   },
+// }),
+
 export const {
   useMeQuery,
   useLogoutMutation,
@@ -117,6 +121,7 @@ export const {
   useDeleteUserProfileMutation,
   useForgotPasswordMutation,
   useCreateNewPasswordMutation,
-  useGoogleAuthMutation,
   useSignInMutation,
+
+  // useDeleteProfileMutation,
 } = authApi

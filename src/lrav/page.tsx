@@ -29,9 +29,9 @@ export default function DevPanelPage() {
       <Button onClick={() => redirectHandler('lrav-18')}>lrav-18 Sidebars</Button>
       <Button onClick={() => redirectHandler('lrav-19')}>lrav-19 Date Picker</Button>
       <Button onClick={() => redirectHandler('lrav-20')}>lrav-20 pagination</Button>
-      <Button onClick={() => redirectHandler('lrav-21')}>lrav-21 Recaptcha</Button>
+      {/* <Button onClick={() => redirectHandler('lrav-21')}>lrav-21 Recaptcha</Button> */}
       <Button onClick={() => redirectHandler('lrav-22')}>lrav-22 Scroll</Button>
-      <Button onClick={() => redirectHandler('lrav-23')}>lrav-23 typography</Button>
+
       <Button onClick={() => redirectHandler('lrav-26')}>lrav-26 Alerts</Button>
       <Button onClick={() => redirectHandler('lrav-50')}>lrav-50 Image creator</Button>
     </Grid>

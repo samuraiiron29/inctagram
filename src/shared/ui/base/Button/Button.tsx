@@ -11,7 +11,7 @@ export type Props = {
   React.AnchorHTMLAttributes<HTMLAnchorElement>
 const baseStyle = `text-h3 rounded-[2px] py-1.5 px-6 gap-2.5 cursor-pointer`
 const variantStyle: Record<VariantButton, string> = {
-  primary: `bg-accent-500 active:bg-accent-700 hover:bg-accent-100 focus:border-2 disabled:bg-accent-900/50 disabled:cursor-not-allowed`,
+  primary: `text-light-100 bg-accent-500 active:bg-accent-700 hover:bg-accent-100 focus:border-2 disabled:bg-accent-900/50 disabled:cursor-not-allowed`,
   secondary: `bg-dark-300 active:bg-[#212121] hover:bg-dark-100 focus:border-2 focus:border-accent-300 disabled:bg-dark-500`,
   outlined: `border border-accent-500 text-accent-500  active:bg-accent-700 active:text-accent-700 hover:bg-accent-100 hover:text-amber-50 focus:border-2 focus:border-accent-700 disabled:bg-accent-900`,
   textButton: `text-accent-500 active:text-accent-700 hover:text-accent-100 focus:border-2 focus:border-accent-700 disabled:bg-accent-900`,
@@ -28,7 +28,7 @@ export const Button = ({ asChild = false, variant = 'primary', width, children, 
     })
   }
 
-  return <button className={className} style={{ width: width }} {...props} children={children} />
+  return <button className={className} style={{ width }} {...props} children={children} />
 }
 
 // export type Props<T extends ElementType = 'button'> = {

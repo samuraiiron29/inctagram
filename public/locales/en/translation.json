@@ -21,16 +21,25 @@
       "signIn": "Login",
       "signUp": "Sign Up",
       "logout": "Logout",
+      "sendLink":"Send Link",
+      "backToSignIn":"Back to Sign In",
       "termsOfService":"Terms of Service",
       "privacyPolicy":"Privacy Policy",
       "emailSent": "Email sent",
+      "forgotPassword":"Forgot password",
+      "sendAgain": "Send Link Again",
+
       "additionalElements": {
         "doYouHaveAnAccount": "Do you have an account?",
+        "doNotHaveAnAccount": "Don't have an account?",
         "iAgreeToThe":"I agree to the",
         "and":"and",
-        "weHaveSent":"We have sent a link to confirm your email to"
+        "weHaveSent":"We have sent a link to confirm your email to ",
+        "enterYourEmail":"Enter your email address and we will send you further instructions",
+        "sentAgain":"The link has been sent by email. If you don’t receive an email send link again"
       },
       "errors": {
+        "emailDoesNotExist": "User with this email doesn't exist",
         "emailAlreadyRegistered":
         "User with this username is already registered",
         "emailIncorrect":"Incorrect email address",
@@ -45,5 +54,13 @@
      "Password must contain at least one digit, lowercase, uppercase letter. Special characters allowed: ! \" # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _ { | } ~)",
         "termsAccept":"You must accept the terms and the Policy!"
       }
+  },
+  "post": {
+    "editPost": "Edit Post",
+    "deletePost": "Delete Post",
+    "addPublicationDescriptions": "add publication descriptions"
+  },
+  "button": {
+    "saveChanges": "Save Changes"
   }
 }

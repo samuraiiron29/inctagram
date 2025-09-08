@@ -25,9 +25,7 @@ const Posts = ({offset, userId, setHasMoreHandler}: Props) => {
   })
 
   useEffect(()=>{
-    if (data) {
-      setHasMoreHandler(offset <= data.totalCount)
-    } 
+    if (data) setHasMoreHandler(offset <= data.totalCount)
   },[offset])
 
   const posts = data?.items.map(post => <PostItem post={post} key={post.id} />)

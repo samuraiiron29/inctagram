@@ -1,6 +1,11 @@
 {
   "prettier.configPath": "C:\\it-incubator\\internship\\inctagram\\prettier.config.mjs",
-
+"search.exclude": {
+        "/node_modules": true,
+        "/.next": true
+    },
+  "search.useIgnoreFiles": false,
+  "search.useGlobalIgnoreFiles": false,
   "prettier.documentSelectors": [""],
   "prettier.experimentalTernaries": true,
   "editor.formatOnSave": true,

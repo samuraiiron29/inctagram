@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { clsx } from 'clsx'
-import { log } from 'node:util'
+
 import { useAppDispatch } from '@/shared/lib/hooks'
 import { setOpenCreate } from '@/store/slices/appSlice'
 
@@ -25,9 +25,10 @@ export const SidebarItem = ({ item }: Props) => {
   const pathname = usePathname()
   const isActive = pathname === item.href
   const [isHovered, setIsHovered] = useState(false)
-
   const dispatch = useAppDispatch()
-
+  const handleCreateModal = () => {
+    dispatch(setOpenCreate(true))
+  }
   const getIcon = () => {
     if (item.disabled) return item.iconDefault
     if (isHovered) return item.iconHover
@@ -59,9 +60,9 @@ export const SidebarItem = ({ item }: Props) => {
           </span>
         </Link>
       ) : item.action === 'create' ? (
-        <button onClick={() => dispatch(setOpenCreate(true))} className={'inline-flex gap-[12px] pr-[3px]'}>
+        <button onClick={handleCreateModal} className={'inline-flex gap-[12px] pr-[3px]'}>
           <Image src={getIcon()} alt={item.alt} width={24} height={24} />
-          create
+          Create
         </button>
       ) : null}
     </li>
