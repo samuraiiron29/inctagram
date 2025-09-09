@@ -16,7 +16,7 @@ function Page() {
   const router = useRouter()
   const [login] = useSignInMutation()
   const methods = useForm<ZodLogin>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(loginSchema as any),
     defaultValues: { email: '', password: '' },
   })
   const handleSignUp = () => router.replace(PATH.SIGNUP)
