@@ -32,6 +32,8 @@ export const Logout = ({ showModal, setShowModal }: Props) => {
       .catch(() => {}) // не важно, всё равно чистим локально
       .finally(() => {
         deleteCookie('isGitHub')
+        deleteCookie('accessToken')
+        deleteCookie('refreshToken')
         window.location.replace(PATH.LOGIN)
       })
   }
