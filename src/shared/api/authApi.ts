@@ -53,10 +53,10 @@ export const authApi = baseApi.injectEndpoints({
       query: () => ({ url: 'auth/logout', method: 'POST', credentials: 'include' }),
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
         await queryFulfilled
-        deleteCookie('isGitHub')
-        deleteCookie('accessToken')
-        deleteCookie('refreshToken')
-
+        // deleteCookie('isGitHub')
+        // deleteCookie('accessToken')
+        // deleteCookie('refreshToken')
+        deleteCookie()
         dispatch(authApi.util.resetApiState())
       },
       invalidatesTags: ['Me'],
@@ -69,6 +69,7 @@ export const authApi = baseApi.injectEndpoints({
         // deleteCookie('accessToken')
         // deleteCookie('refreshToken')
         // cleanupAuth(dispatch)
+         deleteCookie()
         dispatch(authApi.util.resetApiState())
       },
       invalidatesTags: ['Me'],

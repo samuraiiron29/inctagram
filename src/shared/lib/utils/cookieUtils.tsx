@@ -1,4 +1,7 @@
 'use client'
+
+import { COOKIES_NAME } from "@/shared/const/cookies-name"
+
 type CookieOpts = {
   days?: number
   path?: string
@@ -18,19 +21,33 @@ export const getCookie = (name: string): string => {
     return k === name ? decodeURIComponent(v) : acc
   }, '')
 }
-export const deleteCookie = (name: string) => {
-
-  const exp = 'Thu, 01 Jan 1970 00:00:00 GMT'
-  const path = 'path=/'
-  document.cookie = `${name}=; expires=${exp}; ${path}`
-  if (typeof window !== 'undefined') {
-    const host = window.location.hostname
-    document.cookie = `${name}=; expires=${exp}; ${path}; domain=${host}`
-    if (host.includes('.')) {
-      document.cookie = `${name}=; expires=${exp}; ${path}; domain=.${host}`
-    }
-  }
+export const deleteCookie = () => {
+    const exp = 'Thu, 01 Jan 1970 00:00:00 GMT'
+    const path = 'path=/'
+ for (let index = 0; index < COOKIES_NAME.length; index++) {
+   const name = COOKIES_NAME[index]
+   document.cookie = `${name}=; expires=${exp}; ${path}`
+     if (typeof window !== 'undefined') {
+       const host = window.location.hostname
+       document.cookie = `${name}=; expires=${exp}; ${path}; domain=${host}`
+       if (host.includes('.')) document.cookie = `${name}=; expires=${exp}; ${path}; domain=.${host}`
+     }
+ }
 }
+
+// export const deleteCookie = (name: string) => {
+//   const exp = 'Thu, 01 Jan 1970 00:00:00 GMT'
+//   const path = 'path=/'
+//   document.cookie = `${name}=; expires=${exp}; ${path}`
+//   if (typeof window !== 'undefined') {
+//     const host = window.location.hostname
+//     document.cookie = `${name}=; expires=${exp}; ${path}; domain=${host}`
+//     if (host.includes('.')) {
+//       document.cookie = `${name}=; expires=${exp}; ${path}; domain=.${host}`
+//     }
+//   }
+// }
+
 // export const setCookie = (name: string, value: string, days: number) => {
 //   const expires = new Date(Date.now() + days * 864e5).toUTCString()
 //   document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/`
