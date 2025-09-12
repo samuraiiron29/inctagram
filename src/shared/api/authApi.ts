@@ -69,7 +69,7 @@ export const authApi = baseApi.injectEndpoints({
         // deleteCookie('accessToken')
         // deleteCookie('refreshToken')
         // cleanupAuth(dispatch)
-         deleteCookie()
+        deleteCookie()
         dispatch(authApi.util.resetApiState())
       },
       invalidatesTags: ['Me'],
@@ -78,7 +78,7 @@ export const authApi = baseApi.injectEndpoints({
       query: ({ email }) => ({
         url: 'auth/password-recovery',
         method: 'POST',
-        body: { email, baseUrl: `${OAUTH_URL}/${PATH.NEW_PASSWORD}` },
+        body: { email, baseUrl: `${OAUTH_URL}${PATH.NEW_PASSWORD}` },
       }),
     }),
     createNewPassword: build.mutation<void, { newPassword: string; recoveryCode: string }>({

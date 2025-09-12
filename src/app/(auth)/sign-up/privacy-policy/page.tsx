@@ -7,9 +7,8 @@ const Page = () => {
   const handleBack = () => {
     if (typeof window !== 'undefined' && window.history.length > 1) {
       router.back()
-    } else {
-      router.push('/sign-up', { scroll: false })
-    }
+    } else router.push('/sign-up', { scroll: false })
+
   }
   return (
     <div>
