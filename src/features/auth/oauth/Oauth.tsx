@@ -5,7 +5,7 @@ import Image from 'next/image'
 export const Oauth = () => {
 
     const handleOauthGithub = () => {
-    const url = `${BASE_URL}auth/github/login?redirect_url=${encodeURIComponent(`${OAUTH_URL}api/v1/github`)}`
+    const url = `${BASE_URL}auth/github/login?redirect_url=${encodeURIComponent(`${OAUTH_URL}github`)}`
      window.location.assign(url)
     }
 
