@@ -2,6 +2,10 @@
 import { useGetPostsByUserIdQuery } from '@/shared/api'
 import PostItem from '@/entities/posts/ui/PostItem/PostItem'
 import { useEffect } from 'react'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { SWIPER_MODULES } from '@/shared/const/temp-hardcode'
+import { PostImage } from '@/features/HomePage/PublicPosts/PostImage/PostImage'
+import { PostAnnotation } from '@/features/HomePage/PublicPosts/PostAnnotation/PostAnnotation'
 
 type Props = {
   userId: number
@@ -27,7 +31,22 @@ const Posts = ({offset, userId, setHasMoreHandler}: Props) => {
   const posts = data?.items.map(post => <PostItem post={post} key={post.id} />)
   return (
     <div className='grid grid-cols-4 gap-4'>
-      {posts}
+      {data?.items.map(post => (
+        <div key={post.id} className="rounded overflow-hidden">
+          {post.images.length > 1 ? (
+            <Swiper modules={SWIPER_MODULES} navigation pagination={{ clickable: true }}>
+              {post.images.map(image => (
+                <SwiperSlide key={image.url}>
+                  <PostImage url={image.url} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          ) : (
+            <PostImage url={post.images[0]?.url} />
+          )}
+          {/* <PostAnnotation post={post} /> */}
+        </div>
+      ))}
     </div>
   )
 }
