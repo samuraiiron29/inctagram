@@ -27,7 +27,7 @@ export const authApi = baseApi.injectEndpoints({
       query: args => ({
         url: 'auth/registration',
         method: 'POST',
-        body: { ...args, baseUrl: `${OAUTH_URL}/${PATH.REGISTRATION_CONFIRMATION}` },
+        body: { ...args, baseUrl: `${OAUTH_URL}${PATH.REGISTRATION_CONFIRMATION}` },
       }),
     }),
     confirm: build.mutation<void, { confirmationCode: string }>({
