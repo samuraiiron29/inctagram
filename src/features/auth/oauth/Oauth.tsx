@@ -4,10 +4,13 @@ import Image from 'next/image'
 
 export const Oauth = () => {
 
-    const handleOauthGithub = () => {
-    const url = `${BASE_URL}auth/github/login?redirect_url=${encodeURIComponent(`${OAUTH_URL}github`)}`
-     window.location.assign(url)
-    }
+  const handleOauthGithub = () => {
+    const redirectUrl = encodeURIComponent(`${OAUTH_URL}github`)
+    console.log(redirectUrl)
+    debugger
+    const url = `${BASE_URL}auth/github/login?redirect_url=${redirectUrl}`
+    window.location.assign(url)
+  }
 
   return (
     <div className="flex items-center gap-16 mt-[13px] mb-[24px]">
