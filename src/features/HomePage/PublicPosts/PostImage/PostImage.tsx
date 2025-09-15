@@ -6,7 +6,7 @@ type Props = {
 export const PostImage = (props: Props) => {
   return (
     <Link href="">
-      <Image width={240} height={240} className="object-cover" src={props.url} alt="post photo" />
+      <Image width={240} height={240} className="object-cover w-100" src={props.url} alt="post photo" />
     </Link>
   )
 }
