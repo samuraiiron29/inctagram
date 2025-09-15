@@ -13,7 +13,9 @@ export const AuthStatusControls = ({ isLoggedIn }: Props) => {
   const { i18n, t } = useTranslation()
 
   const handleLanguageChange = (value: string) => {
-    return i18n.changeLanguage(value)
+    // return i18n.changeLanguage(value)
+    i18n.changeLanguage(value)
+    localStorage.setItem('lng', value)
   }
 
   return (

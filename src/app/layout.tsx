@@ -10,7 +10,9 @@ import { Theme } from '@radix-ui/themes'
 import { AuthInitializer } from './providers'
 import ModalHost from '@/widgets/ModalHost/ModalHost'
 import StoreProvider from '@/store/StoreProvider'
-import HeaderSidebarProvider from '@/widgets/Header/HeaderSidebarProvider'
+import HeaderSidebarProvider from '@/widgets/header/HeaderSidebarProvider'
+import { LanguageProvider } from '@/shared/config/i18n/LanguageProvider'
+// import HeaderSidebarProvider from '@/widgets/Header/HeaderSidebarProvider'
 
 export const metadata: Metadata = {
   title: 'Inctagram',
@@ -18,12 +20,18 @@ export const metadata: Metadata = {
   icons: {
     icon: '/logo.png',
   },
+
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children, params: {lng}, }: 
+  { children: React.ReactNode 
+    params: { lng: string }
+  }) {
+    
   return (
-    <html lang="en">
+    <html lang={lng || "en"}>
       <body className={`antialiased overflow-hidden`} suppressHydrationWarning>
+        <LanguageProvider lng={lng || 'en'}>
         <StoreProvider>
           <Theme>
             <AuthInitializer>
@@ -34,6 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </AuthInitializer>
           </Theme>
         </StoreProvider>
+        </LanguageProvider>
       </body>
     </html>
   )
