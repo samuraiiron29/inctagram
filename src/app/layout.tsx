@@ -10,7 +10,7 @@ import { Theme } from '@radix-ui/themes'
 import { AuthInitializer } from './providers'
 import ModalHost from '@/widgets/ModalHost/ModalHost'
 import StoreProvider from '@/store/StoreProvider'
-import HeaderSidebarProvider from '@/widgets/header/HeaderSidebarProvider'
+import HeaderSidebarProvider from '../widgets/header/HeaderSidebarProvider'
 import { LanguageProvider } from '@/shared/config/i18n/LanguageProvider'
 
 export const metadata: Metadata = {
