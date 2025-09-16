@@ -9,6 +9,7 @@ export default async function Home() {
     return <HomePage count={usersCount.totalCount} />
   } catch (error) {
     // console.error(error)
+    // qwerty
   }
 }
 
