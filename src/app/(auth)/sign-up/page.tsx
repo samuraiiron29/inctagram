@@ -50,7 +50,7 @@ function Page() {
         else if (message.includes('userName')) methods.setError('firstName', { message: 'User with this username is already registered' })
         else methods.setError('root', { type: 'server', message: 'unknown error' })
       } else {
-        // console.log('servers error', error)
+
       }
     }
   }

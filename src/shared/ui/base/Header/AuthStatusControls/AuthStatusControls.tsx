@@ -12,10 +12,7 @@ export type Props = {
 export const AuthStatusControls = ({ isLoggedIn }: Props) => {
   const { i18n, t } = useTranslation()
 
-  const handleLanguageChange = (value: string) => {
-    return i18n.changeLanguage(value)
-  }
-
+  const handleLanguageChange = (value: string) => i18n.changeLanguage(value)
   return (
     <>
       {isLoggedIn ? (

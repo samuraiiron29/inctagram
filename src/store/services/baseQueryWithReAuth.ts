@@ -8,6 +8,8 @@ const baseQuery = fetchBaseQuery({
   prepareHeaders: headers => {
     const token = getCookie('accessToken')
     if (token) headers.set('Authorization', `Bearer ${token}`)
+    console.log('entry baseQuery')
+
     return headers
   },
 })

@@ -6,8 +6,6 @@ export const Oauth = () => {
 
   const handleOauthGithub = () => {
     const redirectUrl = encodeURIComponent(`${OAUTH_URL}github`)
-    console.log(redirectUrl)
-    debugger
     const url = `${BASE_URL}auth/github/login?redirect_url=${redirectUrl}`
     window.location.assign(url)
   }
