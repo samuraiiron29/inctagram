@@ -4,11 +4,13 @@ import { useAppSelector } from '@/shared/lib/hooks'
 import { selectAppStatus } from '@/store/slices/appSlice'
 import { PublicPosts } from './PublicPosts/PublicPosts'
 import LinearProgress from '@/shared/ui/base/Liner/LinearProgress'
+import { useMeQuery } from '@/shared/api'
 export const HomePage = ({ count }: { count: string }) => {
-  const status = useAppSelector(selectAppStatus)
+  // const status = useAppSelector(selectAppStatus)
+
   return (
     <div className={'max-w-[972px] mx-auto my-[24px]'}>
-      {status === 'loading' && <LinearProgress />}
+      {/* {status === 'loading' && <LinearProgress />} */}
       <RegistrationUsers count={count} />
       <div className="grid grid-cols-4 gap-4 w-full">
         <PublicPosts />

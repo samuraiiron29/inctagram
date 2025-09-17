@@ -12,14 +12,15 @@ export const authApi = baseApi.injectEndpoints({
         method: 'GET',
       }),
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-        // console.log(await queryFulfilled)
-        try {
-          const { data } = await queryFulfilled
-          // console.log(data)
-          // applySessionFromMe(data ?? null, dispatch)
-        } catch {
-          // Network/500 — не трогаем текущий UI-стейт.
-        }
+
+  try {
+    const { data } = await queryFulfilled
+
+    // console.log(data)
+    // applySessionFromMe(data ?? null, dispatch)
+  } catch {
+    // Network/500 — не трогаем текущий UI-стейт.
+  }
       },
       providesTags: ['Me'],
     }),
