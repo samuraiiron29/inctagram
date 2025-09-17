@@ -12,7 +12,7 @@ import { useClickOutside } from '@/shared/lib/hooks/useClickOutside'
 import { usePostActions } from '@/entities/CurrentPost/hooks/usePostActions'
 import { useEditPostDescription } from '@/entities/CurrentPost/hooks/useEditPostDescription'
 import { PostImage } from '@/entities/CurrentPost/PostImage'
-import { Modal } from '../../features/Modal'
+import { Modal } from '@/features/Modal'
 import { selectUserId } from '@/store/services/session.selectors'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/navigation'
@@ -35,7 +35,12 @@ export const CurrentPostModal = ({ modalTitle, width, height, onClose, children,
   const userId = useSelector(selectUserId)
   const isPostOwner = userId === post.ownerId
   const { postActions, editPost, setIsHovered, togglePostActions, startEdit, stopEdit, stopPostActions, getIcon } = usePostActions()
-  const { text, handleChange, saveDescription } = useEditPostDescription(post.description, post.id, stopEdit)
+  const {
+    text,
+    handleChange,
+    saveDescription,
+    isLoading: isLoadingUpdateDescription,
+  } = useEditPostDescription(post.description, post.id, stopEdit)
   useClickOutside(contentRef, onClose)
   const [showConfirm, setShowConfirm] = useState(false)
   const { t } = useTranslation()
@@ -105,25 +110,30 @@ export const CurrentPostModal = ({ modalTitle, width, height, onClose, children,
             </div>
             <div className={'flex flex-1 flex-col relative'}>
               {!editPost && (
-                <div className={'flex justify-between items-center h-[60px] px-[24px] border-b border-box border-dark-100'}>
-                  <div className={'flex'}>
-                    <Image src={`/${post.avatarOwner}`} alt={`${post.owner.firstName}`} width={'24'} height={'24'} />
-                    <span>{post.owner.firstName}</span>
+                <>
+                  <div className={'flex justify-between items-center h-[60px] px-[24px] border-b border-box border-dark-100'}>
+                    <div className={'flex'}>
+                      <Image src={`/${post.avatarOwner}`} alt={`${post.owner.firstName}`} width={'24'} height={'24'} />
+                      <span>{post.owner.firstName}</span>
+                    </div>
+                    {isPostOwner && (
+                      <>
+                        <Image
+                          src={getIcon()}
+                          alt={'kebab-icon'}
+                          onClick={togglePostActions}
+                          className={'cursor-pointer'}
+                          width={'24'}
+                          height={'24'}
+                          id="kebab-icon"
+                          onMouseEnter={() => setIsHovered(true)}
+                          onMouseLeave={() => setIsHovered(false)}
+                        />
+                      </>
+                    )}
                   </div>
-                  {isPostOwner && (
-                    <Image
-                      src={getIcon()}
-                      alt={'kebab-icon'}
-                      onClick={togglePostActions}
-                      className={'cursor-pointer'}
-                      width={'24'}
-                      height={'24'}
-                      id="kebab-icon"
-                      onMouseEnter={() => setIsHovered(true)}
-                      onMouseLeave={() => setIsHovered(false)}
-                    />
-                  )}
-                </div>
+                  {isLoadingUpdateDescription ? <Skeleton width="60px" height="20px" /> : <p>{post.description}</p>}
+                </>
               )}
 
               {postActions && (
