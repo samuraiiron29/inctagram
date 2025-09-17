@@ -31,8 +31,7 @@ return true
 return false
 }
 // const logoutCleanup = (api: Parameters<typeof baseQuery>[1]) => deleteCookie()
-
-
+ 
 export const baseQueryWithReAuth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extra) => {
   const isMe = isEndpoint(args, 'auth/me')
   const isRefresh = isEndpoint(args, 'auth/update-tokens')

@@ -23,12 +23,21 @@ export default function CreateNewPasswordPage() {
     closeModal()
     if (modal.title === 'Password successfully changed') {
       router.push(PATH.LOGIN)
+    } else if (modal.title === 'Link expired') {
+       router.push(`${PATH.REGISTRATION_EMAIL_RESENDING}?email=${email}`)
     }
   }
 
   return (
     <div className="flex items-center justify-center mt-3">
-      <Modal open={modal.open} onClose={handleCloseModal} modalTitle={modal.title}></Modal>
+      <Modal open={modal.open} onClose={handleCloseModal} modalTitle={modal.title}>
+        <div className="flex flex-col space-y-4">
+                     <p>{modal.message}</p>
+                     <div className="flex justify-end">
+                         <Button variant="primary" onClick={handleCloseModal} children={'OK'} />
+                     </div>
+                 </div>
+      </Modal>
       <FormProvider {...methods}>
         <Cards onSubmit={onSubmit}>
           <h1 className="text-center text-h1">Create New Password</h1>
