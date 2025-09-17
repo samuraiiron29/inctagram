@@ -4,10 +4,10 @@ import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 
 type Props = {
-  isLoggedIn?: boolean
+  isLoggedIn: boolean
 }
 
-export const Header = ({ isLoggedIn = false }: Props) => {
+export const Header = ({ isLoggedIn }: Props) => {
   const { t } = useTranslation()
   return (
     <header className={'relative z-100 border-b border-dark-300 box-border'}>

@@ -26,13 +26,11 @@ export default function PasswordResetLinkExpiredPage() {
     defaultValues: { email: emailFromUrl || '' },
   })
 
-  const handleCloseModal = () => {
-    setModal(prev => ({ ...prev, open: false }))
-  }
+  const handleCloseModal = () => setModal(prev => ({ ...prev, open: false }))
 
   const handleResendLink = async () => {
-    if (!emailFromUrl) return;
-     try {
+    if (!emailFromUrl) return
+    try {
       await forgotPassword({ email: emailFromUrl }).unwrap()
       setModal({
         open: true,
@@ -47,8 +45,8 @@ export default function PasswordResetLinkExpiredPage() {
       })
     }
   }
-  
-  const handleBackToSignIn = () => router.replace(PATH.LOGIN);
+
+  const handleBackToSignIn = () => router.replace(PATH.LOGIN)
 
   return (
     <div className="flex items-center justify-center mt-3">
@@ -56,30 +54,16 @@ export default function PasswordResetLinkExpiredPage() {
         <FormProvider {...methods}>
           <Cards>
             <h1 className="text-center text-h1" children={t('auth.forgotPassword')} />
-            <p className="text-sm text-center my-4">
-              {t('auth.additionalElements.enterYourEmail')}
-            </p>
-            <p className="text-sm text-center text-gray-400">
-              {t('auth.additionalElements.sentAgain')}
-            </p>
-            
+            <p className="text-sm text-center my-4">{t('auth.additionalElements.enterYourEmail')}</p>
+            <p className="text-sm text-center text-gray-400">{t('auth.additionalElements.sentAgain')}</p>
+
             <div className="flex flex-col space-y-2 mt-5">
-              <Button 
-                type="button"
-                variant="primary" 
-                width="100%" 
-                onClick={handleResendLink}
-                disabled={isLoading}
-              >
+              <Button type="button" variant="primary" width="100%" onClick={handleResendLink} disabled={isLoading}>
                 {t('auth.sendAgain' as any)}
               </Button>
-              <Button 
-                variant="textButton" 
-                children={t('auth.backToSignIn')} 
-                onClick={handleBackToSignIn} 
-              />
+              <Button variant="textButton" children={t('auth.backToSignIn')} onClick={handleBackToSignIn} />
             </div>
-            
+
             <Modal open={modal.open} onClose={handleCloseModal} modalTitle={modal.title}>
               <div className="flex flex-col space-y-4">
                 <p>{modal.message}</p>
