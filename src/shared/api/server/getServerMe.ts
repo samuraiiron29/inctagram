@@ -2,6 +2,8 @@ import { BASE_URL } from '@/shared/const'
 import type { Me } from '@/shared/lib/types'
 import { cookies } from 'next/headers'
 export const getServerMe = async (): Promise<Me | null> => {
+  const cookieStore = cookies()
+
   const token = (await cookies()).get('accessToken')?.value
   if (!token) return null
   try {

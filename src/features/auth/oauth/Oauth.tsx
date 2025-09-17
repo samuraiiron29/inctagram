@@ -3,11 +3,12 @@ import { BASE_URL, OAUTH_URL } from '@/shared/const'
 import Image from 'next/image'
 
 export const Oauth = () => {
-  const callbackGithub = `${OAUTH_URL}github`
-    const handleOauthGithub = () => {
-    const url =(`${BASE_URL}auth/github/login?redirect_url=${encodeURIComponent(callbackGithub)}`)
-     window.location.assign(url)
-    }
+
+  const handleOauthGithub = () => {
+    const redirectUrl = encodeURIComponent(`${OAUTH_URL}github`)
+    const url = `${BASE_URL}auth/github/login?redirect_url=${redirectUrl}`
+    window.location.assign(url)
+  }
 
   return (
     <div className="flex items-center gap-16 mt-[13px] mb-[24px]">

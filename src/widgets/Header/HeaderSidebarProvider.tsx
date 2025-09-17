@@ -7,6 +7,11 @@ import Sidebar from '@/features/Sidebar/Sidebar'
 import { useSelector } from 'react-redux'
 import { selectIsLoggedIn } from '@/store/services/session.selectors'
 import { baseApi } from '@/store/services/baseApi'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
+import { useMeQuery } from '@/shared/api'
+import { deleteCookie } from '@/shared/lib/utils'
+
 type Props = {
   children: React.ReactNode
 }
@@ -15,15 +20,18 @@ const HeaderSidebarProvider = ({ children }: Props) => {
   //  const pending = useIsFetching()
   const status = useAppSelector(selectAppStatus)
   const isLoggedIn = useSelector(selectIsLoggedIn)
-  //   useEffect(() => {
-  //   if (pending > 0  || status === 'loading')
-  // },[])
 
+  useEffect(() => {
+    if (!isLoggedIn) {
+      deleteCookie()
+    }
+  }, [])
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />
       {/* DONT WORK!!! */}
-      {status === 'loading' && <LinearProgress />}
+      {/* {status === 'loading' && <LinearProgress />} */}
+
       {isLoggedIn && <Sidebar />}
       <div className="flex justify-center items-center pl-[244px] pr-[244px]">{children}</div>
     </>
