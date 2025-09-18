@@ -1,16 +1,9 @@
 'use client'
-import { selectAppStatus   } from '@/store/slices/appSlice'
 import { Header } from '@/shared/ui/base/Header/Header'
-import LinearProgress from '@/shared/ui/base/Liner/LinearProgress'
-import { useAppSelector } from '@/shared/lib/hooks'
 import Sidebar from '@/features/Sidebar/Sidebar'
 import { useSelector } from 'react-redux'
 import { selectIsLoggedIn } from '@/store/services/session.selectors'
-import { baseApi } from '@/store/services/baseApi'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
-import { useMeQuery } from '@/shared/api'
-import { deleteCookie, getCookie } from '@/shared/lib/utils'
+import { deleteCookie } from '@/shared/lib/utils'
 
 type Props = {
   children: React.ReactNode

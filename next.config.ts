@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
     domains: ['staging-it-incubator.s3.eu-central-1.amazonaws.com'],
     unoptimized: true,
   },
+  reactStrictMode: false,
   //
   // i18n: {
   //   defaultLocale: 'en',
