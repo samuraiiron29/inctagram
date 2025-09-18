@@ -17,20 +17,8 @@ type Props = {
 }
 
 const HeaderSidebarProvider = ({ children }: Props) => {
-  // const router = useRouter()
-  // const searchParams = useSearchParams()
-  //  const pending = useIsFetching()
-  // const status = useAppSelector(selectAppStatus)
   const isLoggedIn = useSelector(selectIsLoggedIn)
-  // const isGit = searchParams.get('isGitHub')
-  // debugger
-  // console.log('isGit', isGit)
-  // console.log('', searchParams)
-  // useEffect(() => {
-  //   if (!isLoggedIn) {
-  //     deleteCookie()
-  //   }
-  // }, [])
+  if (!isLoggedIn) deleteCookie()
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />
