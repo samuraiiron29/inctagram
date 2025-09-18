@@ -9,6 +9,7 @@ type Props = {
 
 export const Header = ({ isLoggedIn }: Props) => {
   const { t } = useTranslation()
+
   return (
     <header className={'relative z-100 border-b border-dark-300 box-border'}>
       <div className={'mx-auto flex justify-between items-center max-w-[1280px] w-full h-[60px] px-[60px]'}>

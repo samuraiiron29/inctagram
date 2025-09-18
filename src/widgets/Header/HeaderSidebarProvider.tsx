@@ -7,25 +7,30 @@ import Sidebar from '@/features/Sidebar/Sidebar'
 import { useSelector } from 'react-redux'
 import { selectIsLoggedIn } from '@/store/services/session.selectors'
 import { baseApi } from '@/store/services/baseApi'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 import { useMeQuery } from '@/shared/api'
-import { deleteCookie } from '@/shared/lib/utils'
+import { deleteCookie, getCookie } from '@/shared/lib/utils'
 
 type Props = {
   children: React.ReactNode
 }
 
 const HeaderSidebarProvider = ({ children }: Props) => {
+  // const router = useRouter()
+  // const searchParams = useSearchParams()
   //  const pending = useIsFetching()
-  const status = useAppSelector(selectAppStatus)
+  // const status = useAppSelector(selectAppStatus)
   const isLoggedIn = useSelector(selectIsLoggedIn)
-
-  useEffect(() => {
-    if (!isLoggedIn) {
-      deleteCookie()
-    }
-  }, [])
+  // const isGit = searchParams.get('isGitHub')
+  // debugger
+  // console.log('isGit', isGit)
+  // console.log('', searchParams)
+  // useEffect(() => {
+  //   if (!isLoggedIn) {
+  //     deleteCookie()
+  //   }
+  // }, [])
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />

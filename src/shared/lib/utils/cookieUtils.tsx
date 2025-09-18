@@ -22,17 +22,17 @@ export const getCookie = (name: string): string => {
   }, '')
 }
 export const deleteCookie = () => {
-    const exp = 'Thu, 01 Jan 1970 00:00:00 GMT'
-    const path = 'path=/'
- for (let index = 0; index < COOKIES_NAME.length; index++) {
-   const name = COOKIES_NAME[index]
-   document.cookie = `${name}=; expires=${exp}; ${path}`
-     if (typeof window !== 'undefined') {
-       const host = window.location.hostname
-       document.cookie = `${name}=; expires=${exp}; ${path}; domain=${host}`
-       if (host.includes('.')) document.cookie = `${name}=; expires=${exp}; ${path}; domain=.${host}`
-     }
- }
+  const exp = 'Thu, 01 Jan 1970 00:00:00 GMT'
+  const path = 'path=/'
+  for (let index = 0; index < COOKIES_NAME.length; index++) {
+    const name = COOKIES_NAME[index]
+    document.cookie = `${name}=; expires=${exp}; ${path}`
+    if (typeof window !== 'undefined') {
+      const host = window.location.hostname
+      document.cookie = `${name}=; expires=${exp}; ${path}; domain=${host}`
+      if (host.includes('.')) document.cookie = `${name}=; expires=${exp}; ${path}; domain=.${host}`
+    }
+  }
 }
 
 // export const deleteCookie = (name: string) => {

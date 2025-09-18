@@ -31,12 +31,11 @@ return true
 return false
 }
 // const logoutCleanup = (api: Parameters<typeof baseQuery>[1]) => deleteCookie()
- 
+
 export const baseQueryWithReAuth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extra) => {
   const isMe = isEndpoint(args, 'auth/me')
   const isRefresh = isEndpoint(args, 'auth/update-tokens')
   let result = await baseQuery(args, api, extra)
-
 
   if (isMe && result.data == null && !result.error) {
     ;(result as any).error = { status: 401, data: null }

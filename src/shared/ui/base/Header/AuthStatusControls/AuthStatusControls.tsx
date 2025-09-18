@@ -19,6 +19,7 @@ export const AuthStatusControls = ({ isLoggedIn }: Props) => {
     // return i18n.changeLanguage(value)
     i18n.changeLanguage(value)
     localStorage.setItem('lng', value)
+
   }
   return (
     <>
