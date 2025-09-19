@@ -14,17 +14,11 @@ export const PublicPosts = () => {
   const [showPost, setShowPost] = useState(false)
   const currentIndex = useRef<number | null>(null)
   const { data, isLoading, isError, refetch } = useGetPublicPostsQuery(QUANTITY_OF_PUBLIC_POSTS)
-  const postId = data?.items[0]?.id
-  const [getPost, { publicData: postData }] = useLazyGetPostByIdQuery()
-  const handleGetPost = () => {
-    if (postId) getPost({ postId })
-  }
 
   if (isLoading) return <IsLoading />
   if (isError) return <IsError onClick={() => refetch()} />
   const items = data?.items ?? []
   if (items.length === 0) return <div className="text-sm text-dark-100 px-2">Пока нет публикаций</div>
-  console.log('data', data!.items[0])
   return (
     <>
       {showPost && currentIndex.current !== null && (
@@ -37,18 +31,31 @@ export const PublicPosts = () => {
           images={1}
         />
       )}
-      {data?.items.map(post => (
+      {data?.items.map((post, index) => (
         <div key={post.id} className="rounded overflow-hidden w-[240px] h-[390px]">
           {post.images.length > 1 ? (
             <Swiper modules={SWIPER_MODULES} navigation pagination={{ clickable: true }}>
               {post.images.map(image => (
-                <SwiperSlide key={image.url}>
+                <SwiperSlide
+                  key={image.url}
+                  onClick={() => {
+                    setShowPost(true)
+                    currentIndex.current = index
+                  }}
+                >
                   <PostImage url={image.url} />
                 </SwiperSlide>
               ))}
             </Swiper>
           ) : (
-            <PostImage url={post.images[0]?.url} />
+            <div
+              onClick={() => {
+                setShowPost(true)
+                currentIndex.current = index
+              }}
+            >
+              <PostImage url={post.images[0]?.url} />
+            </div>
           )}
           <PostAnnotation post={post} />
         </div>
