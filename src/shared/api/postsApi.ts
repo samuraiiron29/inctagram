@@ -24,6 +24,13 @@ export const postsApi = baseApi.injectEndpoints({
       }),
       providesTags: ['PostsByUserId'],
     }),
+
+    getPostById: build.query<Post, { postId: number }>({
+      query: ({ postId }) => ({
+        url: `posts/user/id/${postId}`,
+      }),
+      providesTags: [],
+    }),
     uploadImagesForPost: build.mutation<UploadPostImagesResponse, UploadPostImagesArgs>({
       query: ({ files }) => {
         const form = new FormData()
@@ -63,6 +70,7 @@ export const postsApi = baseApi.injectEndpoints({
       invalidatesTags: ['PostsByUserId'],
     }),
   }),
+  overrideExisting: true,
 })
 
 export const {
@@ -72,4 +80,6 @@ export const {
   useCreatePostMutation,
   useUpdatePostDescriptionMutation,
   useDeletePostMutation,
+  useGetPostByIdQuery,
+  useLazyGetPostByIdQuery,
 } = postsApi

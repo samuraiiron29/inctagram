@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { Skeleton } from '@radix-ui/themes'
 
-export const PostImage = ({ src, alt, className }: { src: string; alt: string; className?: string }) => {
+export const PostImages = ({ src, alt, className }: { src: string; alt: string; className?: string }) => {
   const [isLoading, setIsLoading] = useState(true)
 
   return (

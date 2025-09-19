@@ -21,7 +21,7 @@ const Posts = ({ offset, userId, setHasMoreHandler }: Props) => {
   const currentIndex = useRef<number | null>(null)
 
   const { data } = useGetPostsByUserIdQuery({
-    userId: userId,
+    userId,
     endCursorPostId: undefined,
     pageSize: PORTION_OF_ITEMS + offset, // !!!
     sortBy: 'createdAt',
@@ -32,7 +32,7 @@ const Posts = ({ offset, userId, setHasMoreHandler }: Props) => {
     if (data) setHasMoreHandler(offset <= data.totalCount)
   }, [offset])
 
-  const posts = data?.items.map(post => <PostItem post={post} key={post.id} />)
+  // const posts = data?.items.map(post => <PostItem post={post} key={post.id} />)
 
   return (
     <>
