@@ -25,7 +25,7 @@ export default function RootLayout({ children, params: { lng } }: { children: Re
   return (
     <html lang={lng || 'en'}>
       <body className={`antialiased overflow-hidden`} suppressHydrationWarning>
-        <LanguageProvider lng={lng || 'en'}>
+        <LanguageProvider lng={lng || 'English'}>
           <StoreProvider>
             <Theme>
               <AuthInitializer>

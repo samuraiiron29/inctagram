@@ -10,11 +10,14 @@ export default function Page() {
 
   useEffect(() => {
     const accessToken = searchParams.get('accessToken')
+    const refreshToken = searchParams.get('refreshToken')
     if (accessToken) {
       setCookie('accessToken', accessToken, 7)
       setCookie('isGitHub', 'true', 7)
       // router.replace('/')
       window.location.replace('/')
+    } if (refreshToken) {
+      setCookie('refreshToken', refreshToken, 30)
     } else router.push(PATH.LOGIN)
   }, [])
   return <div className={'flex justify-center items-center'}>...Load</div>

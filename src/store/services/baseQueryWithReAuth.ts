@@ -2,6 +2,9 @@ import { fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { deleteCookie, getCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
 import { BASE_URL } from '@/shared/const'
+
+
+
 const baseQuery = fetchBaseQuery({
 baseUrl: BASE_URL,
 credentials: 'include',
@@ -32,45 +35,56 @@ return false
 }
 // const logoutCleanup = (api: Parameters<typeof baseQuery>[1]) => deleteCookie()
 
-export const baseQueryWithReAuth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extra) => {
+export const baseQueryWithReAuth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
+  args,
+  api,
+  extra
+) => {
   const isMe = isEndpoint(args, 'auth/me')
   const isRefresh = isEndpoint(args, 'auth/update-tokens')
-  let result = await baseQuery(args, api, extra)
 
-  if (isMe && result.data == null && !result.error) {
-    ;(result as any).error = { status: 401, data: null }
-  }
-  if (!result.data && result.error && isMe) {
-    const status = (result.error as FetchBaseQueryError)?.status
-    if (status === 401 || status === 'FETCH_ERROR') {
-      return { data: null, meta: (result as any).meta }
+  let result = await baseQuery(args, api, extra)
+  const error = result.error as FetchBaseQueryError | undefined
+
+  // === 1. Если запрос упал по 401 и это НЕ refresh и НЕ me → пробуем рефреш
+  if (error?.status === 401 && !isRefresh && !isMe) {
+    debugger
+    if (!refreshPromise) refreshPromise = refreshToken(api, extra)
+    const ok = await refreshPromise.finally(() => (refreshPromise = null))
+
+    if (ok) {
+      // повторяем запрос
+      debugger
+      result = await baseQuery(args, api, extra)
+    } else {
+      // токены не обновились → logout
+      deleteCookie()
+      return { data: null, meta: result.meta }
     }
   }
 
-  if ((result.error as any)?.status === 401 && !isRefresh) {
-    if (!refreshPromise) refreshPromise = refreshToken(api, extra)
-    const ok = await refreshPromise.finally(() => (refreshPromise = null))
-    if (ok) {
-      // повторяем исходный запрос с обновлённым accessToken
-      result = await baseQuery(args, api, extra)
+  // === 2. Спец.логика для /auth/me
+  if (isMe) {
+    if (error?.status === 401) {
+      // пользователь — гость
+      return { data: null, meta: result.meta }
+    }
 
-      // Если повтор всё ещё вернул 401 — очищаем куки
-      if ((result.error as any)?.status === 401) {
-        deleteCookie()
-        return { data: null, meta: (result as any).meta }
+    if (!result.data && !result.error) {
+      // бэкенд вернул пусто без ошибки → считаем это 401
+      (result as any).error = { status: 401, data: null }
+    }
+
+    if (result.error) {
+      const status = (result.error as FetchBaseQueryError).status
+      if (status === 401 || status === 'FETCH_ERROR') {
+        return { data: null, meta: result.meta }
       }
-    } else {
-      // refresh не удался — очищаем куки и возвращаем guest
-      deleteCookie()
-      return { data: null, meta: (result as any).meta }
     }
   }
 
   return result
 }
-
-
-
 
 // to delete
 // import { fetchBaseQuery } from '@reduxjs/toolkit/query/react'
