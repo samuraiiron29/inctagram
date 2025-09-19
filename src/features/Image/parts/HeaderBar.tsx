@@ -13,9 +13,11 @@ type Props = {
   onNext: () => void
   onPublish: () => void
   onCloseEmpty: () => void
+  isRatio: boolean
+  setIsRatio: (flag: boolean) => void
 }
 
-export function HeaderBar({ mode, current, total, isPublishing, onBack, onNext, onPublish, onCloseEmpty }: Props) {
+export function HeaderBar({ mode, current, total, isPublishing, onBack, onNext, onPublish, isRatio, setIsRatio, onCloseEmpty }: Props) {
   return (
     <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
       {mode === 'empty' && (
@@ -38,11 +40,18 @@ export function HeaderBar({ mode, current, total, isPublishing, onBack, onNext, 
             </div>
           </div>
           <h2 className="text-base font-semibold">Cropping</h2>
-          <button onClick={onNext} className="text-primary-400 font-medium">
-            Next
-          </button>
+          <div className="flex flex-col items-end ">
+            <button
+              onClick={onNext}
+              className="text-primary-400 font-medium disabled:text-danger-100"
+              disabled={!isRatio}
+              children={'Next'}
+            />
+            {!isRatio && <div className="text-red-400 text-sm ml-2">Пожалуйста, выберите соотношение сторон</div>}
+          </div>
         </>
       )}
+      {/* предупреждение */}
 
       {mode === 'preview' && (
         <>
@@ -51,7 +60,14 @@ export function HeaderBar({ mode, current, total, isPublishing, onBack, onNext, 
           </button>
           <h2 className="text-base font-semibold">Publication</h2>
 
-          <button onClick={onPublish} disabled={isPublishing} className="text-primary-400 font-medium">
+          <button
+            onClick={() => {
+              onPublish()
+              setIsRatio(false)
+            }}
+            disabled={isPublishing}
+            className="text-primary-400 font-medium"
+          >
             {isPublishing ? 'Publishing…' : 'Publish'}
           </button>
         </>
