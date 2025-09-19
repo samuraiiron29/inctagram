@@ -4,10 +4,7 @@ import { Select } from '@/shared/ui/base/Select/Select'
 import { Button } from '@/shared/ui/base/Button/Button'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
-import { useSelector } from 'react-redux'
-import { selectIsLoggedIn } from '@/store/services/session.selectors'
-import { deleteCookie } from '@/shared/lib/utils'
-import { useEffect } from 'react'
+import { setCookie } from '@/shared/lib/utils'
 
 export type Props = {
   isLoggedIn: boolean
@@ -15,11 +12,13 @@ export type Props = {
 
 export const AuthStatusControls = ({ isLoggedIn }: Props) => {
   const { i18n, t } = useTranslation()
-  const handleLanguageChange = (value: string) => {
-    // return i18n.changeLanguage(value)
-    i18n.changeLanguage(value)
-    localStorage.setItem('lng', value)
-
+  const handleLanguageChange = async (value: string) => {
+    try {
+      await i18n.changeLanguage(value)
+      setCookie('i18n', value, 7)
+    } catch (error) {
+      console.log('ошибка перевода', error)
+    }
   }
   return (
     <>

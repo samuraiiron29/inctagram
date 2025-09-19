@@ -10,7 +10,6 @@ export default function Page() {
 
   useEffect(() => {
     const accessToken = searchParams.get('accessToken')
-    debugger
     if (accessToken) {
       setCookie('accessToken', accessToken, 7)
       setCookie('isGitHub', 'true', 7)

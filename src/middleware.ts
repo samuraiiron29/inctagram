@@ -7,6 +7,10 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   const accessToken = request.cookies.get('accessToken')?.value
 
+  const i18n = request.cookies.get('i18n')?.value
+
+  const response = NextResponse.next()
+
   const alwaysPublicPaths: (string | RegExp)[] = [PATH.HOME]
 
   const publicPathsForGuestsOnly: (string | RegExp)[] = [
@@ -22,6 +26,10 @@ export function middleware(request: NextRequest) {
   ]
 
   const protectedPaths: (string | RegExp)[] = ['/profile', '/messages']
+
+  if (!i18n) {
+    response.cookies.set('i18n', 'en', { path: '/', maxAge: 60 * 60 * 24 * 7 })
+  }
 
   // Проверка на совпадение по строке или RegExp - читаем подробнее с чатом
   const matches = (paths: (string | RegExp)[]) =>
