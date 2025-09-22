@@ -14,7 +14,7 @@ export function AuthInitializer({ children }: { children: React.ReactNode }) {
 
   // const { data, isLoading, isSuccess } = useMeQuery(undefined, {
   //   skip: isAuthPage || !token, // skip на страницах авторизации
-  // })
+  // }) избавляемся от 401 ошибки на странице логанизации
 
   const [isInitialized, setIsInitialized] = useState(false)
 
