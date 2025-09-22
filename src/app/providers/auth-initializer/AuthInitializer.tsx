@@ -10,9 +10,11 @@ export function AuthInitializer({ children }: { children: React.ReactNode }) {
   const isAuthPage = pathname.startsWith('/sign-in') || pathname.startsWith('/sign-up')
 
   const token = getCookie('accessToken')
-  const { data, isLoading, isSuccess } = useMeQuery(undefined, {
-    skip: isAuthPage || !token, // ⚡ skip на страницах авторизации
-  })
+  const { data, isLoading, isSuccess } = useMeQuery()
+
+  // const { data, isLoading, isSuccess } = useMeQuery(undefined, {
+  //   skip: isAuthPage || !token, // skip на страницах авторизации
+  // })
 
   const [isInitialized, setIsInitialized] = useState(false)
 
