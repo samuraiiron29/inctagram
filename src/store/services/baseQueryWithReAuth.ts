@@ -26,7 +26,12 @@ const refreshToken = async (
   api: Parameters<typeof baseQuery>[1],
   extra: Parameters<typeof baseQuery>[2]
 ): Promise<boolean> => {
-  const r = await baseQuery({ url: 'auth/update-tokens', method: 'POST' }, api, extra)
+  const rawBaseQuery = fetchBaseQuery({
+    baseUrl: BASE_URL,
+    credentials: 'include',
+  })
+
+  const r = await rawBaseQuery({ url: 'auth/update-tokens', method: 'POST' }, api, extra)
 
   if ('data' in r && r.data) {
     const accessToken = (r.data as { accessToken?: string })?.accessToken?.trim()
@@ -49,11 +54,7 @@ export const baseQueryWithReAuth: BaseQueryFn<
   let result = await baseQuery(args, api, extra)
   let error = result.error as FetchBaseQueryError | undefined
 
-  if (isMe && error?.status === 401) {
-    return { data: null, meta: result.meta }
-  }
-
-  if (error?.status === 401) {
+  if (error?.status === 401 || !getCookie('accessToken')) {
     if (!refreshPromise) refreshPromise = refreshToken(api, extra)
     const ok = await refreshPromise.finally(() => (refreshPromise = null))
 
@@ -63,6 +64,12 @@ export const baseQueryWithReAuth: BaseQueryFn<
       deleteCookie()
       return { data: null, meta: result.meta }
     }
+  }
+
+
+  if (isMe && error?.status === 401) {
+    debugger
+    return { data: null, meta: result.meta }
   }
 
   return result
