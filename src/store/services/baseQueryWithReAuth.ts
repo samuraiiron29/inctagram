@@ -53,7 +53,7 @@ export const baseQueryWithReAuth: BaseQueryFn<
     return { data: null, meta: result.meta }
   }
 
-  if (error?.status === 401 && !isRefresh) {
+  if (error?.status === 401) {
     if (!refreshPromise) refreshPromise = refreshToken(api, extra)
     const ok = await refreshPromise.finally(() => (refreshPromise = null))
 
