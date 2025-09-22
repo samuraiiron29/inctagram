@@ -15,6 +15,8 @@ const baseQuery = fetchBaseQuery({
   },
 })
 
+
+
 const isEndpoint = (args: string | FetchArgs, suffix: string) => {
   const url = typeof args === 'string' ? args : args.url
   return String(url).endsWith(suffix)
