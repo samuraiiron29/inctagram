@@ -10,7 +10,7 @@ const Page = () => {
     } else router.push('/sign-up', { scroll: false })
 
   }
- (
+ return (
     <div>
       <Button onClick={handleBack} children={'Back'} />
       <h1>Privacy policy</h1>
