@@ -15,6 +15,11 @@ const baseQuery = fetchBaseQuery({
   },
 })
 
+const refreshBaseQuery = fetchBaseQuery({
+  baseUrl: BASE_URL,
+  credentials: 'include',
+})
+
 const isEndpoint = (args: string | FetchArgs, suffix: string) => {
   const url = typeof args === 'string' ? args : args.url
   return String(url).endsWith(suffix)
@@ -26,7 +31,7 @@ const refreshToken = async (
   api: Parameters<typeof baseQuery>[1],
   extra: Parameters<typeof baseQuery>[2]
 ): Promise<boolean> => {
-  const r = await baseQuery({ url: 'auth/update-tokens', method: 'POST' }, api, extra)
+  const r = await refreshBaseQuery({ url: 'auth/update-tokens', method: 'POST' }, api, extra)
 
   if ('data' in r && r.data) {
     const accessToken = (r.data as { accessToken?: string })?.accessToken?.trim()
@@ -44,16 +49,11 @@ export const baseQueryWithReAuth: BaseQueryFn<
   FetchBaseQueryError
 > = async (args, api, extra) => {
   const isMe = isEndpoint(args, 'auth/me')
-  const isRefresh = isEndpoint(args, 'auth/update-tokens')
 
   let result = await baseQuery(args, api, extra)
   let error = result.error as FetchBaseQueryError | undefined
 
-  if (isMe && error?.status === 401) {
-    return { data: null, meta: result.meta }
-  }
-
-  if (error?.status === 401 && !isRefresh) {
+  if (error?.status === 401 || !getCookie('accessToken')) {
     if (!refreshPromise) refreshPromise = refreshToken(api, extra)
     const ok = await refreshPromise.finally(() => (refreshPromise = null))
 
@@ -63,6 +63,10 @@ export const baseQueryWithReAuth: BaseQueryFn<
       deleteCookie()
       return { data: null, meta: result.meta }
     }
+  }
+
+  if (isMe && error?.status === 401) {
+    return { data: null, meta: result.meta }
   }
 
   return result
