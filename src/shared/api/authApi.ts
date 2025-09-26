@@ -3,6 +3,7 @@ import { deleteCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
 import type { Me, SignInResponse } from '../lib/types'
 import { OAUTH_URL } from '../const'
 import { PATH } from '../lib/path'
+import { selectAppError, setAppError } from '@/store/slices/appSlice'
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: build => ({
@@ -40,12 +41,17 @@ export const authApi = baseApi.injectEndpoints({
     signIn: build.mutation<{ accessToken: string }, { email: string; password: string }>({
       query: args => ({ url: 'auth/login', method: 'POST', body: args }),
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
-        const { data } = await queryFulfilled
-        setCookie('accessToken', data.accessToken.trim(), 7)
-        // Вариант А: форс-рефетч
-        // await dispatch(authApi.endpoints.me.initiate(undefined, { forceRefetch: true }))
-        // Вариант Б: инвалидация тега (и доверяем жизненному циклу RTKQ)
-        dispatch(authApi.util.invalidateTags(['Me']))
+        try {
+          const { data } = await queryFulfilled
+          setCookie('accessToken', data.accessToken.trim(), 7)
+          dispatch(authApi.util.invalidateTags(['Me']))
+        } catch (err) {}
+        // const { data } = await queryFulfilled
+        // setCookie('accessToken', data.accessToken.trim(), 7)
+        // // Вариант А: форс-рефетч
+        // // await dispatch(authApi.endpoints.me.initiate(undefined, { forceRefetch: true }))
+        // // Вариант Б: инвалидация тега (и доверяем жизненному циклу RTKQ)
+        // dispatch(authApi.util.invalidateTags(['Me']))
       },
       invalidatesTags: ['Me'],
     }),

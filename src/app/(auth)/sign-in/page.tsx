@@ -14,20 +14,23 @@ import { Button, Cards, Input } from '@/shared/ui/base'
 
 function Page() {
   const router = useRouter()
-  const [login] = useSignInMutation()
+  const [login, {error}] = useSignInMutation()
   const methods = useForm<ZodLogin>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: '', password: '' },
   })
   const handleSignUp = () => router.replace(PATH.SIGNUP)
   const onSubmit = (data: ZodLogin) => {
-    login(data).then(res => {
-      if (res.data) {
-        // window.location.replace(PATH.HOME)
-        router.replace(PATH.HOME)
-        methods.reset()
-      }
-    })
+    login(data).unwrap().then(res =>{
+          if (res) {
+            router.replace(PATH.HOME)
+            methods.reset()
+          }
+        })
+        .catch(err => {
+          const message = err && 'Неверные почта или пароль'
+          methods.setError('email', { type: 'server', message })
+        })
   }
 
   return (
