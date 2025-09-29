@@ -3,7 +3,7 @@ import { clsx } from 'clsx'
 import { ComponentPropsWithoutRef, useEffect, useRef, useState } from 'react'
 import { Dialog } from 'radix-ui'
 import Image from 'next/image'
-import { Post } from '@/shared/lib/types'
+import { Post, type PostImage } from '@/shared/lib/types'
 import { TextArea } from '@/shared/ui/base/TextArea'
 import { Button } from '@/shared/ui/base/Button'
 import { useTranslation } from 'react-i18next'
@@ -11,8 +11,8 @@ import { Skeleton } from '@radix-ui/themes'
 import { useClickOutside } from '@/shared/lib/hooks/useClickOutside'
 import { usePostActions } from '@/entities/CurrentPost/hooks/usePostActions'
 import { useEditPostDescription } from '@/entities/CurrentPost/hooks/useEditPostDescription'
-import { PostImage } from '@/entities/CurrentPost/PostImage'
-import { Modal } from '../../features/Modal'
+import { PostImages } from '@/entities/CurrentPost/PostImage'
+import { Modal } from '@/features/Modal'
 import { selectUserId } from '@/store/services/session.selectors'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/navigation'
@@ -35,7 +35,12 @@ export const CurrentPostModal = ({ modalTitle, width, height, onClose, children,
   const userId = useSelector(selectUserId)
   const isPostOwner = userId === post.ownerId
   const { postActions, editPost, setIsHovered, togglePostActions, startEdit, stopEdit, stopPostActions, getIcon } = usePostActions()
-  const { text, handleChange, saveDescription } = useEditPostDescription(post.description, post.id, stopEdit)
+  const {
+    text,
+    handleChange,
+    saveDescription,
+    isLoading: isLoadingUpdateDescription,
+  } = useEditPostDescription(post.description, post.id, stopEdit)
   useClickOutside(contentRef, onClose)
   const [showConfirm, setShowConfirm] = useState(false)
   const { t } = useTranslation()
@@ -101,29 +106,34 @@ export const CurrentPostModal = ({ modalTitle, width, height, onClose, children,
           )}
           <div className={'flex w-full'}>
             <div className={clsx('flex-1 relative', editPost ? 'h-[502px]' : 'h-[572px]')}>
-              <PostImage src={post.images[0].url} alt="post" className="object-cover" />
+              <PostImages src={post.images[0].url} alt="post" className="object-cover" />
             </div>
             <div className={'flex flex-1 flex-col relative'}>
               {!editPost && (
-                <div className={'flex justify-between items-center h-[60px] px-[24px] border-b border-box border-dark-100'}>
-                  <div className={'flex'}>
-                    <Image src={`/${post.avatarOwner}`} alt={`${post.owner.firstName}`} width={'24'} height={'24'} />
-                    <span>{post.owner.firstName}</span>
+                <>
+                  <div className={'flex justify-between items-center h-[60px] px-[24px] border-b border-box border-dark-100'}>
+                    <div className={'flex'}>
+                      <Image src={`/${post.avatarOwner}`} alt={`${post.owner.firstName}`} width={'24'} height={'24'} />
+                      <span>{post.owner.firstName}</span>
+                    </div>
+                    {isPostOwner && (
+                      <>
+                        <Image
+                          src={getIcon()}
+                          alt={'kebab-icon'}
+                          onClick={togglePostActions}
+                          className={'cursor-pointer'}
+                          width={'24'}
+                          height={'24'}
+                          id="kebab-icon"
+                          onMouseEnter={() => setIsHovered(true)}
+                          onMouseLeave={() => setIsHovered(false)}
+                        />
+                      </>
+                    )}
                   </div>
-                  {isPostOwner && (
-                    <Image
-                      src={getIcon()}
-                      alt={'kebab-icon'}
-                      onClick={togglePostActions}
-                      className={'cursor-pointer'}
-                      width={'24'}
-                      height={'24'}
-                      id="kebab-icon"
-                      onMouseEnter={() => setIsHovered(true)}
-                      onMouseLeave={() => setIsHovered(false)}
-                    />
-                  )}
-                </div>
+                  {isLoadingUpdateDescription ? <Skeleton width="60px" height="20px" /> : <p>{post.description}</p>}
+                </>
               )}
 
               {postActions && (

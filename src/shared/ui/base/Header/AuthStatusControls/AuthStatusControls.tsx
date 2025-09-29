@@ -4,7 +4,11 @@ import { Select } from '@/shared/ui/base/Select/Select'
 import { Button } from '@/shared/ui/base/Button/Button'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
+<<<<<<< HEAD
 import { PATH } from '@/shared/lib/path'
+=======
+import { setCookie } from '@/shared/lib/utils'
+>>>>>>> 6e632e75855be89c5d525955199961be576af8e5
 
 export type Props = {
   isLoggedIn: boolean
@@ -12,11 +16,14 @@ export type Props = {
 
 export const AuthStatusControls = ({ isLoggedIn }: Props) => {
   const { i18n, t } = useTranslation()
-
-  const handleLanguageChange = (value: string) => {
-    return i18n.changeLanguage(value)
+  const handleLanguageChange = async (value: string) => {
+    try {
+      await i18n.changeLanguage(value)
+      setCookie('i18n', value, 7)
+    } catch (error) {
+      console.log('ошибка перевода', error)
+    }
   }
-
   return (
     <>
       {isLoggedIn ? (

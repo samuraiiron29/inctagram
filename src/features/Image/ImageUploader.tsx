@@ -24,10 +24,11 @@ export default function ImageUploader({ open }: { open: boolean }) {
   const [filters, setFilters] = useState<string[]>([])
   const [finalImages, setFinalImages] = useState<(File | null)[]>([])
   const [current, setCurrent] = useState(0)
-  const [aspectRatio, setAspectRatio] = useState<number | undefined>(1)
+  const [aspectRatio, setAspectRatio] = useState<number | undefined>()
   const [desc, setDesc] = useState('')
   const [showModal, setShowModal] = useState<boolean>(false)
   const [isPublishing, setIsPublishing] = useState(false)
+  const [isRatio, setIsRatio] = useState(false)
   const cropperRef = useRef<any>(null)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const addMoreInputRef = useRef<HTMLInputElement | null>(null)
@@ -124,7 +125,16 @@ export default function ImageUploader({ open }: { open: boolean }) {
   }
 
   if (!open) return null
+  // const handleNextClick = async () => {
+  //   if (!isRatio) {
+  //     setIsRatio(false)
 
+  //     const sel = document.querySelector('select[name="ratio-select"]') as HTMLSelectElement | null
+  //     sel?.focus()
+  //     return
+  //   }
+  //   setIsRatio(true)
+  // }
   return (
     <>
       {isLoading ? <LinearProgress /> : ''}
@@ -133,6 +143,7 @@ export default function ImageUploader({ open }: { open: boolean }) {
           className="absolute inset-0 bg-black/60"
           onClick={() => (mode !== 'empty' ? setShowModal(true) : dispatch(setOpenCreate(false)))}
         />
+        {/* не работает черновик */}
         <CloseConfirmModal
           // open={showModal}
           open={showModal && mode !== 'empty'}
@@ -149,6 +160,8 @@ export default function ImageUploader({ open }: { open: boolean }) {
           onClick={e => e.stopPropagation()}
         >
           <HeaderBar
+            setIsRatio={setIsRatio}
+            isRatio={isRatio}
             mode={mode}
             current={current}
             total={sources.length}
@@ -167,6 +180,7 @@ export default function ImageUploader({ open }: { open: boolean }) {
             {mode === 'crop' && sources.length > 0 && (
               <>
                 <CropPanel
+                  setIsRatio={setIsRatio}
                   cropperRef={cropperRef}
                   sources={sources}
                   filters={filters}

@@ -10,7 +10,6 @@ const ResendLinkPage = () => {
   const searchParams = useSearchParams()
   const email = searchParams.get('email') || ''
   const [forgotPassword] = useForgotPasswordMutation()
-
   
   const [modal, setModal] = useState({
     open: false,

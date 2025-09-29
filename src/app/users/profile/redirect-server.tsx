@@ -6,9 +6,9 @@ export const dynamic = 'force-dynamic' // чтобы Next не SSG-шил
 
 export default async function RedirectServer() {
   const me = await getServerMe()
-  // console.log(me?.userId)
   if (!me) redirect(PATH.LOGIN)
-  redirect(`/users/profile/${me.userId}`)
+  // redirect(`/users/profile/${me.userId}`)
+  redirect(PATH.USERS.PROFILE_USERID(me.userId))
   return null
 }
 

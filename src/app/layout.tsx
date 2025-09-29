@@ -20,10 +20,10 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children, params: { lng } }: { children: React.ReactNode; params: { lng: string } }) {
   return (
-    <html lang="en">
-      <body className={`antialiased overflow-hidden`} suppressHydrationWarning>
+    <html lang={lng || 'en'}>
+      <body className={`antialiased overflow-hidden`}>
         <StoreProvider>
           <Theme>
             <AuthInitializer>

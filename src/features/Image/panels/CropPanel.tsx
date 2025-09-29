@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Cropper, { type ReactCropperElement } from 'react-cropper'
 import type CropperJS from 'cropperjs'
 import 'cropperjs/dist/cropper.css'
@@ -15,9 +15,10 @@ export type Props = {
   setCurrent: (i: number) => void
   aspectRatio?: number
   setAspectRatio: (v: number | undefined) => void
-  onNext: () => void
+  onNext: (dataUrl?: string) => void
   onAddMoreClick: () => void
   onRemoveAt: (i: number) => void
+  setIsRatio: (flag: boolean) => void
 }
 
 export function CropPanel({
@@ -32,6 +33,7 @@ export function CropPanel({
   onNext,
   onAddMoreClick,
   onRemoveAt,
+  setIsRatio,
 }: Props) {
   // применяем соотношение сторон при изменении
   useEffect(() => {
@@ -40,11 +42,15 @@ export function CropPanel({
     if (aspectRatio !== undefined) cr.setAspectRatio(aspectRatio)
     else cr.setAspectRatio(NaN)
   }, [aspectRatio, cropperRef])
-
+  useEffect(() => {
+    setIsRatio(false)
+  }, [])
   const selectIndex = (i: number) => {
     setCurrent(i)
     setTimeout(() => cropperRef.current?.cropper?.replace(sources[i], false), 0)
   }
+  // const isRatioSelected = aspectRatio !== undefined
+
   return (
     <div className="flex flex-col gap-4">
       {/* controls */}
@@ -57,6 +63,7 @@ export function CropPanel({
             onChange={e => {
               const v = Number(e.target.value)
               setAspectRatio(v === 0 ? undefined : v)
+              setIsRatio(true)
             }}
           >
             <option value={1} className="bg-black/60">

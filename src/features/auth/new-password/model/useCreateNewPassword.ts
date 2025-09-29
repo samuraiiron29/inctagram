@@ -58,7 +58,8 @@ export const useCreateNewPassword = (recoveryCode: string | null, email: string)
        const status = error?.status
        const message = error?.data?.error || error?.data?.message || ''
              if ((status === 400 || status === 410) && /expired/i.test(message)) {
-         router.push(`${PATH.REGISTRATION_EMAIL_RESENDING}?email=${email}`)
+               showModal('Link expired', 'Срок действия ссылки истек. Пожалуйста, запросите новую.');
+        //  router.push(`${PATH.REGISTRATION_EMAIL_RESENDING}?email=${email}`)
           } else if (status === 400) {
     showModal('Incorrect data. Please try again.', 'error')
   } else if (status === 429) {

@@ -7,11 +7,10 @@ const Page = () => {
   const handleBack = () => {
     if (typeof window !== 'undefined' && window.history.length > 1) {
       router.back()
-    } else {
-      router.push('/sign-up', { scroll: false })
-    }
+    } else router.push('/sign-up', { scroll: false })
+
   }
-  return (
+ return (
     <div>
       <Button onClick={handleBack} children={'Back'} />
       <h1>Privacy policy</h1>
