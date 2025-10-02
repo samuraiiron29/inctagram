@@ -1,8 +1,9 @@
 import { baseApi } from '@/store/services/baseApi'
-import { deleteCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
+import { deleteCookie } from '@/shared/lib/utils/cookieUtils'
 import type { Me, SignInResponse } from '../lib/types'
 import { OAUTH_URL } from '../const'
 import { PATH } from '../lib/path'
+import { setAccessToken } from '@/store/slices/authSlice'
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: build => ({
@@ -12,15 +13,14 @@ export const authApi = baseApi.injectEndpoints({
         method: 'GET',
       }),
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled
 
-  try {
-    const { data } = await queryFulfilled
-
-    // console.log(data)
-    // applySessionFromMe(data ?? null, dispatch)
-  } catch {
-    // Network/500 — не трогаем текущий UI-стейт.
-  }
+          // console.log(data)
+          // applySessionFromMe(data ?? null, dispatch)
+        } catch {
+          // Network/500 — не трогаем текущий UI-стейт.
+        }
       },
       providesTags: ['Me'],
     }),
@@ -42,10 +42,7 @@ export const authApi = baseApi.injectEndpoints({
       query: args => ({ url: 'auth/login', method: 'POST', body: args }),
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled
-        setCookie('accessToken', data.accessToken.trim(), 7)
-        // Вариант А: форс-рефетч
-        // await dispatch(authApi.endpoints.me.initiate(undefined, { forceRefetch: true }))
-        // Вариант Б: инвалидация тега (и доверяем жизненному циклу RTKQ)
+        dispatch(setAccessToken(data.accessToken))
         dispatch(authApi.util.invalidateTags(['Me']))
       },
       invalidatesTags: ['Me'],
@@ -92,28 +89,6 @@ export const authApi = baseApi.injectEndpoints({
   }),
   overrideExisting: true,
 })
-// googleAuth: build.mutation<GoogleAuthResponse, GoogleAuthRequest>({
-//   query: ({ code, redirectUrl }) => ({
-//     url: 'auth/google/login',
-//     method: 'POST',
-//     body: { code, redirectUrl },
-//   }),
-// }),
-// deleteProfile: build.mutation<void, void>({
-//   query: () => ({
-//     url: `users/profile`,
-//     method: 'DELETE',
-//   }),
-//   async onQueryStarted(args, { dispatch, queryFulfilled }) {
-//     try {
-//       await queryFulfilled
-//       deleteCookie('accessToken')
-//       deleteCookie('refreshToken')
-//     } catch (error) {
-//       throw error
-//     }
-//   },
-// }),
 
 export const {
   useMeQuery,

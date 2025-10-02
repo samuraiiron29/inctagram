@@ -1,13 +1,8 @@
 'use client'
 import { RegistrationUsers } from './registrationUsers'
-import { useAppSelector } from '@/shared/lib/hooks'
-import { selectAppStatus } from '@/store/slices/appSlice'
 import { PublicPosts } from './PublicPosts/PublicPosts'
-import LinearProgress from '@/shared/ui/base/Liner/LinearProgress'
-import { useMeQuery } from '@/shared/api'
-export const HomePage = ({ count }: { count: string }) => {
-  // const status = useAppSelector(selectAppStatus)
 
+export const HomePage = ({ count }: { count: string }) => {
   return (
     <div className={'max-w-[972px] mx-auto my-[24px]'}>
       {/* {status === 'loading' && <LinearProgress />} */}
