@@ -1,10 +1,10 @@
 import { BASE_URL } from '@/shared/const'
 import type { Me } from '@/shared/lib/types'
-import { cookies } from 'next/headers'
-export const getServerMe = async (): Promise<Me | null> => {
-  const cookieStore = cookies()
+import { selectAccessToken } from '@/store/slices/authSlice'
 
-  const token = (await cookies()).get('accessToken')?.value
+export const getServerMe = async (): Promise<Me | null> => {
+  const token = selectAccessToken
+  debugger
   if (!token) return null
   try {
     const res = await fetch(`${BASE_URL}auth/me`, {

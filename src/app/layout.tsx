@@ -12,6 +12,7 @@ import ModalHost from '@/widgets/ModalHost/ModalHost'
 import StoreProvider from '@/store/StoreProvider'
 import HeaderSidebarProvider from '@/widgets/Header/HeaderSidebarProvider'
 import { LanguageProvider } from '@/shared/config/i18n/LanguageProvider'
+import { ProfileLoader } from '@/app/providers/ProfileLoader'
 
 export const metadata: Metadata = {
   title: 'Inctagram',
@@ -29,10 +30,12 @@ export default function RootLayout({ children, params: { lng } }: { children: Re
           <StoreProvider>
             <Theme>
               <AuthInitializer>
-                <HeaderSidebarProvider>
-                  {children}
-                  <ModalHost />
-                </HeaderSidebarProvider>
+                <ProfileLoader>
+                  <HeaderSidebarProvider>
+                    {children}
+                    <ModalHost />
+                  </HeaderSidebarProvider>
+                </ProfileLoader>
               </AuthInitializer>
             </Theme>
           </StoreProvider>
