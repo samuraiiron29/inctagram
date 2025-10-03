@@ -1,10 +1,11 @@
 import { BASE_URL } from '@/shared/const'
 import type { Me } from '@/shared/lib/types'
 import { selectAccessToken } from '@/store/slices/authSlice'
+import { useSelector } from 'react-redux'
 
 export const getServerMe = async (): Promise<Me | null> => {
-  const token = selectAccessToken
-  debugger
+  const token = useSelector(selectAccessToken)
+  console.log('getServerMe', token)
   if (!token) return null
   try {
     const res = await fetch(`${BASE_URL}auth/me`, {

@@ -5,18 +5,17 @@ import { PATH } from './shared/lib/path'
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   const refreshToken = request.cookies.get('refreshToken')?.value
-  console.log(refreshToken)
   const i18n = request.cookies.get('i18n')?.value
 
   const response = NextResponse.next()
 
-  response.headers.set('x-middleware-test', 'true'); // проверка рапотоспособности этого файла
+  if (refreshToken) {
+    response.headers.set('x-refresh-token-valid', 'true')
+  }
 
   const alwaysPublicPaths = [PATH.HOME]
   const publicPathsForGuestsOnly = [
     PATH.LOGIN, PATH.SIGNUP, PATH.FORGOT_PASSWORD, PATH.RECOVERY,
-    PATH.RECOVERY_RESENDING, PATH.PRIVACY_POLICY, PATH.REGISTRATION_CONFIRMATION,
-    PATH.REGISTRATION_EMAIL_RESENDING, PATH.TERMS_OF_SERVICE
   ]
   const protectedPaths = ['/profile', '/messages']
 
