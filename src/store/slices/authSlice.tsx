@@ -1,4 +1,3 @@
-// authSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface AuthState {
@@ -8,7 +7,7 @@ interface AuthState {
 
 const initialState: AuthState = {
   accessToken: null,
-  isLoggedIn: false, // будем обновлять через AuthInitializer
+  isLoggedIn: false,
 }
 
 const authSlice = createSlice({
@@ -28,9 +27,10 @@ const authSlice = createSlice({
   },
   selectors: {
     selectIsLoggedIn: (state) => state.isLoggedIn,
+    selectAccessToken: (state) => state.accessToken,
   }
 })
 
 export const { setAccessToken, setIsLoggedIn, logout } = authSlice.actions
-export const {selectIsLoggedIn} = authSlice.selectors
+export const {selectIsLoggedIn, selectAccessToken} = authSlice.selectors
 export default authSlice.reducer

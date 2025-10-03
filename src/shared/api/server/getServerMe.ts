@@ -1,7 +1,7 @@
 import { BASE_URL } from '@/shared/const'
 import type { Me } from '@/shared/lib/types'
-import { selectAccessToken } from '@/store/slices/authSlice'
 import { useSelector } from 'react-redux'
+import { selectAccessToken } from '@/store/slices/authSlice'
 
 export const getServerMe = async (): Promise<Me | null> => {
   const token = useSelector(selectAccessToken)
