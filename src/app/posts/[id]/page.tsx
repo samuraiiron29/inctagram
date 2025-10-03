@@ -3,7 +3,7 @@ import { BASE_URL } from '@/shared/const'
 
 type Params = { postId: string }
 
-export default async function PostPage({ params }: { params: Params }) {
+export default async function PostPage({ params }: { params: any }) {
   const { postId } = params
 
   try {
