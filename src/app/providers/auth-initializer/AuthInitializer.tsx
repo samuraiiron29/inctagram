@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks'
 import { selectAccessToken, setIsLoggedIn } from '@/store/slices/authSlice'
+import { BASE_URL } from '@/shared/const'
 
 export function AuthInitializer({ children }: { children: React.ReactNode }) {
   const dispatch = useAppDispatch()
@@ -15,7 +16,7 @@ export function AuthInitializer({ children }: { children: React.ReactNode }) {
         dispatch(setIsLoggedIn(true))
 
         try {
-          const updateResponse = await fetch('https://inctagram.work/api/v1/auth/github/update-tokens', {
+          const updateResponse = await fetch(`${BASE_URL}auth/github/update-tokens`, {
             method: 'POST',
             headers: {
               Authorization: `Bearer ${accessToken}`,
