@@ -10,7 +10,6 @@ type Props = {
 
 const HeaderSidebarProvider = ({ children }: Props) => {
   const isLoggedIn = useSelector(selectIsLoggedIn)
-  debugger
 
   return (
     <>

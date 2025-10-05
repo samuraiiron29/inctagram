@@ -13,7 +13,6 @@ import { t } from 'i18next'
 import { Button, Cards, Input } from '@/shared/ui/base'
 
 function Page() {
-
   const router = useRouter()
   const [login] = useSignInMutation()
   const methods = useForm<ZodLogin>({
@@ -24,7 +23,6 @@ function Page() {
   const onSubmit = (data: ZodLogin) => {
     login(data).then(res => {
       if (res.data) {
-        // window.location.replace(PATH.HOME)
         router.replace(PATH.HOME)
         methods.reset()
       }

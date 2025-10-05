@@ -5,12 +5,10 @@ import { Button } from '@/shared/ui/base/Button/Button'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 import { setCookie } from '@/shared/lib/utils'
+import { useAppSelector } from '@/shared/lib/hooks'
+import { selectIsLoggedIn } from '@/store/slices/authSlice'
 
-export type Props = {
-  isLoggedIn: boolean
-}
-
-export const AuthStatusControls = ({ isLoggedIn }: Props) => {
+export const AuthStatusControls = () => {
   const { i18n, t } = useTranslation()
   const handleLanguageChange = async (value: string) => {
     try {
@@ -20,6 +18,9 @@ export const AuthStatusControls = ({ isLoggedIn }: Props) => {
       console.log('ошибка перевода', error)
     }
   }
+
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
+
   return (
     <>
       {isLoggedIn ? (

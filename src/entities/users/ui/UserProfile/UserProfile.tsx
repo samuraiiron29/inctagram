@@ -5,17 +5,18 @@ import { Button } from '@/shared/ui/base/Button'
 import { Scroll } from '@/shared/ui/base/Scroll'
 import Image from 'next/image'
 import { useState } from 'react'
-import { useIntersectionObserver } from "@siberiacancode/reactuse";
+import { useIntersectionObserver } from '@siberiacancode/reactuse'
 import { useDeleteUserProfileMutation } from '@/shared/api'
+import { useAppSelector } from '@/shared/lib/hooks'
+import { selectIsLoggedIn } from '@/store/slices/authSlice'
 
 type Props = {
   profile: PublicProfile
-  isLoggedIn?: boolean
   userId: string
 }
 const PORTION_OF_ITEMS = 4
 
-const UserProfile = ({ profile, isLoggedIn = false, ...props }: Props) => {
+const UserProfile = ({ profile, ...props }: Props) => {
   const [deleteUser] = useDeleteUserProfileMutation()
   const [offset, setOffset] = useState<number>(0)
   const [hasMore, setHasMore] = useState<boolean>(true)
@@ -35,6 +36,8 @@ const UserProfile = ({ profile, isLoggedIn = false, ...props }: Props) => {
   //   console.log('Delete error', error)
   // }
   // }
+
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
   return (
     <Scroll className="flex flex-col p-10 pb-20 h-screen">
       <div className="flex flex-row relative mb-[50px]">
