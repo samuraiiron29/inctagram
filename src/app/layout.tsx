@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({ children, params: { lng } }: { children: React.ReactNode; params: { lng: string } }) {
+export default function RootLayout({ children, params: { lng } }: { children: React.ReactNode; params: any }) {
   return (
     <html lang={lng || 'en'}>
       <body className={`antialiased overflow-hidden`} suppressHydrationWarning>

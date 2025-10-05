@@ -13,7 +13,7 @@ const HeaderSidebarProvider = ({ children }: Props) => {
 
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} />
+      <Header />
       {isLoggedIn && <Sidebar />}
       <div className="flex justify-center items-center pl-[244px] pr-[244px]">{children}</div>
     </>
