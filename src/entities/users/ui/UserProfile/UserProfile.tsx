@@ -7,6 +7,8 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { useIntersectionObserver } from "@siberiacancode/reactuse";
 import { useDeleteUserProfileMutation } from '@/shared/api'
+import { PATH } from '@/shared/lib/path'
+import { useRouter } from 'next/navigation'
 
 type Props = {
   profile: PublicProfile
@@ -16,6 +18,7 @@ type Props = {
 const PORTION_OF_ITEMS = 4
 
 const UserProfile = ({ profile, isLoggedIn = false, ...props }: Props) => {
+  const router = useRouter()
   const [deleteUser] = useDeleteUserProfileMutation()
   const [offset, setOffset] = useState<number>(0)
   const [hasMore, setHasMore] = useState<boolean>(true)
@@ -64,7 +67,10 @@ const UserProfile = ({ profile, isLoggedIn = false, ...props }: Props) => {
         </div>
         {!!isLoggedIn && (
           <div className="absolute top-[0] right-[0]">
-            <Button variant="secondary">Profile Settings</Button>
+            <Button variant="secondary"
+            onClick={() => router.push(PATH.USERS.PROFILE_SETTINGS(Number(props.userId)))}
+            >
+              Profile Settings</Button>
             <Button onClick={handleDelete} children={'Delete Me'} />
           </div>
         )}
