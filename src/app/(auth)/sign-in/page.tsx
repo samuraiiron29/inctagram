@@ -31,6 +31,8 @@ function Page() {
         .catch(err => {
           const message = err && 'Неверные почта или пароль'
           methods.setError('email', { type: 'server', message })
+          console.log("really");
+          
         })
   }
 

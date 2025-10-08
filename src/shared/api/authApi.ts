@@ -44,7 +44,9 @@ export const authApi = baseApi.injectEndpoints({
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled
+          
           setCookie('accessToken', data.accessToken.trim(), 7)
+          console.log("really");
           dispatch(authApi.util.invalidateTags(['Me']))
         } catch (err) {}
         // const { data } = await queryFulfilled

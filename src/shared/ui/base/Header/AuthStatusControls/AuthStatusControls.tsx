@@ -4,11 +4,9 @@ import { Select } from '@/shared/ui/base/Select/Select'
 import { Button } from '@/shared/ui/base/Button/Button'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
-<<<<<<< HEAD
 import { PATH } from '@/shared/lib/path'
-=======
 import { setCookie } from '@/shared/lib/utils'
->>>>>>> 6e632e75855be89c5d525955199961be576af8e5
+
 
 export type Props = {
   isLoggedIn: boolean
