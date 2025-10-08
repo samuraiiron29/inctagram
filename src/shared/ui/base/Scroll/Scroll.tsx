@@ -1,3 +1,4 @@
+'use client'
 import React, { ReactNode, useEffect, useRef, useState } from 'react'
 
 type PropsType = {
