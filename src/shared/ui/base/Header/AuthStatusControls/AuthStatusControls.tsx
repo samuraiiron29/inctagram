@@ -4,7 +4,9 @@ import { Select } from '@/shared/ui/base/Select/Select'
 import { Button } from '@/shared/ui/base/Button/Button'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
+import { PATH } from '@/shared/lib/path'
 import { setCookie } from '@/shared/lib/utils'
+
 
 export type Props = {
   isLoggedIn: boolean
@@ -32,10 +34,10 @@ export const AuthStatusControls = ({ isLoggedIn }: Props) => {
           <Select isLanguage value={i18n.language} onChange={handleLanguageChange} />
           <div className="flex gap-[24px]">
             <Button asChild variant={'textButton'}>
-              <Link href="/sign-in">{t('auth.signIn')}</Link>
+              <Link href={PATH.LOGIN}>{t('auth.signIn')}</Link>
             </Button>
             <Button asChild>
-              <Link href="/sign-up">{t('auth.signUp')}</Link>
+              <Link href={PATH.SIGNUP}>{t('auth.signUp')}</Link>
             </Button>
           </div>
         </div>

@@ -15,7 +15,7 @@ const TabNavigation = () => {
   const pathname = usePathname()//с помощью usePathname() сохраняем текущий путь страницы
   const base = `/users/profile/${params.userId}/settings`
     return (
-        <div className="flex border-b border-dark-300 mb-8">
+        <div className="grid grid-cols-4 border-b border-dark-300 mb-8 w-[100%]">
 {tabs.map(tab => {
   const href = `${base}/${tab.path}`
   const isActive = pathname === href
@@ -23,7 +23,7 @@ const TabNavigation = () => {
     <Link
      key={tab.path}
      href={href}
-      className={`py-3 px-4 text-medium_text14 transition-colors ${
+      className={`py-3 px-4 text-medium_text14 transition-colors w-[100%] text-center ${
               isActive
                 ? 'text-light-100 border-b-2 border-accent-500'
                 : 'text-light-900 hover:text-light-500'

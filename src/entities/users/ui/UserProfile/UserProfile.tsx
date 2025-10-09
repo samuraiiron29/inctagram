@@ -39,7 +39,7 @@ const UserProfile = ({ profile, isLoggedIn = false, ...props }: Props) => {
   // }
   // }
   return (
-    <Scroll className="flex flex-col p-10 pb-20 h-screen">
+    <Scroll className="flex flex-col pt-10 pb-20 h-screen">
       <div className="flex flex-row relative mb-[50px]">
         <Image src={'/avatar.svg'} width={204} height={204} alt="Avatar" className="rounded-full mr-10 border-white border min-w-[204px]" />
         <div>
