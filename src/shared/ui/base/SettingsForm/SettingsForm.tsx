@@ -22,9 +22,9 @@ export const SettingsForm = (props: PropsType) => {
   })
 
   const onSubmit = (data: ZodSettings) => {
-    changeProfileData(data).unwrap().then(res => {
+    // changeProfileData(data).unwrap().then(res => {
       
-    })
+    // })
   }
 
   return (
