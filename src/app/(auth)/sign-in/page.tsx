@@ -13,31 +13,31 @@ import { t } from 'i18next'
 import { Button, Cards, Input } from '@/shared/ui/base'
 
 function Page() {
-
   const router = useRouter()
-  const [login, {error}] = useSignInMutation()
+  const [login, { error }] = useSignInMutation()
   const methods = useForm<ZodLogin>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: '', password: '' },
   })
   const handleSignUp = () => router.replace(PATH.SIGNUP)
   const onSubmit = (data: ZodLogin) => {
-    login(data).unwrap().then(res =>{
-          if (res) {
-            router.replace(PATH.HOME)
-            methods.reset()
-          }
-        })
-        .catch(err => {
-          const message = err && 'Неверные почта или пароль'
-          methods.setError('email', { type: 'server', message })
-          console.log("really");
-          
-        })
+    login(data)
+      .unwrap()
+      .then(res => {
+        if (res) {
+          router.replace(PATH.HOME)
+          methods.reset()
+        }
+      })
+      .catch(err => {
+        const message = err && 'Неверные почта или пароль'
+        methods.setError('email', { type: 'server', message })
+        console.log('really')
+      })
   }
 
   return (
-    <div className="mt-4 w-[378px] h-[678px] mr-[184px]">
+    <div className={'w-[400px]'}>
       <FormProvider {...methods}>
         <Cards onSubmit={methods.handleSubmit(onSubmit)}>
           <div className="flex flex-col items-center my-[20px]">

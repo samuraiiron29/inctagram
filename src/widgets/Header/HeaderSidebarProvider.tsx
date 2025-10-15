@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { selectIsLoggedIn } from '@/store/services/session.selectors'
 import { deleteCookie } from '@/shared/lib/utils'
 import { useEffect } from 'react'
-
+import { useMediaQuery } from 'react-responsive'
 
 type Props = {
   children: React.ReactNode
@@ -13,7 +13,8 @@ type Props = {
 
 const HeaderSidebarProvider = ({ children }: Props) => {
   const isLoggedIn = useSelector(selectIsLoggedIn)
-   useEffect(() => {
+  const isDesktop = useMediaQuery({ minWidth: 768 })
+  useEffect(() => {
     if (!isLoggedIn) {
       deleteCookie()
     }
@@ -25,8 +26,14 @@ const HeaderSidebarProvider = ({ children }: Props) => {
       {/* DONT WORK!!! */}
       {/* {status === 'loading' && <LinearProgress />} */}
 
-      {isLoggedIn && <Sidebar />}
-      <div className="flex justify-center items-center pl-[244px] pr-[60px]">{children}</div>
+      {isLoggedIn && isDesktop ? (
+        <>
+          <Sidebar />
+        </>
+      ) : (
+        isLoggedIn && <Sidebar mobileMenu={true} />
+      )}
+      <div className={`${isLoggedIn && isDesktop ? 'col-start-2' : ''} flex justify-center p-[30px]`}>{children}</div>
     </>
   )
 }

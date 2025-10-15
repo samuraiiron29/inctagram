@@ -7,7 +7,7 @@ import { SidebarItem } from './SidebarItem'
 import { Logout } from '@/features/auth/logout'
 import { Button } from '@/shared/ui/base/Button'
 
-export default function Sidebar() {
+export default function Sidebar({ className, mobileMenu }: { className?: string; mobileMenu?: boolean }) {
   const [showModal, setShowModal] = useState(false)
   const { t } = useTranslation()
 
@@ -75,23 +75,26 @@ export default function Sidebar() {
 
   return (
     <aside
-      className={'fixed top-[60px] left-0 z-50 h-[100vh] pt-[72px] w-[220px] pb-[50px] pl-[60px] border-r border-dark-300'}
-      aria-label="Main sidebar navigation"
+      className={`${mobileMenu ? 'row-start-3 bg-dark-500 p-[18px] self-end' : 'md:block sm:fixed sm:top-[60px] sm:left-0 z-50 sm:h-[100vh] sm:pt-[72px] sm:w-[220px] sm:pb-[50px] sm:pl-[60px] sm:border-r sm:border-dark-300'}`}
     >
-      <ul className="flex flex-col gap-[20px] justify-start">
+      <ul className={`${mobileMenu ? 'flex justify-between items-center' : 'flex flex-col gap-[20px] justify-start'}`}>
         {sidebarItemsPrimary.map(item => (
-          <SidebarItem key={`${item.href},${item.iconDefault}`} item={item} />
+          <SidebarItem key={`${item.href},${item.iconDefault}`} item={item} mobileMenu={mobileMenu} />
         ))}
-        <div className={'flex flex-col gap-[20px] mt-[38px]'}>
-          {sidebarItemsSecondary.map(item => (
-            <SidebarItem key={`${item.href},${item.iconDefault}`} item={item} />
-          ))}
-        </div>
+        {!mobileMenu && (
+          <div className={'flex flex-col gap-[20px] mt-[38px]'}>
+            {sidebarItemsSecondary.map(item => (
+              <SidebarItem key={`${item.href},${item.iconDefault}`} item={item} />
+            ))}
+          </div>
+        )}
       </ul>
-      <Button onClick={() => setShowModal(true)} className={'flex items-center justify-center gap-[15px] mt-[180px] cursor-pointer'}>
-        <Image src={'/sidebarIcons/default/log-out.svg'} alt={''} width={'18'} height={'20'} className="w-auto" />
-        <span className={'text-medium_text14'}>{t('auth.logout')}</span>
-      </Button>
+      {!mobileMenu && (
+        <Button onClick={() => setShowModal(true)} className={'flex items-center justify-center gap-[15px] mt-[180px] cursor-pointer'}>
+          <Image src={'/sidebarIcons/default/log-out.svg'} alt={''} width={'18'} height={'20'} className="w-auto" />
+          <span className={'text-medium_text14'}>{t('auth.logout')}</span>
+        </Button>
+      )}
       {showModal && <Logout showModal={showModal} setShowModal={setShowModal} />}
     </aside>
   )

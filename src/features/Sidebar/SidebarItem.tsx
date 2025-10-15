@@ -20,8 +20,9 @@ type Props = {
     disabled?: boolean
     onClick?: () => void
   }
+  mobileMenu?: boolean
 }
-export const SidebarItem = ({ item }: Props) => {
+export const SidebarItem = ({ item, mobileMenu }: Props) => {
   const pathname = usePathname()
   const isActive = pathname === item.href
   const [isHovered, setIsHovered] = useState(false)
@@ -56,13 +57,13 @@ export const SidebarItem = ({ item }: Props) => {
         >
           <Image src={getIcon()} alt={item.alt} width={24} height={24} />
           <span className={clsx(isActive && 'text-accent-500', !item.disabled && 'group-hover:text-accent-100', 'text-medium_text14')}>
-            {item.label}
+            {!mobileMenu && item.label}
           </span>
         </Link>
       ) : item.action === 'create' ? (
         <button onClick={handleCreateModal} className={'inline-flex gap-[12px] pr-[3px]'}>
           <Image src={getIcon()} alt={item.alt} width={24} height={24} />
-          Create
+          {!mobileMenu && <span>Create</span>}
         </button>
       ) : null}
     </li>

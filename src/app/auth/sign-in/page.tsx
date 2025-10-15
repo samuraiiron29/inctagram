@@ -14,28 +14,28 @@ import { Button, Cards, Input } from '@/shared/ui/base'
 
 function Page() {
   const router = useRouter()
-  const [login, {error}] = useSignInMutation()
+  const [login, { error }] = useSignInMutation()
   const methods = useForm<ZodLogin>({
     resolver: zodResolver(loginSchema as any),
     defaultValues: { email: '', password: '' },
   })
   const handleSignUp = () => router.replace(PATH.SIGNUP)
   const onSubmit = (data: ZodLogin) => {
-
-    login(data).unwrap().then(res =>{
-      if (res) {
-        // window.location.replace(PATH.HOME)
-        router.replace(PATH.HOME)
-        methods.reset()
-      }
-    }
-      
-    ).catch(err => {
-      // const message = err?.data?.messages || 'Ошибка авторизации'
-      console.log(err)
-      // methods.setError('email', { type: 'server', message })
-      // methods.setError('password', { type: 'server', message })
-    })
+    login(data)
+      .unwrap()
+      .then(res => {
+        if (res) {
+          // window.location.replace(PATH.HOME)
+          router.replace(PATH.HOME)
+          methods.reset()
+        }
+      })
+      .catch(err => {
+        // const message = err?.data?.messages || 'Ошибка авторизации'
+        console.log(err)
+        // methods.setError('email', { type: 'server', message })
+        // methods.setError('password', { type: 'server', message })
+      })
     // login(data).then(res => {
     //   if (res.data) {
     //     // window.location.replace(PATH.HOME)
@@ -48,7 +48,7 @@ function Page() {
   }
 
   return (
-    <div className="mt-4 w-[378px] h-[678px] mr-[184px]">
+    <div>
       <FormProvider {...methods}>
         <Cards onSubmit={methods.handleSubmit(onSubmit)}>
           <div className="flex flex-col items-center my-[20px]">
@@ -56,7 +56,7 @@ function Page() {
             <Oauth />
             <Input type="email" name="email" width="300px" label={t('auth.email')} />
             <Input type="password" name="password" width="300px" label={t('auth.password')} />
-            
+
             <Link
               href={PATH.FORGOT_PASSWORD}
               className="ml-auto mr-7 mb-6 text-regular_text14 text-dark-100 "

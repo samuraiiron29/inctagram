@@ -9,7 +9,7 @@ export const HomePage = ({ count }: { count: string }) => {
   // const status = useAppSelector(selectAppStatus)
 
   return (
-    <div className={'max-w-[972px] mx-auto my-[24px]'}>
+    <div className={'max-w-[972px] mx-auto'}>
       {/* {status === 'loading' && <LinearProgress />} */}
       <RegistrationUsers count={count} />
       <div className="grid grid-cols-4 gap-4 w-full">

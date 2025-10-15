@@ -55,7 +55,7 @@ function Page() {
     }
   }
   return (
-    <div className="mt-4 w-[378px] h-[678px] mr-[184px]">
+    <div>
       <FormProvider {...methods}>
         <Cards onSubmit={methods.handleSubmit(onSubmit)}>
           <div className="flex flex-col items-center my-[20px]">
