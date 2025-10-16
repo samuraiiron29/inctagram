@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { getCookie } from '@/shared/lib/utils'
+import { useMediaQuery } from 'react-responsive'
 
 type Props = {
   disabled?: boolean
@@ -40,6 +41,7 @@ export const Select = ({
 
   // выбираем первый элемент из приходящего массива options
   const [internalValue, setInternalValue] = useState(value ?? (isLanguage ? languageOptions[0] : (options?.[0] ?? '')))
+  const isDesktop = useMediaQuery({ maxWidth: 440 })
 
   useEffect(() => {
     if (value !== undefined) {
@@ -71,7 +73,7 @@ export const Select = ({
   }
 
   return (
-    <div className="text-amber-50" style={{ width: `${isLanguage ? '200px' : width}` }} ref={selectRef}>
+    <div className={!isDesktop ? `${isLanguage && 'w-[200px]'} text-amber-50` : 'w-full text-amber-50'} ref={selectRef}>
       {title && <span className="text-sm font-medium">{title}</span>}
       {label && (
         <label className="text-sm font-medium">
@@ -82,12 +84,11 @@ export const Select = ({
       <div className={`relative flex gap-1 ${disabled ? 'opacity-40 pointer-events-none' : ''}`}>
         <button
           onClick={toggleDropdown}
-          className={`
+          className={`${isDesktop && 'border-0 justify-start'}
                         w-full px-3 py-2 text-left border rounded-md
                         focus:outline-none
                         flex justify-between items-center gap-1
                         border-dark-100
-
                       `}
         >
           <div className="flex items-center gap-2">

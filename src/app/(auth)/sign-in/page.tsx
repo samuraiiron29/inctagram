@@ -14,7 +14,7 @@ import { Button, Cards, Input } from '@/shared/ui/base'
 
 function Page() {
   const router = useRouter()
-  const [login, {error}] = useSignInMutation()
+  const [login, { error }] = useSignInMutation()
   const methods = useForm<ZodLogin>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: '', password: '' },
@@ -37,7 +37,7 @@ function Page() {
   }
 
   return (
-    <div className="mt-4 w-[378px] h-[678px] mr-[184px]">
+    <div className={'w-[400px]'}>
       <FormProvider {...methods}>
         <Cards onSubmit={methods.handleSubmit(onSubmit)}>
           <div className="flex flex-col items-center my-[20px]">

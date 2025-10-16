@@ -9,7 +9,6 @@ import { setCookie } from '@/shared/lib/utils'
 import { useAppSelector } from '@/shared/lib/hooks'
 import { selectIsLoggedIn } from '@/store/slices/authSlice'
 
-
 export type Props = {
   isLoggedIn: boolean
 }
@@ -37,7 +36,7 @@ export const AuthStatusControls = ({ isLoggedIn }: Props) => {
       ) : (
         <div className="flex items-center gap-[36px]">
           <Select isLanguage value={i18n.language} onChange={handleLanguageChange} />
-          <div className="flex gap-[24px]">
+          <div className="flex gap-[24px] hidden sm:block">
             <Button asChild variant={'textButton'}>
               <Link href={PATH.LOGIN}>{t('auth.signIn')}</Link>
             </Button>

@@ -52,5 +52,13 @@ export function AuthInitializer({ children }: { children: React.ReactNode }) {
 
   if (!isInitialized) return null
 
-  return <>{children}</>
+  return (
+    <div
+      className={
+        isLoggedIn ? 'grid h-[100vh] grid-cols-[3fr] grid-rows-[auto_1fr_auto] md:grid-cols-[220px_3fr] md:grid-rows-[auto_1fr]' : ''
+      }
+    >
+      {children}
+    </div>
+  )
 }
