@@ -4,24 +4,9 @@ import { getServerMe } from '@/shared/api/server/getServerMe'
 
 export const dynamic = 'force-dynamic' // чтобы Next не SSG-шил
 
-export default async function RedirectServer() {
-  const me = await getServerMe()
-  if (!me) redirect(PATH.LOGIN)
-  // redirect(`/users/profile/${me.userId}`)
-  redirect(PATH.USERS.PROFILE_USERID(me.userId))
-  return null
-}
-
-//  const token = (await cookies()).get('accessToken')?.value
-//  if (!token) redirect(PATH.LOGIN)
-//    // Узнаём userId
-//   const res = await fetch('https://inctagram.work/api/v1/auth/me', {
-//     headers: { Authorization: `Bearer ${token}` },
-//     cache: 'no-store',
-//   })
-//   if (!res.ok) redirect(PATH.LOGIN)
-
-//   const { userId } = (await res.json()) as { userId?: string }
-// if (!userId) redirect(PATH.LOGIN)
-//       return null // чтоб не ругался TS
-// redirect(`/users/profile/${userId}`)
+// export default async function RedirectServer() {
+//   const me = await getServerMe()
+//   if (!me) redirect(PATH.LOGIN)
+//   redirect(PATH.USERS.PROFILE_USERID(me.userId))
+//   return null
+// }

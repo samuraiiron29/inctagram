@@ -13,7 +13,6 @@ import { t } from 'i18next'
 import { Button, Cards, Input } from '@/shared/ui/base'
 
 function Page() {
-
   const router = useRouter()
   const [login, {error}] = useSignInMutation()
   const methods = useForm<ZodLogin>({
@@ -22,6 +21,7 @@ function Page() {
   })
   const handleSignUp = () => router.replace(PATH.SIGNUP)
   const onSubmit = (data: ZodLogin) => {
+ 
     login(data).unwrap().then(res =>{
           if (res) {
             router.replace(PATH.HOME)
