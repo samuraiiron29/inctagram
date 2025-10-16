@@ -21,6 +21,7 @@ export const getCookie = (name: string): string => {
     return k === name ? decodeURIComponent(v) : acc
   }, '')
 }
+
 export const deleteCookie = () => {
   const exp = 'Thu, 01 Jan 1970 00:00:00 GMT'
   const path = 'path=/'

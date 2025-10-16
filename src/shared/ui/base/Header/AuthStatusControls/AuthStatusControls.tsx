@@ -6,6 +6,8 @@ import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 import { PATH } from '@/shared/lib/path'
 import { setCookie } from '@/shared/lib/utils'
+import { useAppSelector } from '@/shared/lib/hooks'
+import { selectIsLoggedIn } from '@/store/slices/authSlice'
 
 export type Props = {
   isLoggedIn: boolean
@@ -21,6 +23,9 @@ export const AuthStatusControls = ({ isLoggedIn }: Props) => {
       console.log('ошибка перевода', error)
     }
   }
+
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
+
   return (
     <>
       {isLoggedIn ? (

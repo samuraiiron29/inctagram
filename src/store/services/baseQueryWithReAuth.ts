@@ -1,15 +1,18 @@
-import { fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query'
-import { getCookie, setCookie, deleteCookie } from '@/shared/lib/utils/cookieUtils'
-import { BASE_URL } from '@/shared/const'
+import { fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from "@reduxjs/toolkit/query"
+import { RootState } from "@/store/store"
+import { setAccessToken } from "@/store/slices/authSlice"
+import { deleteCookie } from "@/shared/lib/utils/cookieUtils"
+import { BASE_URL } from "@/shared/const"
+import { refreshTokens } from "@/shared/api/refresh"
 
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
-  credentials: 'include',
-  prepareHeaders: (headers) => {
-    const token = getCookie('accessToken')?.trim()
+  credentials: "include",
+  prepareHeaders: (headers, { getState }) => {
+    const token = (getState() as RootState).auth.accessToken
     if (token) {
-      headers.set('Authorization', `Bearer ${token}`)
+      headers.set("Authorization", `Bearer ${token}`)
     }
     return headers
   },
@@ -39,6 +42,8 @@ const refreshToken = async (
       setCookie('accessToken', accessToken, 7)
       return true
     }
+  } catch (e) {
+    console.error(e)
   }
   return false
 }
@@ -51,7 +56,6 @@ export const baseQueryWithReAuth: BaseQueryFn<
   const isMe = isEndpoint(args, 'auth/me')
 
   let result = await baseQuery(args, api, extra)
-  let error = result.error as FetchBaseQueryError | undefined
 
   if (error?.status === 401 || !getCookie('accessToken')) {
     if (!refreshPromise) refreshPromise = refreshToken(api, extra)
@@ -61,7 +65,6 @@ export const baseQueryWithReAuth: BaseQueryFn<
       result = await baseQuery(args, api, extra)
     } else {
       deleteCookie()
-      return { data: null, meta: result.meta }
     }
   }
 

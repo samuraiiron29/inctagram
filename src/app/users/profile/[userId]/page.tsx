@@ -17,7 +17,7 @@ const UserPage = async ({ params }: { params: Promise<Params> }) => {
 
     return (
       <Suspense fallback={<LinearProgress />}>
-        <UserProfile profile={profile} isLoggedIn userId={userId} />
+        <UserProfile profile={profile} userId={userId} />
       </Suspense>
     )
   } catch (error) {

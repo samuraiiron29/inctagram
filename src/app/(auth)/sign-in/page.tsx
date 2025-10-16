@@ -21,19 +21,19 @@ function Page() {
   })
   const handleSignUp = () => router.replace(PATH.SIGNUP)
   const onSubmit = (data: ZodLogin) => {
-    login(data)
-      .unwrap()
-      .then(res => {
-        if (res) {
-          router.replace(PATH.HOME)
-          methods.reset()
-        }
-      })
-      .catch(err => {
-        const message = err && 'Неверные почта или пароль'
-        methods.setError('email', { type: 'server', message })
-        console.log('really')
-      })
+ 
+    login(data).unwrap().then(res =>{
+          if (res) {
+            router.replace(PATH.HOME)
+            methods.reset()
+          }
+        })
+        .catch(err => {
+          const message = err && 'Неверные почта или пароль'
+          methods.setError('email', { type: 'server', message })
+          console.log("really");
+          
+        })
   }
 
   return (

@@ -1,27 +1,56 @@
 'use client'
-import { useMeQuery } from '@/shared/api'
-import LinearProgress from '@/shared/ui/base/Liner/LinearProgress'
 import { useEffect, useState } from 'react'
-import { usePathname } from 'next/navigation'
-import { useSelector } from 'react-redux'
-import { selectIsLoggedIn } from '@/store/services/session.selectors'
+import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks'
+import { selectAccessToken, setIsLoggedIn } from '@/store/slices/authSlice'
+import { BASE_URL } from '@/shared/const'
 
 export function AuthInitializer({ children }: { children: React.ReactNode }) {
-  const { data, isLoading, isSuccess } = useMeQuery()
-  const isLoggedIn = useSelector(selectIsLoggedIn)
-
+  const dispatch = useAppDispatch()
   const [isInitialized, setIsInitialized] = useState(false)
-  const pathname = usePathname()
-  const isSSRUserProfilePage = /^\/users\/profile(?:\/.*)+$/.test(pathname)
+
+  const accessToken = useAppSelector(selectAccessToken)
+
   useEffect(() => {
-    if (isLoading) return
-    if (isSuccess) {
+    const checkAuth = async () => {
+      if (accessToken) {
+        dispatch(setIsLoggedIn(true))
+
+        try {
+          const updateResponse = await fetch(`${BASE_URL}auth/github/update-tokens`, {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+            credentials: 'include',
+          })
+
+          if (!updateResponse.ok) {
+            throw new Error('Ошибка обновления refreshToken')
+          }
+        } catch (error) {
+          console.error('Ошибка refreshToken', error)
+        }
+      } else {
+        try {
+          const res = await fetch(window.location.href, { credentials: 'include' })
+          const refreshTokenValid = res.headers.get('x-refresh-token-valid') === 'true'
+
+          if (refreshTokenValid) {
+            dispatch(setIsLoggedIn(true))
+          } else {
+            dispatch(setIsLoggedIn(false))
+          }
+        } catch (error) {
+          console.error('Ошибка сессии на сервере', error)
+        }
+      }
       setIsInitialized(true)
-      // dispatch(setIsLoggedIn(true))
-    } else setIsInitialized(true)
-  }, [isLoading, isSuccess, data])
-  if (!isInitialized && !isSSRUserProfilePage) return <LinearProgress />
-  /// или &&
+    }
+
+    checkAuth()
+  }, [accessToken, dispatch])
+
+  if (!isInitialized) return null
 
   return (
     <div

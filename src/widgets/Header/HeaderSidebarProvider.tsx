@@ -22,19 +22,11 @@ const HeaderSidebarProvider = ({ children }: Props) => {
   // if (!isLoggedIn) deleteCookie()
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} />
-      {/* DONT WORK!!! */}
-      {/* {status === 'loading' && <LinearProgress />} */}
-
-      {isLoggedIn && isDesktop ? (
-        <>
-          <Sidebar />
-        </>
-      ) : (
-        isLoggedIn && <Sidebar mobileMenu={true} />
-      )}
-      <div className={`${isLoggedIn && isDesktop ? 'col-start-2' : ''} flex justify-center p-[30px]`}>{children}</div>
+      <Header />
+      {isLoggedIn && <Sidebar />}
+      <div className="flex justify-center items-center pl-[244px] pr-[60px]">{children}</div>
     </>
   )
 }
+
 export default HeaderSidebarProvider

@@ -4,11 +4,7 @@ import { AuthStatusControls } from '@/shared/ui/base/Header/AuthStatusControls/A
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 
-type Props = {
-  isLoggedIn: boolean
-}
-
-export const Header = ({ isLoggedIn }: Props) => {
+export const Header = () => {
   const { t } = useTranslation()
 
   return (
@@ -17,7 +13,7 @@ export const Header = ({ isLoggedIn }: Props) => {
         <Link href={PATH.HOME} className={'text-large accent-light-100'}>
           {t('header.mainLogo')}
         </Link>
-        <AuthStatusControls isLoggedIn={isLoggedIn} />
+        <AuthStatusControls />
       </div>
     </header>
   )
