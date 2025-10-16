@@ -14,9 +14,10 @@ type Props = {
   placeholder?: string
   width?: string
   label: string
+  className?: string
 }
 
-export const Input = ({ type = 'default', disabled, name, placeholder, width, label }: Props) => {
+export const Input = ({ type = 'default', disabled, name, placeholder, width, label, className }: Props) => {
   const form = (() => {
     try {
       return useFormContext<ZodInputs>()
@@ -69,7 +70,7 @@ export const Input = ({ type = 'default', disabled, name, placeholder, width, la
                 onChange: onChangeHandler,
               })}
           className={`
-            input border rounded-xs w-2xs py-1.5 px-3 placeholder:text-regular_text16 text-regular_text16
+            input border rounded-xs w-2xs py-1.5 px-3 placeholder:text-regular_text16 text-regular_text16 ${className}
             ${getIconSrc() && type === 'search' ? 'pl-[41px]' : ''}
             ${errorMessage ? 'border-danger-500 text-danger-500' : 'border-[#333]'}
           `}

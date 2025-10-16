@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
+import { getCookie } from '@/shared/lib/utils'
 
 type Props = {
   disabled?: boolean
@@ -32,7 +33,7 @@ export const Select = ({
   width = '150px',
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [language, setLanguage] = useState<string>('English')
+  const [language, setLanguage] = useState<string>(getCookie('i18n'))
   const languageOptions = ['English', 'Russian']
   const actualOptions = isLanguage ? languageOptions : options
   const selectRef = useRef<HTMLDivElement>(null)

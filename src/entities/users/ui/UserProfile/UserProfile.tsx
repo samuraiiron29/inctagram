@@ -7,8 +7,8 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { useIntersectionObserver } from '@siberiacancode/reactuse'
 import { useDeleteUserProfileMutation } from '@/shared/api'
-import { useAppSelector } from '@/shared/lib/hooks'
-import { selectIsLoggedIn } from '@/store/slices/authSlice'
+import { PATH } from '@/shared/lib/path'
+import { useRouter } from 'next/navigation'
 
 type Props = {
   profile: PublicProfile
@@ -16,7 +16,8 @@ type Props = {
 }
 const PORTION_OF_ITEMS = 4
 
-const UserProfile = ({ profile, ...props }: Props) => {
+const UserProfile = ({ profile, isLoggedIn = false, ...props }: Props) => {
+  const router = useRouter()
   const [deleteUser] = useDeleteUserProfileMutation()
   const [offset, setOffset] = useState<number>(0)
   const [hasMore, setHasMore] = useState<boolean>(true)
@@ -39,7 +40,7 @@ const UserProfile = ({ profile, ...props }: Props) => {
 
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
   return (
-    <Scroll className="flex flex-col p-10 pb-20 h-screen">
+    <Scroll className="flex flex-col pt-10 pb-20 h-screen">
       <div className="flex flex-row relative mb-[50px]">
         <Image src={'/avatar.svg'} width={204} height={204} alt="Avatar" className="rounded-full mr-10 border-white border min-w-[204px]" />
         <div>
@@ -67,7 +68,10 @@ const UserProfile = ({ profile, ...props }: Props) => {
         </div>
         {!!isLoggedIn && (
           <div className="absolute top-[0] right-[0]">
-            <Button variant="secondary">Profile Settings</Button>
+            <Button variant="secondary"
+            onClick={() => router.push(PATH.USERS.PROFILE_SETTINGS(Number(props.userId)))}
+            >
+              Profile Settings</Button>
             <Button onClick={handleDelete} children={'Delete Me'} />
           </div>
         )}

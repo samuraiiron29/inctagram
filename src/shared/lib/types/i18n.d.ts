@@ -62,6 +62,13 @@ export interface I18nResources {
     button: {
       saveChanges: string
     }
+    profile: {
+      username: string
+      firstName: string
+      lastName: string
+      dateOfBirth: string
+
+    }
   }
 }
 

@@ -45,7 +45,7 @@ export const PublicPosts = () => {
         <CurrentPostModal post={currentPost} open={showPost} modalTitle={'public'} onClose={closePost} editPostHeader={false} images={1} />
       )}
       {data?.items.map((post, index) => (
-        <div key={post.id} className="rounded overflow-hidden w-[240px] h-[390px]" onClick={() => openPost(post.id)}>
+        <div key={post.id} className="rounded overflow-hidden w-max-[240px] w-[100%] h-[390px]">
           {post.images.length > 1 ? (
             <Swiper modules={SWIPER_MODULES} navigation pagination={{ clickable: true }}>
               {post.images.map(image => (
