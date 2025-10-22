@@ -9,11 +9,9 @@ import { setCookie } from '@/shared/lib/utils'
 import { useAppSelector } from '@/shared/lib/hooks'
 import { selectIsLoggedIn } from '@/store/slices/authSlice'
 
-export type Props = {
-  isLoggedIn: boolean
-}
+export type Props = {}
 
-export const AuthStatusControls = ({ isLoggedIn }: Props) => {
+export const AuthStatusControls = ({}: Props) => {
   const { i18n, t } = useTranslation()
   const handleLanguageChange = async (value: string) => {
     try {

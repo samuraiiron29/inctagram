@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/shared/lib/hooks'
-import { selectAccessToken, setIsLoggedIn } from '@/store/slices/authSlice'
+import { selectAccessToken, selectIsLoggedIn, setIsLoggedIn } from '@/store/slices/authSlice'
 import { BASE_URL } from '@/shared/const'
 
 export function AuthInitializer({ children }: { children: React.ReactNode }) {
@@ -9,6 +9,7 @@ export function AuthInitializer({ children }: { children: React.ReactNode }) {
   const [isInitialized, setIsInitialized] = useState(false)
 
   const accessToken = useAppSelector(selectAccessToken)
+  const isLoggedIn = useAppSelector(selectIsLoggedIn)
 
   useEffect(() => {
     const checkAuth = async () => {

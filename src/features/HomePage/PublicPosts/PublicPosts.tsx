@@ -39,6 +39,7 @@ export const PublicPosts = () => {
   if (isError) return <IsError onClick={() => refetch()} />
   const items = data?.items ?? []
   if (items.length === 0) return <div className="text-sm text-dark-100 px-2">Пока нет публикаций</div>
+
   return (
     <>
       {currentPost && (

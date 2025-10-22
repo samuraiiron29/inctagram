@@ -1,18 +1,19 @@
-import { fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from "@reduxjs/toolkit/query"
-import { RootState } from "@/store/store"
-import { setAccessToken } from "@/store/slices/authSlice"
-import { deleteCookie } from "@/shared/lib/utils/cookieUtils"
-import { BASE_URL } from "@/shared/const"
-import { refreshTokens } from "@/shared/api/refresh"
+import { fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query'
+import { RootState } from '@/store/store'
+import { setAccessToken } from '@/store/slices/authSlice'
+import { deleteCookie, getCookie, setCookie } from '@/shared/lib/utils/cookieUtils'
+import { BASE_URL } from '@/shared/const'
+import { refreshTokens } from '@/shared/api/refresh'
+import { error } from 'next/dist/build/output/log'
 
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
-  credentials: "include",
+  credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.accessToken
     if (token) {
-      headers.set("Authorization", `Bearer ${token}`)
+      headers.set('Authorization', `Bearer ${token}`)
     }
     return headers
   },
@@ -30,10 +31,7 @@ const isEndpoint = (args: string | FetchArgs, suffix: string) => {
 
 let refreshPromise: Promise<boolean> | null = null
 
-const refreshToken = async (
-  api: Parameters<typeof baseQuery>[1],
-  extra: Parameters<typeof baseQuery>[2]
-): Promise<boolean> => {
+const refreshToken = async (api: Parameters<typeof baseQuery>[1], extra: Parameters<typeof baseQuery>[2]): Promise<boolean> => {
   const r = await refreshBaseQuery({ url: 'auth/update-tokens', method: 'POST' }, api, extra)
 
   if ('data' in r && r.data) {
@@ -42,17 +40,11 @@ const refreshToken = async (
       setCookie('accessToken', accessToken, 7)
       return true
     }
-  } catch (e) {
-    console.error(e)
   }
   return false
 }
 
-export const baseQueryWithReAuth: BaseQueryFn<
-  string | FetchArgs,
-  unknown,
-  FetchBaseQueryError
-> = async (args, api, extra) => {
+export const baseQueryWithReAuth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extra) => {
   const isMe = isEndpoint(args, 'auth/me')
 
   let result = await baseQuery(args, api, extra)
